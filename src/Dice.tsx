@@ -27,7 +27,6 @@ function Dice() {
 		const meshMid = new THREE.MeshPhongMaterial({ color: 0x7b393b, shininess: 100, specular: 0xaaaaaa });
 		const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 		scene.add(ambientLight);
-
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 		directionalLight.position.set(5, 5, 5);
 		scene.add(directionalLight);
@@ -50,9 +49,34 @@ function Dice() {
 		var geoLarge = new THREE.TorusGeometry(1.24, 0.007, 16, 100);
 		var ringLarge = new THREE.Mesh(geoLarge, mesh);
 		scene.add(ringLarge);
+
 		renderer.setSize(700, 700);
 		containerRef.current.append(renderer.domElement);
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+		const textureLoader = new THREE.TextureLoader();
+		const zodiacSigns = ["aries.png", "taurus.png", "gemini.png", "leo.png", "sagittarius.png", "libra.png", "pisces.png"];
+		const radius = 0.9;
+		const planes = [];
+
+		zodiacSigns.forEach((sign, index) => {
+			const angle = (index / 7) * Math.PI * 2;
+
+			const texture = textureLoader.load(`../public/${sign}`);
+			const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1);
+			const planeMaterial = new THREE.MeshBasicMaterial({
+				map: texture,
+				transparent: true,
+			});
+			const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+			plane.position.x = Math.cos(angle) * radius;
+			plane.position.y = Math.sin(angle) * radius;
+			plane.position.z = 0.2;
+
+			scene.add(plane);
+			planes.push(plane);
+		});
 
 		function update() {
 			geometry.rotation.x += 2 / 200;
