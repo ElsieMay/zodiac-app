@@ -22,25 +22,36 @@ function Dice() {
 		const meshDark = new THREE.MeshStandardMaterial({
 			metalness: 0.6,
 			roughness: 1.0,
-			color: 0x213547,
+			// color: 0x213547,
+			color: 0x001a6b,
 		});
-		const meshMid = new THREE.MeshPhongMaterial({ color: 0x7b393b, shininess: 100, specular: 0xaaaaaa });
-		const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+		const meshWhite = new THREE.MeshStandardMaterial({
+			metalness: 0.6,
+			roughness: 1.0,
+			// color: 0x213547,
+			color: 0xf0f0f0,
+		});
+		const meshMid = new THREE.MeshPhongMaterial({ color: 0x860808, shininess: 100, specular: 0xaaaaaa });
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 		scene.add(ambientLight);
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 		directionalLight.position.set(5, 5, 5);
 		scene.add(directionalLight);
 		const geometry = new THREE.Mesh(new THREE.IcosahedronGeometry(), meshMid);
 		scene.add(geometry);
-		geometry.scale.set(0.15, 0.15, 0.15);
-		var geoSmall = new THREE.TorusGeometry(0.4, 0.04, 16, 100);
+		geometry.scale.set(0.13, 0.13, 0.13);
+		geometry.position.set(0, 0, 0.2);
+		var geoSmall = new THREE.TorusGeometry(0.44, 0.04, 16, 100);
 		var ringSmall = new THREE.Mesh(geoSmall, mesh);
 		scene.add(ringSmall);
 		ringSmall.scale.set(0.7, 0.7, 0.7);
+		var geoFlat = new THREE.TorusGeometry(0.07, 0.2, 16, 400);
+		var ringFlat = new THREE.Mesh(geoFlat, meshDark);
+		scene.add(ringFlat);
 		var geoFlat = new THREE.TorusGeometry(0.9, 0.2, 16, 400);
 		var ringFlat = new THREE.Mesh(geoFlat, meshDark);
 		scene.add(ringFlat);
-		var geoMedium = new THREE.TorusGeometry(1.06, 0.1, 16, 100);
+		var geoMedium = new THREE.TorusGeometry(1.07, 0.1, 16, 100);
 		var ringMedium = new THREE.Mesh(geoMedium, mesh);
 		scene.add(ringMedium);
 		var geoThin = new THREE.TorusGeometry(0.5, 0.004, 16, 100);
@@ -55,12 +66,12 @@ function Dice() {
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
 		const textureLoader = new THREE.TextureLoader();
-		const zodiacSigns = ["aries.png", "taurus.png", "gemini.png", "leo.png", "sagittarius.png", "libra.png", "pisces.png"];
-		const radius = 0.9;
+		const zodiacSigns = ["aries.png", "taurus.png", "gemini.png", "cancer.png", "leo.png", "virgo.png", "libra.png", "scorpio.png", "sagittarius.png", "capricorn.png", "aquarius.png", "pisces.png"];
+		const radius = 0.85;
 		const planes = [];
 
 		zodiacSigns.forEach((sign, index) => {
-			const angle = (index / 7) * Math.PI * 2;
+			const angle = (index / 12) * Math.PI * 2;
 
 			const texture = textureLoader.load(`../public/${sign}`);
 			const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1);
