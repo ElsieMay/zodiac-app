@@ -1,7 +1,7 @@
 :root {
-	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
+	font-family: "Luxurious Script", cursive;
 	font-weight: 400;
+	font-style: normal;
 
 	color-scheme: light dark;
 	color: rgba(255, 255, 255, 0.87);
@@ -32,22 +32,22 @@ body {
 
 h1 {
 	font-size: 3.2em;
-	line-height: 1.1;
 }
 
 button {
-	border-radius: 8px;
+	border-radius: 12px;
 	border: 1px solid transparent;
-	padding: 0.6em 1.2em;
-	font-size: 1em;
-	font-weight: 500;
+	padding: 0.2em 0.4em;
+	font-size: 2em;
+	font-weight: 800;
 	font-family: inherit;
-	background-color: #1a1a1a;
+	background-color: #080048;
 	cursor: pointer;
 	transition: border-color 0.25s;
 }
 button:hover {
-	border-color: #646cff;
+	border-color: #e9d491;
+	border-width: 2px;
 }
 button:focus,
 button:focus-visible {

@@ -5,6 +5,27 @@
 	text-align: center;
 }
 
-.card {
-	padding: 2em;
+.dice-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+}
+
+.button-overlay {
+	position: fixed;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 10;
+}
+
+.text-overlay {
+	position: fixed;
+	top: 0rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 10;
 }

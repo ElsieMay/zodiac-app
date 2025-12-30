@@ -9,11 +9,12 @@ function Dice() {
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setPixelRatio(window.devicePixelRatio);
-		const camera = new THREE.PerspectiveCamera();
+		const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		camera.position.z = 3;
 		const scene = new THREE.Scene();
 		scene.add(camera);
+
 		const mesh = new THREE.MeshStandardMaterial({
 			metalness: 1.0,
 			roughness: 0.5,
@@ -22,53 +23,57 @@ function Dice() {
 		const meshDark = new THREE.MeshStandardMaterial({
 			metalness: 0.6,
 			roughness: 1.0,
-			// color: 0x213547,
 			color: 0x001a6b,
 		});
-		const meshWhite = new THREE.MeshStandardMaterial({
-			metalness: 0.6,
-			roughness: 1.0,
-			// color: 0x213547,
-			color: 0xf0f0f0,
-		});
 		const meshMid = new THREE.MeshPhongMaterial({ color: 0x860808, shininess: 100, specular: 0xaaaaaa });
+
 		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 		scene.add(ambientLight);
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 		directionalLight.position.set(5, 5, 5);
 		scene.add(directionalLight);
+
+		// Add point light for background spheres
+		const pointLight = new THREE.PointLight();
+		scene.add(pointLight);
+
+		// Main dice geometry
 		const geometry = new THREE.Mesh(new THREE.IcosahedronGeometry(), meshMid);
 		scene.add(geometry);
 		geometry.scale.set(0.13, 0.13, 0.13);
 		geometry.position.set(0, 0, 0.2);
+
+		// Rings
 		var geoSmall = new THREE.TorusGeometry(0.44, 0.04, 16, 100);
 		var ringSmall = new THREE.Mesh(geoSmall, mesh);
 		scene.add(ringSmall);
 		ringSmall.scale.set(0.7, 0.7, 0.7);
+
 		var geoFlat = new THREE.TorusGeometry(0.07, 0.2, 16, 400);
 		var ringFlat = new THREE.Mesh(geoFlat, meshDark);
 		scene.add(ringFlat);
-		var geoFlat = new THREE.TorusGeometry(0.9, 0.2, 16, 400);
-		var ringFlat = new THREE.Mesh(geoFlat, meshDark);
-		scene.add(ringFlat);
+
+		var geoFlat2 = new THREE.TorusGeometry(0.9, 0.2, 16, 400);
+		var ringFlat2 = new THREE.Mesh(geoFlat2, meshDark);
+		scene.add(ringFlat2);
+
 		var geoMedium = new THREE.TorusGeometry(1.07, 0.1, 16, 100);
 		var ringMedium = new THREE.Mesh(geoMedium, mesh);
 		scene.add(ringMedium);
+
 		var geoThin = new THREE.TorusGeometry(0.5, 0.004, 16, 100);
 		var ringThin = new THREE.Mesh(geoThin, mesh);
 		scene.add(ringThin);
+
 		var geoLarge = new THREE.TorusGeometry(1.24, 0.007, 16, 100);
 		var ringLarge = new THREE.Mesh(geoLarge, mesh);
 		scene.add(ringLarge);
 
-		renderer.setSize(700, 700);
-		containerRef.current.append(renderer.domElement);
-		renderer.toneMapping = THREE.ACESFilmicToneMapping;
-
+		// Zodiac signs
 		const textureLoader = new THREE.TextureLoader();
 		const zodiacSigns = ["aries.png", "taurus.png", "gemini.png", "cancer.png", "leo.png", "virgo.png", "libra.png", "scorpio.png", "sagittarius.png", "capricorn.png", "aquarius.png", "pisces.png"];
 		const radius = 0.85;
-		const planes = [];
+		const zodiacs: THREE.Mesh[] = [];
 
 		zodiacSigns.forEach((sign, index) => {
 			const angle = (index / 12) * Math.PI * 2;
@@ -79,17 +84,60 @@ function Dice() {
 				map: texture,
 				transparent: true,
 			});
-			const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+			const zodiac = new THREE.Mesh(planeGeometry, planeMaterial);
 
-			plane.position.x = Math.cos(angle) * radius;
-			plane.position.y = Math.sin(angle) * radius;
-			plane.position.z = 0.2;
+			zodiac.position.x = Math.cos(angle) * radius;
+			zodiac.position.y = Math.sin(angle) * radius;
+			zodiac.position.z = 0.2;
 
-			scene.add(plane);
-			planes.push(plane);
+			scene.add(zodiac);
+			zodiacs.push(zodiac);
 		});
 
+		// Background spheres (from Background component)
+		const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
+		const spheres: THREE.Mesh[] = [];
+		const spheresCount = 150;
+
+		for (let i = 0; i < spheresCount; i++) {
+			addBackgroundSphere();
+		}
+
+		function addBackgroundSphere() {
+			const s = new THREE.Mesh(
+				sphereGeometry,
+				new THREE.MeshStandardMaterial({
+					color: 0xe9d491,
+					blending: THREE.AdditiveBlending,
+				})
+			);
+			s.scale.setScalar(THREE.MathUtils.randFloat(0.04, 0.06));
+			s.userData = {
+				posY: THREE.MathUtils.randFloat(-10, 10),
+				radius: THREE.MathUtils.randFloat(5, 10),
+				phase: Math.random() * Math.PI * 2,
+				speed: (0.1 - Math.random() * 0.2) * Math.PI,
+			};
+			spheres.push(s);
+			scene.add(s);
+		}
+
+		containerRef.current.append(renderer.domElement);
+		renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+		const clock = new THREE.Clock();
+
 		function update() {
+			const t = clock.getElapsedTime();
+
+			// Update background spheres
+			spheres.forEach((s) => {
+				const ud = s.userData;
+				const a = ud.speed * t + ud.phase;
+				s.position.set(Math.cos(a), 0, -Math.sin(a)).multiplyScalar(ud.radius).setY(ud.posY);
+			});
+
+			// Update dice elements
 			geometry.rotation.x += 2 / 200;
 			geometry.rotation.y += 2 / 200;
 			ringSmall.rotation.x += 0.03;
@@ -109,12 +157,15 @@ function Dice() {
 		render();
 
 		return () => {
-			containerRef.current?.removeChild(renderer.domElement);
+			if (containerRef.current && renderer.domElement.parentNode) {
+				containerRef.current.removeChild(renderer.domElement);
+			}
 			renderer.dispose();
+			sphereGeometry.dispose();
 		};
 	}, []);
 
-	return <div ref={containerRef}></div>;
+	return <div ref={containerRef} className="dice-container"></div>;
 }
 
 export default Dice;
