@@ -1,6 +1,6 @@
 :root {
-	font-family: "Luxurious Script", cursive;
-	font-weight: 400;
+	/* font-family: "Luxurious Script", cursive; */
+	font-family: "Cormorant Unicase", serif;
 	font-style: normal;
 
 	color-scheme: light dark;
@@ -14,8 +14,8 @@
 }
 
 a {
-	font-weight: 500;
-	color: #646cff;
+	/* font-weight: 300; */
+	color: #001a6b;
 	text-decoration: inherit;
 }
 a:hover {
@@ -30,9 +30,9 @@ body {
 	min-height: 100vh;
 }
 
-h1 {
-	font-size: 3.2em;
-}
+/* h1 {
+	font-size: 2.4em;
+} */
 
 button {
 	border-radius: 12px;

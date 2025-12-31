@@ -25,6 +25,11 @@ function Dice() {
 			roughness: 1.0,
 			color: 0x001a6b,
 		});
+		const meshGoldDark = new THREE.MeshStandardMaterial({
+			metalness: 0,
+			roughness: 0.2,
+			color: 0x6b5d30,
+		});
 		const meshMid = new THREE.MeshPhongMaterial({ color: 0x860808, shininess: 100, specular: 0xaaaaaa });
 
 		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -69,6 +74,10 @@ function Dice() {
 		var ringLarge = new THREE.Mesh(geoLarge, mesh);
 		scene.add(ringLarge);
 
+		var geoMed = new THREE.TorusGeometry(0.69, 0.015, 16, 100);
+		var ringMed = new THREE.Mesh(geoMed, meshGoldDark);
+		scene.add(ringMed);
+
 		// Zodiac signs
 		const textureLoader = new THREE.TextureLoader();
 		const zodiacSigns = ["aries.png", "taurus.png", "gemini.png", "cancer.png", "leo.png", "virgo.png", "libra.png", "scorpio.png", "sagittarius.png", "capricorn.png", "aquarius.png", "pisces.png"];
@@ -93,6 +102,20 @@ function Dice() {
 			scene.add(zodiac);
 			zodiacs.push(zodiac);
 		});
+
+		// Lines between zodiacs (at midpoints)
+		for (let i = 0; i < 12; i++) {
+			const innerRadius = 0.66; // Gap in center - where lines start
+			const outerRadius = 1.03; // Where lines end
+			const lineAngle = ((i + 0.5) / 12) * Math.PI * 2; // Midpoint between zodiacs
+
+			const points = [new THREE.Vector3(Math.cos(lineAngle) * innerRadius, Math.sin(lineAngle) * innerRadius, 0.2), new THREE.Vector3(Math.cos(lineAngle) * outerRadius, Math.sin(lineAngle) * outerRadius, 0.2)];
+
+			const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+			const lineMaterial = new THREE.LineBasicMaterial({ color: 0xe9d491 });
+			const line = new THREE.Line(lineGeometry, lineMaterial);
+			scene.add(line);
+		}
 
 		// Background spheres (from Background component)
 		const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
