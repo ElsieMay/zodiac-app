@@ -133,7 +133,7 @@ function Dice() {
 		// Background spheres (from Background component)
 		const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
 		const spheres: THREE.Mesh[] = [];
-		const spheresCount = 180;
+		const spheresCount = 340;
 
 		for (let i = 0; i < spheresCount; i++) {
 			addBackgroundSphere();
@@ -179,7 +179,6 @@ function Dice() {
 		function update() {
 			const t = clock.getElapsedTime();
 
-			// Update background spheres
 			spheres.forEach((s) => {
 				const ud = s.userData;
 				const a = ud.speed * t + ud.phase;

@@ -1,5 +1,14 @@
-function Button() {
-	return <button>Enter Solaria</button>;
+interface ButtonProps {
+	onPress: () => void;
+	text: string;
+}
+
+function Button({ onPress, text }: ButtonProps) {
+	return (
+		<button className="home-button" onClick={onPress}>
+			{text}
+		</button>
+	);
 }
 
 export default Button;
