@@ -105,41 +105,67 @@ function Dice() {
 
 		// Lines between zodiacs (at midpoints)
 		for (let i = 0; i < 12; i++) {
-			const innerRadius = 0.66; // Gap in center - where lines start
-			const outerRadius = 1.03; // Where lines end
-			const lineAngle = ((i + 0.5) / 12) * Math.PI * 2; // Midpoint between zodiacs
+			const innerRadius = 0.69;
+			const outerRadius = 1.03;
+			const lineAngle = ((i + 0.5) / 12) * Math.PI * 2;
 
 			const points = [new THREE.Vector3(Math.cos(lineAngle) * innerRadius, Math.sin(lineAngle) * innerRadius, 0.2), new THREE.Vector3(Math.cos(lineAngle) * outerRadius, Math.sin(lineAngle) * outerRadius, 0.2)];
 
 			const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 			const lineMaterial = new THREE.LineBasicMaterial({ color: 0xe9d491 });
 			const line = new THREE.Line(lineGeometry, lineMaterial);
+
 			scene.add(line);
+		}
+
+		// circles between zodiacs (at midpoints)
+		for (let i = 0; i < 12; i++) {
+			const sphereGeometry = new THREE.SphereGeometry(0.02, 16, 8);
+			const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x860808, metalness: 1.0, roughness: 0.5 });
+			const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+			const circleAngle = ((i + 0.5) / 12) * Math.PI * 2;
+
+			sphere.position.set(Math.cos(circleAngle) * 0.69, Math.sin(circleAngle) * 0.69, 0.1);
+			scene.add(sphere);
 		}
 
 		// Background spheres (from Background component)
 		const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
 		const spheres: THREE.Mesh[] = [];
-		const spheresCount = 150;
+		const spheresCount = 180;
 
 		for (let i = 0; i < spheresCount; i++) {
 			addBackgroundSphere();
 		}
 
+		function randomArbitrary(min: number, max: number) {
+			return Math.random() * (max - min) + min;
+		}
 		function addBackgroundSphere() {
+			const starColor = new THREE.Color(1, randomArbitrary(230, 255) / 255, randomArbitrary(180, 220) / 255);
+
 			const s = new THREE.Mesh(
 				sphereGeometry,
 				new THREE.MeshStandardMaterial({
-					color: 0xe9d491,
+					color: starColor,
+					emissive: starColor,
+					emissiveIntensity: 20.0,
 					blending: THREE.AdditiveBlending,
+					transparent: true,
+					opacity: 1.0,
+					toneMapped: false,
 				})
 			);
-			s.scale.setScalar(THREE.MathUtils.randFloat(0.04, 0.06));
+
 			s.userData = {
 				posY: THREE.MathUtils.randFloat(-10, 10),
 				radius: THREE.MathUtils.randFloat(5, 10),
 				phase: Math.random() * Math.PI * 2,
 				speed: (0.1 - Math.random() * 0.2) * Math.PI,
+				twinkleSpeed: Math.random() * 3 + 0.5,
+				twinklePhase: Math.random() * Math.PI * 2,
+				baseIntensity: randomArbitrary(1.5, 3.0),
 			};
 			spheres.push(s);
 			scene.add(s);
@@ -158,6 +184,15 @@ function Dice() {
 				const ud = s.userData;
 				const a = ud.speed * t + ud.phase;
 				s.position.set(Math.cos(a), 0, -Math.sin(a)).multiplyScalar(ud.radius).setY(ud.posY);
+
+				// Twinkling effect
+				const twinkle = Math.sin(t * ud.twinkleSpeed + ud.twinklePhase) * 0.5 + 0.5;
+				const material = s.material as THREE.MeshStandardMaterial;
+				material.emissiveIntensity = ud.baseIntensity * (twinkle * 0.4 + 0.2);
+
+				// Subtle scale pulsing for sparkle effect
+				const scalePulse = 1 + Math.sin(t * ud.twinkleSpeed * 2 + ud.twinklePhase) * 0.1;
+				s.scale.setScalar(THREE.MathUtils.randFloat(0.01, 0.03) * scalePulse);
 			});
 
 			// Update dice elements
