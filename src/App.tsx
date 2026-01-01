@@ -12,6 +12,7 @@ function Home() {
 	return (
 		<>
 			<Dice />
+			<PlayerSetup />
 			<div className="text-overlay">
 				<h1>You have been summoned for The Awakening</h1>
 			</div>
@@ -28,6 +29,7 @@ function Solaria() {
 
 	return (
 		<>
+			<Dice cameraPosition={8} />
 			<PlayerSetup />
 			<div className="text-overlay">
 				<h1>Enter Your Player Details</h1>

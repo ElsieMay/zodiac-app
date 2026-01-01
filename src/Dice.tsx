@@ -1,18 +1,18 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { createBackgroundSpheres, updateBackgroundSpheres } from "./BackgroundSpheres";
 
-function Dice() {
+function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (!containerRef.current) return;
 
-		const renderer = new THREE.WebGLRenderer({ antialias: true });
+		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.setClearColor(0x000000, 0);
 		const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
 		renderer.setSize(window.innerWidth, window.innerHeight);
-		camera.position.z = 3;
+		camera.position.z = cameraPosition;
 		const scene = new THREE.Scene();
 		scene.add(camera);
 
@@ -130,19 +130,10 @@ function Dice() {
 			scene.add(sphere);
 		}
 
-		// Background spheres
-		const { spheres, geometry: sphereGeometry } = createBackgroundSpheres(scene, 340);
-
 		containerRef.current.append(renderer.domElement);
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
-		const clock = new THREE.Clock();
-
 		function update() {
-			const t = clock.getElapsedTime();
-
-			updateBackgroundSpheres(spheres, t);
-
 			// Update dice elements
 			geometry.rotation.x += 2 / 200;
 			geometry.rotation.y += 2 / 200;
@@ -167,7 +158,6 @@ function Dice() {
 				containerRef.current.removeChild(renderer.domElement);
 			}
 			renderer.dispose();
-			sphereGeometry.dispose();
 		};
 	}, []);
 
