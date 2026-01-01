@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { createBackgroundSpheres, updateBackgroundSpheres } from "./BackgroundSpheres";
 
 function Dice() {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -86,8 +87,7 @@ function Dice() {
 
 		zodiacSigns.forEach((sign, index) => {
 			const angle = (index / 12) * Math.PI * 2;
-
-			const texture = textureLoader.load(`../public/${sign}`);
+			const texture = textureLoader.load(`../public/zodiacs/${sign}`);
 			const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1);
 			const planeMaterial = new THREE.MeshBasicMaterial({
 				map: texture,
@@ -130,46 +130,8 @@ function Dice() {
 			scene.add(sphere);
 		}
 
-		// Background spheres (from Background component)
-		const sphereGeometry = new THREE.SphereGeometry(1, 32, 16);
-		const spheres: THREE.Mesh[] = [];
-		const spheresCount = 340;
-
-		for (let i = 0; i < spheresCount; i++) {
-			addBackgroundSphere();
-		}
-
-		function randomArbitrary(min: number, max: number) {
-			return Math.random() * (max - min) + min;
-		}
-		function addBackgroundSphere() {
-			const starColor = new THREE.Color(1, randomArbitrary(230, 255) / 255, randomArbitrary(180, 220) / 255);
-
-			const s = new THREE.Mesh(
-				sphereGeometry,
-				new THREE.MeshStandardMaterial({
-					color: starColor,
-					emissive: starColor,
-					emissiveIntensity: 20.0,
-					blending: THREE.AdditiveBlending,
-					transparent: true,
-					opacity: 1.0,
-					toneMapped: false,
-				})
-			);
-
-			s.userData = {
-				posY: THREE.MathUtils.randFloat(-10, 10),
-				radius: THREE.MathUtils.randFloat(5, 10),
-				phase: Math.random() * Math.PI * 2,
-				speed: (0.1 - Math.random() * 0.2) * Math.PI,
-				twinkleSpeed: Math.random() * 3 + 0.5,
-				twinklePhase: Math.random() * Math.PI * 2,
-				baseIntensity: randomArbitrary(1.5, 3.0),
-			};
-			spheres.push(s);
-			scene.add(s);
-		}
+		// Background spheres
+		const { spheres, geometry: sphereGeometry } = createBackgroundSpheres(scene, 340);
 
 		containerRef.current.append(renderer.domElement);
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -179,20 +141,7 @@ function Dice() {
 		function update() {
 			const t = clock.getElapsedTime();
 
-			spheres.forEach((s) => {
-				const ud = s.userData;
-				const a = ud.speed * t + ud.phase;
-				s.position.set(Math.cos(a), 0, -Math.sin(a)).multiplyScalar(ud.radius).setY(ud.posY);
-
-				// Twinkling effect
-				const twinkle = Math.sin(t * ud.twinkleSpeed + ud.twinklePhase) * 0.5 + 0.5;
-				const material = s.material as THREE.MeshStandardMaterial;
-				material.emissiveIntensity = ud.baseIntensity * (twinkle * 0.4 + 0.2);
-
-				// Subtle scale pulsing for sparkle effect
-				const scalePulse = 1 + Math.sin(t * ud.twinkleSpeed * 2 + ud.twinklePhase) * 0.1;
-				s.scale.setScalar(THREE.MathUtils.randFloat(0.01, 0.03) * scalePulse);
-			});
+			updateBackgroundSpheres(spheres, t);
 
 			// Update dice elements
 			geometry.rotation.x += 2 / 200;

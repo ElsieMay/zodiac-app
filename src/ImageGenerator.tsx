@@ -10,38 +10,41 @@ export default function ImageGenerator({ onGenerate, userPrompt }: ImageGenerato
 	const [imageUrl, setImageUrl] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [lastGenerated, setLastGenerated] = useState(0);
 
 	useEffect(() => {
-		async function generate() {
-			setIsLoading(true);
-			setError(null);
+		if (onGenerate > 0 && onGenerate !== lastGenerated) {
+			setLastGenerated(onGenerate);
 
-			try {
-				const blob = await ImageService({ userPrompt });
+			async function generate() {
+				setIsLoading(true);
+				setError(null);
 
-				if (blob) {
-					const dataUrl = await blobToDataURL(blob);
-					setImageUrl(dataUrl);
+				try {
+					const blob = await ImageService({ userPrompt });
+
+					if (blob) {
+						const dataUrl = await blobToDataURL(blob);
+						setImageUrl(dataUrl);
+					}
+				} catch (err) {
+					console.error("Failed to generate image:", err);
+					setError("Failed to generate image. Please try again.");
+				} finally {
+					setIsLoading(false);
 				}
-			} catch (err) {
-				console.error("Failed to generate image:", err);
-				setError("Failed to generate image. Please try again.");
-			} finally {
-				setIsLoading(false);
 			}
-		}
 
-		if (onGenerate > 0) {
 			generate();
 		}
-	}, [onGenerate, userPrompt]);
+	}, [onGenerate]);
 
+	//TODO: Improve the UI of these states
 	return (
 		<div className="image-generator">
-			//TODO: Improve the UI of these states
 			{isLoading && <p>Generating your character...</p>}
 			{error && <p className="error">{error}</p>}
-			{imageUrl && <img src={imageUrl} alt="Generated character" style={{ maxWidth: "100%", height: "auto" }} />}
+			{imageUrl && <img src={imageUrl} alt="Generated character" style={{ maxWidth: "40%", height: "auto" }} />}
 			{!isLoading && !imageUrl && onGenerate === 0 && <p>Click "Generate Character" to create your avatar</p>}
 		</div>
 	);

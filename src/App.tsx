@@ -4,6 +4,7 @@ import Dice from "./Dice";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ImageGenerator from "./ImageGenerator";
+import PlayerSetup from "./PlayerSetup";
 
 function Home() {
 	const navigation = useNavigate();
@@ -27,6 +28,7 @@ function Solaria() {
 
 	return (
 		<>
+			<PlayerSetup />
 			<div className="text-overlay">
 				<h1>Enter Your Player Details</h1>
 			</div>
