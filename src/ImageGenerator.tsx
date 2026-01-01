@@ -1,62 +1,48 @@
-import { InferenceClient, InferenceClientInputError } from "@huggingface/inference";
-import { InferenceClientProviderApiError, InferenceClientProviderOutputError, InferenceClientHubApiError } from "@huggingface/inference";
-import { useEffect, useRef, useState } from "react";
-
-const HF_TOKEN = import.meta.env.VITE_HF_TOKEN || "";
-
-const client = new InferenceClient(HF_TOKEN);
+import { useState, useEffect } from "react";
+import { ImageService, blobToDataURL } from "./ImageService";
 
 interface ImageGeneratorProps {
-	onGenerate?: boolean;
+	onGenerate: number;
+	userPrompt: string;
 }
 
-function ImageGenerator({ onGenerate }: ImageGeneratorProps) {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [loading, setLoading] = useState(true);
+export default function ImageGenerator({ onGenerate, userPrompt }: ImageGeneratorProps) {
+	const [imageUrl, setImageUrl] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		if (onGenerate) {
-			generateImage();
-		}
-	}, [onGenerate]);
+		async function generate() {
+			setIsLoading(true);
+			setError(null);
 
-	async function generateImage() {
-		try {
-			const result = await client.textToImage({
-				model: "black-forest-labs/FLUX.1-dev",
-				inputs: "a picture of a green bird",
-			});
-			console.log("Image URL:", result);
-			if (containerRef.current) {
-				const img = document.createElement("img");
-				img.src = result;
-				img.alt = "Generated";
-				img.className = "image-generated";
-				containerRef.current.appendChild(img);
-			}
-		} catch (error) {
-			//TODO: improve UI for error handling
-			if (error instanceof InferenceClientProviderApiError) {
-				console.error("Provider API Error:", error.message);
-				console.error("HTTP Request details:", error);
-				console.error("HTTP Response details:", error);
-				if (error instanceof InferenceClientHubApiError) {
-					console.error("Hub API Error:", error.message);
-					console.error("HTTP Request details:", error);
-					console.error("HTTP Response details:", error);
-				} else if (error instanceof InferenceClientProviderOutputError) {
-					console.error("Provider Output Error:", error.message);
-				} else if (error instanceof InferenceClientInputError) {
-					console.error("Input Error:", error.message);
-				} else {
-					console.error("Unexpected error:", error);
+			try {
+				const blob = await ImageService({ userPrompt });
+
+				if (blob) {
+					const dataUrl = await blobToDataURL(blob);
+					setImageUrl(dataUrl);
 				}
+			} catch (err) {
+				console.error("Failed to generate image:", err);
+				setError("Failed to generate image. Please try again.");
+			} finally {
+				setIsLoading(false);
 			}
-		} finally {
-			setLoading(false);
 		}
-	}
-	return <div>{loading ? <p>Generating image...</p> : <div ref={containerRef} className="player-container"></div>}</div>;
-}
 
-export default ImageGenerator;
+		if (onGenerate > 0) {
+			generate();
+		}
+	}, [onGenerate, userPrompt]);
+
+	return (
+		<div className="image-generator">
+			//TODO: Improve the UI of these states
+			{isLoading && <p>Generating your character...</p>}
+			{error && <p className="error">{error}</p>}
+			{imageUrl && <img src={imageUrl} alt="Generated character" style={{ maxWidth: "100%", height: "auto" }} />}
+			{!isLoading && !imageUrl && onGenerate === 0 && <p>Click "Generate Character" to create your avatar</p>}
+		</div>
+	);
+}
