@@ -2,6 +2,8 @@ import "./App.css";
 import Button from "./Button";
 import Dice from "./Dice";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import ImageGenerator from "./ImageGenerator";
+import { useState } from "react";
 
 function Home() {
 	const navigation = useNavigate();
@@ -21,12 +23,15 @@ function Home() {
 
 function Solaria() {
 	const navigation = useNavigate();
+	const [generateTrigger, setGenerateTrigger] = useState(0);
 
 	return (
 		<>
 			<div className="text-overlay">
-				<h1>Hello World</h1>
+				<h1>Enter Your Player Details</h1>
 			</div>
+			<ImageGenerator onGenerate={generateTrigger > 0} />
+			<Button onPress={() => setGenerateTrigger((prev) => prev + 1)} text={"Generate Character"} />
 			<div className="button-overlay">
 				<Button onPress={() => navigation(-1)} text={"Go Back to Home"} />
 			</div>
