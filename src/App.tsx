@@ -5,14 +5,15 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ImageGenerator from "./ImageGenerator";
 import PlayerSetup from "./PlayerSetup";
+import Carousel from "./Carousel";
 
 function Home() {
 	const navigation = useNavigate();
 
 	return (
 		<>
-			<Dice />
-			<PlayerSetup />
+			{/* <Dice /> */}
+			{/* <PlayerSetup /> */}
 			<div className="text-overlay">
 				<h1>You have been summoned for The Awakening</h1>
 			</div>
@@ -29,8 +30,11 @@ function Solaria() {
 
 	return (
 		<>
-			<Dice cameraPosition={8} />
-			<PlayerSetup />
+			{/* <div className="dice-overlay">
+				<Dice cameraPosition={8} />
+			</div> */}
+			<Carousel />
+			{/* <PlayerSetup /> */}
 			<div className="text-overlay">
 				<h1>Enter Your Player Details</h1>
 			</div>
