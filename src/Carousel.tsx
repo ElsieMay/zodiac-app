@@ -60,7 +60,7 @@ function Carousel() {
 
 		// Load font once
 		const fontLoader = new FontLoader();
-		fontLoader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
+		fontLoader.load("../public/fonts/Cormorant_Unicase_Regular.json", function (font) {
 			for (let i = 0; i < totalAmount; i++) {
 				const angle = ((Math.PI * 2) / totalAmount) * i;
 
