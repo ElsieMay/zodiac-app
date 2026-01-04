@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 function Carousel() {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -19,6 +21,7 @@ function Carousel() {
 		camera.position.set(0, 0.125, 1).setLength(16);
 		containerRef.current.append(renderer.domElement);
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
+		const playerClass = ["barbarian", "bard", "cleric", "druid", "fighter", "monk", "paladin", "ranger", "rogue", "sorcerer", "warlock", "wizard"];
 
 		let controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
@@ -43,34 +46,65 @@ function Carousel() {
 		let r = len / (Math.PI * 2); //  radius from circumference
 		let segAngle = (Math.PI * 2) / len / 1.1; // ~0.228 radians per segment
 
-		// Load shared texture
+		// Load shared texture - TODO; replace with class-themed textures
 		const texture = new THREE.TextureLoader().load("https://threejs.org/examples/textures/uv_grid_opengl.jpg", (tex) => {
 			tex.colorSpace = "srgb";
 			tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
 		});
 
-		// Create a group to hold carousel segments and objects inside
+		// Group to hold carousel segments and objects inside
 		const carouselGroup = new THREE.Group();
 		scene.add(carouselGroup);
 
 		const segments: THREE.Mesh[] = [];
-		for (let i = 0; i < totalAmount; i++) {
-			let segGeom = new THREE.CylinderGeometry(r, r, 0.7, 10, 1, true, 0, segAngle);
-			segGeom.rotateY(((Math.PI * 2) / totalAmount) * i);
 
-			let material = new THREE.MeshStandardMaterial({
-				side: THREE.DoubleSide,
-				map: texture,
-				emissive: 0x000000,
-				emissiveIntensity: 0,
-			});
+		// Load font once
+		const fontLoader = new FontLoader();
+		fontLoader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json", function (font) {
+			for (let i = 0; i < totalAmount; i++) {
+				const angle = ((Math.PI * 2) / totalAmount) * i;
 
-			let segment = new THREE.Mesh(segGeom, material);
-			segment.userData.segmentIndex = i;
+				// Cylinder segments
+				let segGeom = new THREE.CylinderGeometry(r, r, 0.7, 10, 1, true, 0, segAngle);
+				segGeom.rotateY(angle);
 
-			segments.push(segment);
-			carouselGroup.add(segment);
-		}
+				let material = new THREE.MeshStandardMaterial({
+					side: THREE.DoubleSide,
+					map: texture,
+					emissive: 0x000000,
+					emissiveIntensity: 0,
+				});
+
+				let segment = new THREE.Mesh(segGeom, material);
+				segment.userData.segmentIndex = i;
+				segment.userData.className = playerClass[i];
+
+				segments.push(segment);
+				carouselGroup.add(segment);
+
+				const textGeom = new TextGeometry(playerClass[i], {
+					font: font,
+					size: 0.1,
+					depth: 0.05,
+					curveSegments: 12,
+					bevelEnabled: true,
+					bevelThickness: 0.02,
+					bevelSize: 0.01,
+					bevelOffset: 0,
+					bevelSegments: 5,
+				});
+
+				const textMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+				const textMesh = new THREE.Mesh(textGeom, textMat);
+
+				// Position text on the carousel radius
+				textMesh.position.set(Math.sin(angle) * r, 0, Math.cos(angle) * r);
+				// Make text face outward from center
+				textMesh.lookAt(Math.sin(angle) * r * 2, 0, Math.cos(angle) * r * 2);
+
+				carouselGroup.add(textMesh);
+			}
+		});
 
 		const meshMid = new THREE.MeshPhongMaterial({ color: 0x860808, shininess: 100, specular: 0xaaaaaa });
 		const mesh = new THREE.MeshStandardMaterial({
