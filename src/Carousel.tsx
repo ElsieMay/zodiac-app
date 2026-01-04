@@ -21,7 +21,7 @@ function Carousel() {
 		camera.position.set(0, 0.125, 1).setLength(16);
 		containerRef.current.append(renderer.domElement);
 		renderer.toneMapping = THREE.ACESFilmicToneMapping;
-		const playerClass = ["barbarian", "bard", "cleric", "druid", "fighter", "monk", "paladin", "ranger", "rogue", "sorcerer", "warlock", "wizard"];
+		const playerClass = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
 
 		let controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
@@ -33,9 +33,12 @@ function Carousel() {
 
 		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 		scene.add(ambientLight);
-		const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-		directionalLight.position.set(5, 5, 5);
-		scene.add(directionalLight);
+		const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
+		directionalLight1.position.set(5, 5, 5);
+		scene.add(directionalLight1);
+		const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+		directionalLight2.position.set(-5, 5, -5);
+		scene.add(directionalLight2);
 
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
@@ -46,10 +49,21 @@ function Carousel() {
 		let r = len / (Math.PI * 2); //  radius from circumference
 		let segAngle = (Math.PI * 2) / len / 1.1; // ~0.228 radians per segment
 
-		// Load shared texture - TODO; replace with class-themed textures
-		const texture = new THREE.TextureLoader().load("https://threejs.org/examples/textures/uv_grid_opengl.jpg", (tex) => {
-			tex.colorSpace = "srgb";
-			tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+		// Zodiac sign names (matching your PNG filenames)
+		const zodiacSigns = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
+
+		// Pre-load all textures using LoadingManager
+		const loadingManager = new THREE.LoadingManager();
+		const textureLoader = new THREE.TextureLoader(loadingManager);
+		const textures: THREE.Texture[] = [];
+
+		// Load all zodiac textures
+		zodiacSigns.forEach((sign, i) => {
+			const texture = textureLoader.load(`/zodiacs/icons/${sign.toLowerCase()}.png`, (tex) => {
+				tex.colorSpace = "srgb";
+				tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+			});
+			textures[i] = texture;
 		});
 
 		// Group to hold carousel segments and objects inside
@@ -60,51 +74,61 @@ function Carousel() {
 
 		// Load font once
 		const fontLoader = new FontLoader();
-		fontLoader.load("../public/fonts/Cormorant_Unicase_Regular.json", function (font) {
-			for (let i = 0; i < totalAmount; i++) {
-				const angle = ((Math.PI * 2) / totalAmount) * i;
+		loadingManager.onLoad = () => {
+			// All textures loaded, now create segments
+			fontLoader.load("../public/fonts/Cormorant_Unicase_Light_Regular.json", function (font) {
+				for (let i = 0; i < totalAmount; i++) {
+					const angle = ((Math.PI * 2) / totalAmount) * i;
 
-				// Cylinder segments
-				let segGeom = new THREE.CylinderGeometry(r, r, 0.7, 10, 1, true, 0, segAngle);
-				segGeom.rotateY(angle);
+					// Cylinder segments with individual textures
+					let segGeom = new THREE.CylinderGeometry(r, r, 0.7, 10, 1, true, 0, segAngle);
+					segGeom.rotateY(angle);
 
-				let material = new THREE.MeshStandardMaterial({
-					side: THREE.DoubleSide,
-					map: texture,
-					emissive: 0x000000,
-					emissiveIntensity: 0,
-				});
+					let material = new THREE.MeshStandardMaterial({
+						side: THREE.DoubleSide,
+						map: textures[i], // Use individual texture for each segment
+						emissive: 0x000000,
+						emissiveIntensity: 0,
+					});
 
-				let segment = new THREE.Mesh(segGeom, material);
-				segment.userData.segmentIndex = i;
-				segment.userData.className = playerClass[i];
+					let segment = new THREE.Mesh(segGeom, material);
+					segment.userData.segmentIndex = i;
+					segment.userData.className = playerClass[i];
 
-				segments.push(segment);
-				carouselGroup.add(segment);
+					segments.push(segment);
+					carouselGroup.add(segment);
 
-				const textGeom = new TextGeometry(playerClass[i], {
-					font: font,
-					size: 0.1,
-					depth: 0.05,
-					curveSegments: 12,
-					bevelEnabled: true,
-					bevelThickness: 0.02,
-					bevelSize: 0.01,
-					bevelOffset: 0,
-					bevelSegments: 5,
-				});
+					// Add 3D border only on outer edges (not curved surface)
+					const edges = new THREE.EdgesGeometry(segGeom, 40); // Threshold angle 40° - only shows sharp edges
+					const borderMaterial = new THREE.LineBasicMaterial({
+						color: 0xe9d491, // Gold border color
+						linewidth: 2,
+					});
+					const border = new THREE.LineSegments(edges, borderMaterial);
+					segment.add(border); // Add border as child of segment
 
-				const textMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
-				const textMesh = new THREE.Mesh(textGeom, textMat);
+					// Text for each segment
+					const textGeom = new TextGeometry(playerClass[i], {
+						font: font,
+						size: 0.1,
+						depth: 0.03,
+						curveSegments: 12,
+						bevelEnabled: true,
+						bevelThickness: 0.04,
+						bevelSize: 0.009,
+						bevelOffset: 0,
+						bevelSegments: 5,
+					});
 
-				// Position text on the carousel radius
-				textMesh.position.set(Math.sin(angle) * r, 0, Math.cos(angle) * r);
-				// Make text face outward from center
-				textMesh.lookAt(Math.sin(angle) * r * 2, 0, Math.cos(angle) * r * 2);
+					const textMat = new THREE.MeshStandardMaterial({ color: 0xe9d491, metalness: 0.8, roughness: 0.4 });
+					const textMesh = new THREE.Mesh(textGeom, textMat);
 
-				carouselGroup.add(textMesh);
-			}
-		});
+					textMesh.position.set(Math.sin(angle) * r, 0, Math.cos(angle) * r);
+					textMesh.lookAt(Math.sin(angle) * r * 2, 0, Math.cos(angle) * r * 2);
+					carouselGroup.add(textMesh);
+				}
+			});
+		};
 
 		const meshMid = new THREE.MeshPhongMaterial({ color: 0x860808, shininess: 100, specular: 0xaaaaaa });
 		const mesh = new THREE.MeshStandardMaterial({
@@ -186,7 +210,7 @@ function Carousel() {
 				seg.geometry.dispose();
 				(seg.material as THREE.Material).dispose();
 			});
-			texture.dispose();
+			textures.forEach((tex) => tex.dispose());
 			renderer.dispose();
 		};
 	}, []);
