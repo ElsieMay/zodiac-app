@@ -11,7 +11,7 @@ function Carousel() {
 		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearColor(0x000000, 0);
-		let camera = new THREE.PerspectiveCamera(16, innerWidth / innerHeight, 1, 100);
+		let camera = new THREE.PerspectiveCamera(12, innerWidth / innerHeight, 1, 100);
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		camera.position.z = 1;
 		const scene = new THREE.Scene();
@@ -23,6 +23,17 @@ function Carousel() {
 		let controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
 
+		const tiltAngle = (10 * Math.PI) / 180;
+		controls.minPolarAngle = Math.PI / 2 - tiltAngle; // Lock
+		controls.maxPolarAngle = Math.PI / 2 + tiltAngle;
+		controls.enablePan = false; // Disable panning
+
+		const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+		scene.add(ambientLight);
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+		directionalLight.position.set(5, 5, 5);
+		scene.add(directionalLight);
+
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
 		let hoveredSegment: THREE.Mesh | null = null;
@@ -32,26 +43,57 @@ function Carousel() {
 		let r = len / (Math.PI * 2); //  radius from circumference
 		let segAngle = (Math.PI * 2) / len / 1.1; // ~0.228 radians per segment
 
+		// Load shared texture
+		const texture = new THREE.TextureLoader().load("https://threejs.org/examples/textures/uv_grid_opengl.jpg", (tex) => {
+			tex.colorSpace = "srgb";
+			tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+		});
+
+		// Create a group to hold carousel segments and objects inside
+		const carouselGroup = new THREE.Group();
+		scene.add(carouselGroup);
+
 		const segments: THREE.Mesh[] = [];
 		for (let i = 0; i < totalAmount; i++) {
 			let segGeom = new THREE.CylinderGeometry(r, r, 0.7, 10, 1, true, 0, segAngle);
 			segGeom.rotateY(((Math.PI * 2) / totalAmount) * i);
 
-			let material = new THREE.MeshBasicMaterial({
+			let material = new THREE.MeshStandardMaterial({
 				side: THREE.DoubleSide,
-				color: 0x69f0ae,
+				map: texture,
+				emissive: 0x000000,
+				emissiveIntensity: 0,
 			});
 
 			let segment = new THREE.Mesh(segGeom, material);
 			segment.userData.segmentIndex = i;
 
 			segments.push(segment);
-			scene.add(segment);
+			carouselGroup.add(segment);
 		}
 
+		const meshMid = new THREE.MeshPhongMaterial({ color: 0x860808, shininess: 100, specular: 0xaaaaaa });
+		const mesh = new THREE.MeshStandardMaterial({
+			metalness: 1,
+			roughness: 0.5,
+			color: 0xe9d491,
+		});
+		const geometry = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5), meshMid);
+		scene.add(geometry);
+		geometry.scale.set(0.5, 0.5, 0.5);
+		var geoSmall = new THREE.TorusGeometry(0.6, 0.02, 16, 100);
+		var ringSmall = new THREE.Mesh(geoSmall, mesh);
+		scene.add(ringSmall);
+		var geoLarge = new THREE.TorusGeometry(1.2, 0.01, 16, 100);
+		var ringLarge = new THREE.Mesh(geoLarge, mesh);
+		scene.add(ringLarge);
+
 		function onPointerMove(event: PointerEvent) {
+			// Reset previous hover - remove glow
 			if (hoveredSegment) {
-				(hoveredSegment.material as THREE.MeshBasicMaterial).color.setHex(0x69f0ae);
+				const mat = hoveredSegment.material as THREE.MeshStandardMaterial;
+				mat.emissive.setHex(0x000000);
+				mat.emissiveIntensity = 0;
 			}
 
 			mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -63,7 +105,10 @@ function Carousel() {
 			if (intersects.length > 0) {
 				const segment = intersects[0].object as THREE.Mesh;
 				hoveredSegment = segment;
-				(segment.material as THREE.MeshBasicMaterial).color.setHex(0xff0000);
+				// Add glow effect on hover
+				const mat = segment.material as THREE.MeshStandardMaterial;
+				mat.emissive.setHex(0xffaa00); // Orange glow
+				mat.emissiveIntensity = 0.8;
 				renderer.domElement.style.cursor = "pointer";
 			} else {
 				hoveredSegment = null;
@@ -77,10 +122,19 @@ function Carousel() {
 			camera.aspect = innerWidth / innerHeight;
 			camera.updateProjectionMatrix();
 			renderer.setSize(innerWidth, innerHeight);
+
+			geometry.rotation.x += 2 / 200;
+			geometry.rotation.y += 2 / 200;
+			ringSmall.rotation.x += 0.03;
+			ringSmall.rotation.y += 0.03;
+			ringLarge.rotation.x += 0.01;
+			ringLarge.rotation.y += 0.01;
 		}
 
 		function render() {
 			requestAnimationFrame(render);
+			controls.update();
+
 			renderer.render(scene, camera);
 			update();
 		}
@@ -98,6 +152,7 @@ function Carousel() {
 				seg.geometry.dispose();
 				(seg.material as THREE.Material).dispose();
 			});
+			texture.dispose();
 			renderer.dispose();
 		};
 	}, []);
