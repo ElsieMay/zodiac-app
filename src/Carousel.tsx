@@ -49,15 +49,12 @@ function Carousel() {
 		let r = len / (Math.PI * 2); //  radius from circumference
 		let segAngle = (Math.PI * 2) / len / 1.1; // ~0.228 radians per segment
 
-		// Zodiac sign names (matching your PNG filenames)
 		const zodiacSigns = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
 
-		// Pre-load all textures using LoadingManager
 		const loadingManager = new THREE.LoadingManager();
 		const textureLoader = new THREE.TextureLoader(loadingManager);
 		const textures: THREE.Texture[] = [];
 
-		// Load all zodiac textures
 		zodiacSigns.forEach((sign, i) => {
 			const texture = textureLoader.load(`/zodiacs/icons/${sign.toLowerCase()}.png`, (tex) => {
 				tex.colorSpace = "srgb";
@@ -66,16 +63,12 @@ function Carousel() {
 			textures[i] = texture;
 		});
 
-		// Group to hold carousel segments and objects inside
 		const carouselGroup = new THREE.Group();
 		scene.add(carouselGroup);
-
 		const segments: THREE.Mesh[] = [];
 
-		// Load font once
 		const fontLoader = new FontLoader();
 		loadingManager.onLoad = () => {
-			// All textures loaded, now create segments
 			fontLoader.load("../public/fonts/Cormorant_Unicase_Light_Regular.json", function (font) {
 				for (let i = 0; i < totalAmount; i++) {
 					const angle = ((Math.PI * 2) / totalAmount) * i;
@@ -92,29 +85,6 @@ function Carousel() {
 						transparent: true,
 					});
 
-					// Custom shader to round corners
-					material.onBeforeCompile = (shader) => {
-						shader.fragmentShader = shader.fragmentShader.replace(
-							"#include <output_fragment>",
-							`
-						// Round corners based on UV coordinates
-						vec2 uv = vMapUv;
-						float cornerRadius = 0.15; // Adjust this value (0.0 to 0.5)
-						vec2 edgeDist = min(uv, 1.0 - uv);
-						float minDist = min(edgeDist.x, edgeDist.y);
-						
-						if (minDist < cornerRadius) {
-							vec2 corner = step(uv, vec2(cornerRadius)) * (vec2(cornerRadius) - uv);
-							corner += step(1.0 - uv, vec2(cornerRadius)) * (uv - (1.0 - vec2(cornerRadius)));
-							float dist = length(corner);
-							if (dist > cornerRadius) discard;
-						}
-						
-						#include <output_fragment>
-						`
-						);
-					};
-
 					let segment = new THREE.Mesh(segGeom, material);
 					segment.userData.segmentIndex = i;
 					segment.userData.className = playerClass[i];
@@ -125,21 +95,24 @@ function Carousel() {
 					// Text for each segment
 					const textGeom = new TextGeometry(playerClass[i], {
 						font: font,
-						size: 0.1,
-						depth: 0.03,
-						curveSegments: 12,
+						size: 0.08,
+						depth: 0.01,
+						curveSegments: 20,
 						bevelEnabled: true,
-						bevelThickness: 0.04,
-						bevelSize: 0.009,
+						bevelThickness: 0.02,
+						bevelSize: 0.001,
 						bevelOffset: 0,
-						bevelSegments: 5,
+						bevelSegments: 10,
 					});
 
-					const textMat = new THREE.MeshStandardMaterial({ color: 0xe9d491, metalness: 0.8, roughness: 0.4 });
+					const textMat = new THREE.MeshStandardMaterial({ color: 0xe9d491, metalness: 0.8, roughness: 0.5 });
 					const textMesh = new THREE.Mesh(textGeom, textMat);
+					// textGeom.center();
+					const textOffset = 0.05;
+					const textAngle = angle + textOffset;
 
-					textMesh.position.set(Math.sin(angle) * r, -0.5, Math.cos(angle) * r);
-					textMesh.lookAt(Math.sin(angle) * r * 2, -0.5, Math.cos(angle) * r * 2);
+					textMesh.position.set(Math.sin(textAngle) * r, -0.45, Math.cos(textAngle) * r);
+					textMesh.lookAt(Math.sin(textAngle) * r * 2, -0.45, Math.cos(textAngle) * r * 2);
 					carouselGroup.add(textMesh);
 				}
 			});
@@ -162,7 +135,6 @@ function Carousel() {
 		scene.add(ringLarge);
 
 		function onPointerMove(event: PointerEvent) {
-			// Reset previous hover - remove glow
 			if (hoveredSegment) {
 				const mat = hoveredSegment.material as THREE.MeshStandardMaterial;
 				mat.emissive.setHex(0x000000);
@@ -178,10 +150,9 @@ function Carousel() {
 			if (intersects.length > 0) {
 				const segment = intersects[0].object as THREE.Mesh;
 				hoveredSegment = segment;
-				// Add glow effect on hover
 				const mat = segment.material as THREE.MeshStandardMaterial;
-				mat.emissive.setHex(0xffaa00); // Orange glow
-				mat.emissiveIntensity = 0.8;
+				mat.emissive.setHex(0x860808);
+				mat.emissiveIntensity = 0.25;
 				renderer.domElement.style.cursor = "pointer";
 			} else {
 				hoveredSegment = null;
