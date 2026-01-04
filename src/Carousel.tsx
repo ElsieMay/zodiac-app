@@ -80,16 +80,40 @@ function Carousel() {
 				for (let i = 0; i < totalAmount; i++) {
 					const angle = ((Math.PI * 2) / totalAmount) * i;
 
-					// Cylinder segments with individual textures
 					let segGeom = new THREE.CylinderGeometry(r, r, 0.7, 10, 1, true, 0, segAngle);
 					segGeom.rotateY(angle);
 
 					let material = new THREE.MeshStandardMaterial({
 						side: THREE.DoubleSide,
-						map: textures[i], // Use individual texture for each segment
+						map: textures[i],
 						emissive: 0x000000,
 						emissiveIntensity: 0,
+						alphaTest: 0.5,
+						transparent: true,
 					});
+
+					// Custom shader to round corners
+					material.onBeforeCompile = (shader) => {
+						shader.fragmentShader = shader.fragmentShader.replace(
+							"#include <output_fragment>",
+							`
+						// Round corners based on UV coordinates
+						vec2 uv = vMapUv;
+						float cornerRadius = 0.15; // Adjust this value (0.0 to 0.5)
+						vec2 edgeDist = min(uv, 1.0 - uv);
+						float minDist = min(edgeDist.x, edgeDist.y);
+						
+						if (minDist < cornerRadius) {
+							vec2 corner = step(uv, vec2(cornerRadius)) * (vec2(cornerRadius) - uv);
+							corner += step(1.0 - uv, vec2(cornerRadius)) * (uv - (1.0 - vec2(cornerRadius)));
+							float dist = length(corner);
+							if (dist > cornerRadius) discard;
+						}
+						
+						#include <output_fragment>
+						`
+						);
+					};
 
 					let segment = new THREE.Mesh(segGeom, material);
 					segment.userData.segmentIndex = i;
@@ -97,15 +121,6 @@ function Carousel() {
 
 					segments.push(segment);
 					carouselGroup.add(segment);
-
-					// Add 3D border only on outer edges (not curved surface)
-					const edges = new THREE.EdgesGeometry(segGeom, 40); // Threshold angle 40° - only shows sharp edges
-					const borderMaterial = new THREE.LineBasicMaterial({
-						color: 0xe9d491, // Gold border color
-						linewidth: 2,
-					});
-					const border = new THREE.LineSegments(edges, borderMaterial);
-					segment.add(border); // Add border as child of segment
 
 					// Text for each segment
 					const textGeom = new TextGeometry(playerClass[i], {
@@ -123,8 +138,8 @@ function Carousel() {
 					const textMat = new THREE.MeshStandardMaterial({ color: 0xe9d491, metalness: 0.8, roughness: 0.4 });
 					const textMesh = new THREE.Mesh(textGeom, textMat);
 
-					textMesh.position.set(Math.sin(angle) * r, 0, Math.cos(angle) * r);
-					textMesh.lookAt(Math.sin(angle) * r * 2, 0, Math.cos(angle) * r * 2);
+					textMesh.position.set(Math.sin(angle) * r, -0.5, Math.cos(angle) * r);
+					textMesh.lookAt(Math.sin(angle) * r * 2, -0.5, Math.cos(angle) * r * 2);
 					carouselGroup.add(textMesh);
 				}
 			});

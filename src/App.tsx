@@ -12,8 +12,8 @@ function Home() {
 
 	return (
 		<>
-			{/* <Dice /> */}
-			{/* <PlayerSetup /> */}
+			<Dice />
+			<PlayerSetup />
 			<div className="text-overlay">
 				<h1>You have been summoned for The Awakening</h1>
 			</div>
@@ -26,20 +26,17 @@ function Home() {
 
 function Solaria() {
 	const navigation = useNavigate();
-	const [generateTrigger, setGenerateTrigger] = useState(0);
+	// const [generateTrigger, setGenerateTrigger] = useState(0);
 
 	return (
 		<>
-			{/* <div className="dice-overlay">
-				<Dice cameraPosition={8} />
-			</div> */}
 			<Carousel />
-			{/* <PlayerSetup /> */}
+			<PlayerSetup />
 			<div className="text-overlay">
-				<h1>Enter Your Player Details</h1>
+				<h1>Select Your Player Class</h1>
 			</div>
-			<ImageGenerator onGenerate={generateTrigger} userPrompt={"a mystical fantasy character, intricate costume, vibrant colors"} />
-			<Button onPress={() => setGenerateTrigger((prev) => prev + 1)} text={"Generate Character"} />
+			{/* <ImageGenerator onGenerate={generateTrigger} userPrompt={"a mystical fantasy character, intricate costume, vibrant colors"} />
+			<Button onPress={() => setGenerateTrigger((prev) => prev + 1)} text={"Generate Character"} /> */}
 			<div className="button-overlay">
 				<Button onPress={() => navigation(-1)} text={"Go Back to Home"} />
 			</div>
