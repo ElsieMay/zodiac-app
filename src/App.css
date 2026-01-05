@@ -19,14 +19,6 @@
 	pointer-events: auto;
 }
 
-.button-overlay {
-	position: fixed;
-	bottom: 2rem;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 10;
-}
-
 .text-overlay {
 	position: fixed;
 	top: 0rem;

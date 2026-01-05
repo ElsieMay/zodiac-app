@@ -1,10 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Text3D } from "@react-three/drei";
 import * as THREE from "three";
 import { TextureLoader } from "three";
+import ReactMarkdown from "react-markdown";
 import { ZODIAC_SIGNS } from "./helpers/config";
 import Modal from "./Modal";
+import backgroundImg from "../public/images/bg.png";
+import Button from "./Button";
 
 const CONFIG = {
   cylinderHeight: 0.7,
@@ -113,7 +116,7 @@ function CarouselSegment({
         onPointerOut={() => setHovered(false)}
         onClick={() => onSegmentClick?.(ZODIAC_SIGNS[index])}
         userData={{ segmentIndex: index, className: ZODIAC_SIGNS[index] }}
-      /> 
+      />
       <Text3D
         font="/fonts/Cormorant_Unicase_Light_Regular.json"
         size={0.08}
@@ -142,8 +145,11 @@ function CarouselSegment({
 }
 
 // Carousel group component
-function CarouselGroup({ onSegmentClick }: { onSegmentClick?: (sign: string) => void }) {
-
+function CarouselGroup({
+  onSegmentClick,
+}: {
+  onSegmentClick?: (sign: string) => void;
+}) {
   const textures = useLoader(
     TextureLoader,
     ZODIAC_SIGNS.map((sign) => `/zodiacs/icons/${sign.toLowerCase()}.png`)
@@ -173,7 +179,12 @@ function CarouselGroup({ onSegmentClick }: { onSegmentClick?: (sign: string) => 
 }
 
 // Main scene
-function Scene({ onSegmentClick }: { onSegmentClick?: (sign: string) => void }) {
+function Scene({
+  onSegmentClick,
+}: {
+  onSegmentClick?: (sign: string) => void;
+}) {
+  const fixedAngle = Math.PI / 2 - (15 * Math.PI) / 180;
   return (
     <>
       <ambientLight intensity={1} />
@@ -183,8 +194,8 @@ function Scene({ onSegmentClick }: { onSegmentClick?: (sign: string) => void }) 
       <CenterGeometry />
       <OrbitControls
         enableDamping={false}
-        minPolarAngle={Math.PI / 2 - CONFIG.tiltAngle}
-        maxPolarAngle={Math.PI / 2 + CONFIG.tiltAngle}
+        minPolarAngle={fixedAngle}
+        maxPolarAngle={fixedAngle}
         enablePan={false}
       />
     </>
@@ -194,6 +205,58 @@ function Scene({ onSegmentClick }: { onSegmentClick?: (sign: string) => void }) 
 // Main component
 function Carousel() {
   const [selectedSign, setSelectedSign] = useState<string | null>(null);
+  const [zodiacContent, setZodiacContent] = useState({
+    name: "",
+    symbol: "",
+    class: "",
+    classDescription: "",
+  });
+
+  useEffect(() => {
+    if (selectedSign) {
+      fetch(`/content/${selectedSign.toLowerCase()}.md`)
+        .then((res) => res.text())
+        .then((text) => {
+          const lines = text.split("\n");
+          const firstLine = lines[0];
+          const nameMatch = firstLine.match(/# (.+) (.+)/);
+          const classLine = lines.find((line) => line.startsWith("## Class:"));
+          const classMatch = classLine?.match(/## Class: (.+)/);
+          const descIndex = lines.findIndex((line) => line.startsWith("**"));
+          const descriptor =
+            descIndex !== -1 ? lines[descIndex].replace(/\*\*/g, "") : "";
+          const descSectionIndex = lines.findIndex(
+            (line) => line.trim() === "## Description"
+          );
+          let descContent = "";
+          if (descSectionIndex !== -1) {
+            const descLines = [];
+            for (let i = descSectionIndex + 1; i < lines.length; i++) {
+              if (lines[i].startsWith("##")) break;
+              if (lines[i].trim()) descLines.push(lines[i]);
+            }
+            descContent = descLines.join("\n\n");
+          }
+          const classDesc = [descriptor, descContent]
+            .filter(Boolean)
+            .join("\n\n");
+          setZodiacContent({
+            name: nameMatch?.[1] || selectedSign,
+            symbol: nameMatch?.[2] || "",
+            class: classMatch?.[1] || "",
+            classDescription: classDesc,
+          });
+        })
+        .catch(() => {
+          setZodiacContent({
+            name: selectedSign,
+            symbol: "",
+            class: "",
+            classDescription: "",
+          });
+        });
+    }
+  }, [selectedSign]);
 
   return (
     <>
@@ -209,9 +272,21 @@ function Carousel() {
           <Scene onSegmentClick={setSelectedSign} />
         </Canvas>
       </div>
-      <Modal isOpen={!!selectedSign} onClose={() => setSelectedSign(null)}>
-        <h2>{selectedSign}</h2>
-        <p>You selected {selectedSign}!</p>
+      <Modal
+        isOpen={!!selectedSign}
+        onClose={() => setSelectedSign(null)}
+        sign={selectedSign || undefined}
+        backgroundImage={backgroundImg}
+      >
+        <h2>
+          {zodiacContent.symbol} {zodiacContent.name}
+        </h2>
+        <h3>{zodiacContent.class}</h3>
+        <ReactMarkdown>{zodiacContent.classDescription}</ReactMarkdown>
+        <Button
+          onPress={() => setSelectedSign(null)}
+          text={`Select ${selectedSign}`}
+        />
       </Modal>
     </>
   );
