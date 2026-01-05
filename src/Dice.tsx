@@ -50,33 +50,33 @@ function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
 		geometry.position.set(0, 0, 0.2);
 
 		// Rings
-		var geoSmall = new THREE.TorusGeometry(0.44, 0.04, 16, 100);
-		var ringSmall = new THREE.Mesh(geoSmall, mesh);
+		const geoSmall = new THREE.TorusGeometry(0.44, 0.04, 16, 100);
+		const ringSmall = new THREE.Mesh(geoSmall, mesh);
 		scene.add(ringSmall);
 		ringSmall.scale.set(0.7, 0.7, 0.7);
 
-		var geoFlat = new THREE.TorusGeometry(0.07, 0.2, 16, 400);
-		var ringFlat = new THREE.Mesh(geoFlat, meshDark);
+		const geoFlat = new THREE.TorusGeometry(0.07, 0.2, 16, 400);
+		const ringFlat = new THREE.Mesh(geoFlat, meshDark);
 		scene.add(ringFlat);
 
-		var geoFlat2 = new THREE.TorusGeometry(0.9, 0.2, 16, 400);
-		var ringFlat2 = new THREE.Mesh(geoFlat2, meshDark);
+		const geoFlat2 = new THREE.TorusGeometry(0.9, 0.2, 16, 400);
+		const ringFlat2 = new THREE.Mesh(geoFlat2, meshDark);
 		scene.add(ringFlat2);
 
-		var geoMedium = new THREE.TorusGeometry(1.07, 0.1, 16, 100);
-		var ringMedium = new THREE.Mesh(geoMedium, mesh);
+		const geoMedium = new THREE.TorusGeometry(1.07, 0.1, 16, 100);
+		const ringMedium = new THREE.Mesh(geoMedium, mesh);
 		scene.add(ringMedium);
 
-		var geoThin = new THREE.TorusGeometry(0.5, 0.004, 16, 100);
-		var ringThin = new THREE.Mesh(geoThin, mesh);
+		const geoThin = new THREE.TorusGeometry(0.5, 0.004, 16, 100);
+		const ringThin = new THREE.Mesh(geoThin, mesh);
 		scene.add(ringThin);
 
-		var geoLarge = new THREE.TorusGeometry(1.24, 0.007, 16, 100);
-		var ringLarge = new THREE.Mesh(geoLarge, mesh);
+		const geoLarge = new THREE.TorusGeometry(1.24, 0.007, 16, 100);
+		const ringLarge = new THREE.Mesh(geoLarge, mesh);
 		scene.add(ringLarge);
 
-		var geoMed = new THREE.TorusGeometry(0.69, 0.015, 16, 100);
-		var ringMed = new THREE.Mesh(geoMed, meshGoldDark);
+		const geoMed = new THREE.TorusGeometry(0.69, 0.015, 16, 100);
+		const ringMed = new THREE.Mesh(geoMed, meshGoldDark);
 		scene.add(ringMed);
 
 		// Zodiac signs
@@ -87,7 +87,7 @@ function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
 
 		zodiacSigns.forEach((sign, index) => {
 			const angle = (index / 12) * Math.PI * 2;
-			const texture = textureLoader.load(`../public/zodiacs/${sign}`);
+			const texture = textureLoader.load(`/zodiacs/${sign}`);
 			const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1);
 			const planeMaterial = new THREE.MeshBasicMaterial({
 				map: texture,

@@ -2,10 +2,8 @@ import "./App.css";
 import Button from "./Button";
 import Dice from "./Dice";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import ImageGenerator from "./ImageGenerator";
-import PlayerSetup from "./PlayerSetup";
 import Carousel from "./Carousel";
+import { Background } from "./Background";
 
 function Home() {
 	const navigation = useNavigate();
@@ -13,7 +11,7 @@ function Home() {
 	return (
 		<>
 			<Dice />
-			<PlayerSetup />
+			<Background />
 			<div className="text-overlay">
 				<h1>You have been summoned for The Awakening</h1>
 			</div>
@@ -31,7 +29,8 @@ function Solaria() {
 	return (
 		<>
 			<Carousel />
-			<PlayerSetup />
+			<Background />
+			{/* <Modal /> */}
 			<div className="text-overlay">
 				<h1>Select Your Player Class</h1>
 			</div>
