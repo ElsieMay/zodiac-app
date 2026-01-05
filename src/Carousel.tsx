@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Text3D } from "@react-three/drei";
 import * as THREE from "three";
@@ -6,10 +6,8 @@ import { TextureLoader } from "three";
 import ReactMarkdown from "react-markdown";
 import { ZODIAC_SIGNS } from "./helpers/config";
 import Modal from "./Modal";
-import backgroundImg from "../public/images/bg.png";
-import lgTop from "../public/images/fg.png";
-import lgBottom from "../public/images/lg.png";
 import Button from "./Button";
+import { memo } from "react";
 
 const CONFIG = {
   cylinderHeight: 0.7,
@@ -66,12 +64,18 @@ function CenterGeometry() {
 }
 
 // Individual carousel segments
-function CarouselSegment({
+const CarouselSegment = memo(function CarouselSegment({
   index,
   angle,
   texture,
   onSegmentClick,
-}: {
+}: // function CarouselSegment({
+//   index,
+//   angle,
+//   texture,
+//   onSegmentClick,
+// }:
+{
   index: number;
   angle: number;
   texture: THREE.Texture;
@@ -80,26 +84,20 @@ function CarouselSegment({
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
-  const geometry = new THREE.CylinderGeometry(
-    radius,
-    radius,
-    CONFIG.cylinderHeight,
-    10,
-    1,
-    true,
-    0,
-    segAngle
-  );
-  geometry.rotateY(angle);
-
-  const material = new THREE.MeshStandardMaterial({
-    side: THREE.DoubleSide,
-    map: texture,
-    emissive: hovered ? 0x860808 : 0x000000,
-    emissiveIntensity: hovered ? 0.25 : 0,
-    alphaTest: 0.5,
-    transparent: true,
-  });
+  const geometry = useMemo(() => {
+    const geom = new THREE.CylinderGeometry(
+      radius,
+      radius,
+      CONFIG.cylinderHeight,
+      10,
+      1,
+      true,
+      0,
+      segAngle
+    );
+    geom.rotateY(angle);
+    return geom;
+  }, [angle]);
 
   const textAngle = angle + segAngle / 2;
   const lookAtTarget = new THREE.Vector3(
@@ -113,21 +111,29 @@ function CarouselSegment({
       <mesh
         ref={meshRef}
         geometry={geometry}
-        material={material}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
         onClick={() => onSegmentClick?.(ZODIAC_SIGNS[index])}
         userData={{ segmentIndex: index, className: ZODIAC_SIGNS[index] }}
-      />
+      >
+        <meshStandardMaterial
+          side={THREE.DoubleSide}
+          map={texture}
+          emissive={hovered ? 0x860808 : 0x000000}
+          emissiveIntensity={hovered ? 0.25 : 0}
+          alphaTest={0.5}
+          transparent
+        />
+      </mesh>
       <Text3D
         font="/fonts/Cormorant_Unicase_Light_Regular.json"
         size={0.08}
         height={0.01}
-        curveSegments={20}
+        curveSegments={12}
         bevelEnabled
         bevelThickness={0.02}
         bevelSize={0.001}
-        bevelSegments={10}
+        bevelSegments={5}
         position={[
           Math.sin(textAngle) * radius,
           CONFIG.textYOffset,
@@ -144,7 +150,7 @@ function CarouselSegment({
       </Text3D>
     </>
   );
-}
+});
 
 // Carousel group component
 function CarouselGroup({
@@ -159,7 +165,7 @@ function CarouselGroup({
 
   textures.forEach((texture) => {
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 16;
+    texture.anisotropy = 4;
   });
 
   return (
@@ -279,15 +285,14 @@ function Carousel() {
         isOpen={!!selectedSign}
         onClose={() => setSelectedSign(null)}
         sign={selected}
-        backgroundImage={backgroundImg}
+        backgroundImage="/images/bg.png"
       >
-        {/* <div className="modal-zodiac-container"> */}
         <img
           src={`/zodiacs/icons/sketched/${selected.toLowerCase()}.png`}
           alt={selected}
           id="modal-zodiac-icon"
         />
-        <img src={lgTop} id="modal-zodiac-edges" />
+        <img src="/images/fg.png" id="modal-zodiac-edges" />
         <h2 className="zodiac-name">
           {zodiacContent.symbol} {zodiacContent.name}
         </h2>
@@ -295,17 +300,15 @@ function Carousel() {
         <div className="class-description">
           <ReactMarkdown>{zodiacContent.classDescription}</ReactMarkdown>
         </div>
-        <img src={lgBottom} id="modal-zodiac-bottom" />
+        <img src="/images/lg.png" id="modal-zodiac-bottom" />
         <div className="modal-button">
           <Button
             onPress={() => setSelectedSign}
             text={`Select ${selected}`}
-            // bgColour="#7c414f"
             bgColour="#530001"
             colour="white"
           />
         </div>
-        {/* </div> */}
       </Modal>
     </>
   );

@@ -11,7 +11,6 @@ function Home() {
   return (
     <>
       <Dice />
-      <Background />
       <div className="text-overlay">
         <h1>You have been summoned for The Awakening</h1>
       </div>
@@ -34,7 +33,6 @@ function Solaria() {
   return (
     <>
       <Carousel />
-      <Background />
       {/* <Modal /> */}
       <div className="text-overlay">
         <h1>Select Your Player Class</h1>
@@ -55,10 +53,13 @@ function Solaria() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/solaria-map" element={<Solaria />} />
-    </Routes>
+    <>
+      <Background />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/solaria-map" element={<Solaria />} />
+      </Routes>
+    </>
   );
 }
 
