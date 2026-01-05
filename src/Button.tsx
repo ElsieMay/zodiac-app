@@ -1,14 +1,20 @@
 interface ButtonProps {
-	onPress: () => void;
-	text: string;
+  onPress: () => void;
+  bgColour: string;
+  colour: string;
+  text: string;
 }
 
-function Button({ onPress, text }: ButtonProps) {
-	return (
-		<button className="home-button" onClick={onPress}>
-			{text}
-		</button>
-	);
+function Button({ onPress, text, bgColour, colour }: ButtonProps) {
+  return (
+    <button
+      className="home-button"
+      onClick={onPress}
+      style={{ backgroundColor: `${bgColour}`, color: `${colour}` }}
+    >
+      {text}
+    </button>
+  );
 }
 
 export default Button;

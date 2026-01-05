@@ -7,6 +7,8 @@ import ReactMarkdown from "react-markdown";
 import { ZODIAC_SIGNS } from "./helpers/config";
 import Modal from "./Modal";
 import backgroundImg from "../public/images/bg.png";
+import lgTop from "../public/images/fg.png";
+import lgBottom from "../public/images/lg.png";
 import Button from "./Button";
 
 const CONFIG = {
@@ -258,6 +260,7 @@ function Carousel() {
     }
   }, [selectedSign]);
 
+  const selected = selectedSign || "";
   return (
     <>
       <div className="carousel" style={{ width: "100vw", height: "100vh" }}>
@@ -275,18 +278,34 @@ function Carousel() {
       <Modal
         isOpen={!!selectedSign}
         onClose={() => setSelectedSign(null)}
-        sign={selectedSign || undefined}
+        sign={selected}
         backgroundImage={backgroundImg}
       >
-        <h2>
+        {/* <div className="modal-zodiac-container"> */}
+        <img
+          src={`/zodiacs/icons/sketched/${selected.toLowerCase()}.png`}
+          alt={selected}
+          id="modal-zodiac-icon"
+        />
+        <img src={lgTop} id="modal-zodiac-edges" />
+        <h2 className="zodiac-name">
           {zodiacContent.symbol} {zodiacContent.name}
         </h2>
         <h3>{zodiacContent.class}</h3>
-        <ReactMarkdown>{zodiacContent.classDescription}</ReactMarkdown>
-        <Button
-          onPress={() => setSelectedSign(null)}
-          text={`Select ${selectedSign}`}
-        />
+        <div className="class-description">
+          <ReactMarkdown>{zodiacContent.classDescription}</ReactMarkdown>
+        </div>
+        <img src={lgBottom} id="modal-zodiac-bottom" />
+        <div className="modal-button">
+          <Button
+            onPress={() => setSelectedSign}
+            text={`Select ${selected}`}
+            // bgColour="#7c414f"
+            bgColour="#530001"
+            colour="white"
+          />
+        </div>
+        {/* </div> */}
       </Modal>
     </>
   );

@@ -5,7 +5,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  /* color: black; */
   background-color: black;
 
   font-synthesis: none;
@@ -15,7 +14,6 @@
 }
 
 a {
-  /* font-weight: 300; */
   color: #6b5d30;
   text-decoration: inherit;
 }
@@ -81,7 +79,7 @@ button:focus-visible {
 
 .modal-content {
   background: #080048;
-  padding: 3rem;
+  padding: 4rem;
   border-radius: 12px;
   border: 4px ridge #e9d491;
   position: relative;
@@ -114,7 +112,7 @@ button:focus-visible {
   border-radius: 8px;
   pointer-events: none;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-  background-color: #0e064a95;
+  background-color: #08032bba;
 }
 
 @keyframes glow {
@@ -139,12 +137,26 @@ button:focus-visible {
   padding: 0;
   margin: 0;
   line-height: 1;
-  transition: all 0.25s;
+  z-index: 3000;
 }
 
 .modal-close:hover {
   color: #fff;
-  transform: rotate(90deg);
+  border: none;
+}
+
+.modal-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #080048;
+  line-height: 1;
+  z-index: 3000;
+}
+
+.modal-button:hover {
+  color: #080048;
   border: none;
 }
 
@@ -162,42 +174,38 @@ button:focus-visible {
 }
 
 .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   z-index: 1;
 }
 
-.modal-zodiac-container {
-  position: relative;
-  width: 100%;
-  padding-top: 160px;
-  margin: 0 auto 20px;
-}
-
 #modal-zodiac-edges,
-#modal-zodiac-bottom,
 #modal-zodiac-icon {
   position: absolute;
-  height: auto;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  display: block;
 }
 
 #modal-zodiac-edges {
   z-index: 1;
-  width: 106%;
+  width: 108%;
+  top: 0;
 }
 
 #modal-zodiac-icon {
   z-index: 2;
   width: 50%;
+  top: 0;
 }
 
 #modal-zodiac-bottom {
   z-index: 1;
   width: 106%;
-  top: auto;
-  padding-bottom: 5%;
+  position: absolute;
+  bottom: -10px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -233,4 +241,17 @@ button:focus-visible {
 .button-right {
   position: absolute;
   right: 20px;
+}
+
+.class-description {
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 3);
+  max-width: 90%;
+}
+
+.zodiac-name {
+  margin-top: 10rem;
 }

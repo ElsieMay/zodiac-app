@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-// import Button from "./Button";
+import Button from "./Button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,13 +9,7 @@ interface ModalProps {
   backgroundImage?: string;
 }
 
-function Modal({
-  isOpen,
-  onClose,
-  children,
-  sign,
-  backgroundImage,
-}: ModalProps) {
+function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -27,32 +21,16 @@ function Modal({
             style={{ backgroundImage: `url(${backgroundImage})` }}
           />
         )}
-        <div className="modal-body">
-          {sign && (
-            <div className="modal-zodiac-container">
-              <img
-                src={`/zodiacs/icons/sketched/${sign.toLowerCase()}.png`}
-                alt={sign}
-                id="modal-zodiac-icon"
-              />
-              <img
-                src={`../public/images/fg.png`}
-                alt={sign}
-                id="modal-zodiac-edges"
-              />
-            </div>
-          )}
-          {children}
-          <img
-            src={`../public/images/lg.png`}
-            alt={sign}
-            id="modal-zodiac-bottom"
+        <div className="modal-close">
+          <Button
+            onPress={() => onClose()}
+            text="Close"
+            bgColour="#530001"
+            colour="white"
           />
         </div>
+        <div className="modal-body">{children}</div>
       </div>
-      {/* <div className="button-right">
-        <Button onPress={() => onClose()} text="Xxxxxxxxxx" />
-      </div> */}
     </div>
   );
 }
