@@ -37,7 +37,7 @@ export default function ImageGenerator({ onGenerate, userPrompt }: ImageGenerato
 
 			generate();
 		}
-	}, [onGenerate]);
+	}, [onGenerate, lastGenerated, userPrompt]);
 
 	//TODO: Improve the UI of these states
 	return (
