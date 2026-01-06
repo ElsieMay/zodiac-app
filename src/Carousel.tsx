@@ -1,10 +1,17 @@
-import { useRef, useState, useEffect, useMemo } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  Suspense,
+} from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Text3D } from "@react-three/drei";
 import * as THREE from "three";
 import { TextureLoader } from "three";
 import ReactMarkdown from "react-markdown";
-import { ZODIAC_SIGNS } from "./helpers/config";
+import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "./helpers/config";
 import Modal from "./Modal";
 import Button from "./Button";
 import { memo } from "react";
@@ -63,23 +70,18 @@ function CenterGeometry() {
   );
 }
 
-// Individual carousel segments
 const CarouselSegment = memo(function CarouselSegment({
   index,
   angle,
   texture,
   onSegmentClick,
-}: // function CarouselSegment({
-//   index,
-//   angle,
-//   texture,
-//   onSegmentClick,
-// }:
-{
+  itemName,
+}: {
   index: number;
   angle: number;
   texture: THREE.Texture;
   onSegmentClick?: (sign: string) => void;
+  itemName: string;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -95,9 +97,8 @@ const CarouselSegment = memo(function CarouselSegment({
       0,
       segAngle
     );
-    geom.rotateY(angle);
     return geom;
-  }, [angle]);
+  }, []);
 
   const textAngle = angle + segAngle / 2;
   const lookAtTarget = new THREE.Vector3(
@@ -106,15 +107,23 @@ const CarouselSegment = memo(function CarouselSegment({
     Math.cos(textAngle) * radius * 2
   );
 
+  const hasSpace = itemName.includes(" ");
+  const textLines = hasSpace ? itemName.split(" ") : [itemName];
+  const lineHeight = 0.1;
+  const startY = hasSpace
+    ? CONFIG.textYOffset + lineHeight / 2
+    : CONFIG.textYOffset;
+
   return (
     <>
       <mesh
         ref={meshRef}
         geometry={geometry}
+        rotation={[0, angle, 0]}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
-        onClick={() => onSegmentClick?.(ZODIAC_SIGNS[index])}
-        userData={{ segmentIndex: index, className: ZODIAC_SIGNS[index] }}
+        onClick={() => onSegmentClick?.(itemName)}
+        userData={{ segmentIndex: index, className: itemName }}
       >
         <meshStandardMaterial
           side={THREE.DoubleSide}
@@ -125,29 +134,32 @@ const CarouselSegment = memo(function CarouselSegment({
           transparent
         />
       </mesh>
-      <Text3D
-        font="/fonts/Cormorant_Unicase_Light_Regular.json"
-        size={0.08}
-        height={0.01}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.02}
-        bevelSize={0.001}
-        bevelSegments={5}
-        position={[
-          Math.sin(textAngle) * radius,
-          CONFIG.textYOffset,
-          Math.cos(textAngle) * radius,
-        ]}
-        onUpdate={(self) => self.lookAt(lookAtTarget)}
-      >
-        {ZODIAC_SIGNS[index]}
-        <meshStandardMaterial
-          color={0xe9d491}
-          metalness={0.8}
-          roughness={0.5}
-        />
-      </Text3D>
+      {textLines.map((line, idx) => (
+        <Text3D
+          key={idx}
+          font="/fonts/Cormorant_Unicase_Regular.json"
+          size={0.08}
+          height={0.01}
+          curveSegments={12}
+          bevelEnabled
+          bevelThickness={0.002}
+          bevelSize={0.001}
+          bevelSegments={5}
+          position={[
+            Math.sin(textAngle) * radius,
+            startY - idx * lineHeight,
+            Math.cos(textAngle) * radius,
+          ]}
+          onUpdate={(self) => self.lookAt(lookAtTarget)}
+        >
+          {line}
+          <meshStandardMaterial
+            color={0xe9d491}
+            metalness={0.8}
+            roughness={0.5}
+          />
+        </Text3D>
+      ))}
     </>
   );
 });
@@ -155,12 +167,35 @@ const CarouselSegment = memo(function CarouselSegment({
 // Carousel group component
 function CarouselGroup({
   onSegmentClick,
+  items,
+  isSpinning,
+  mode,
 }: {
   onSegmentClick?: (sign: string) => void;
+  items: string[];
+  isSpinning: boolean;
+  mode: "zodiac" | "species";
 }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const spinSpeed = useRef(0);
+
+  useFrame(() => {
+    if (groupRef.current && isSpinning) {
+      spinSpeed.current = Math.min(spinSpeed.current + 0.002, 0.15);
+      groupRef.current.rotation.y += spinSpeed.current;
+    } else if (groupRef.current && !isSpinning && spinSpeed.current > 0) {
+      spinSpeed.current = Math.max(spinSpeed.current - 0.005, 0);
+      groupRef.current.rotation.y += spinSpeed.current;
+    }
+  });
+
   const textures = useLoader(
     TextureLoader,
-    ZODIAC_SIGNS.map((sign) => `/zodiacs/icons/${sign.toLowerCase()}.png`)
+    items.map((item) =>
+      mode === "zodiac"
+        ? `/zodiacs/icons/${item.toLowerCase()}.png`
+        : `/zodiacs/orders/${item}.png`
+    )
   );
 
   textures.forEach((texture) => {
@@ -169,9 +204,9 @@ function CarouselGroup({
   });
 
   return (
-    <group>
-      {ZODIAC_SIGNS.map((_, i) => {
-        const angle = ((Math.PI * 2) / ZODIAC_SIGNS.length) * i;
+    <group ref={groupRef}>
+      {items.map((_, i) => {
+        const angle = ((Math.PI * 2) / items.length) * i;
         return (
           <CarouselSegment
             key={i}
@@ -179,6 +214,7 @@ function CarouselGroup({
             angle={angle}
             texture={textures[i]}
             onSegmentClick={onSegmentClick}
+            itemName={items[i]}
           />
         );
       })}
@@ -189,16 +225,27 @@ function CarouselGroup({
 // Main scene
 function Scene({
   onSegmentClick,
+  items,
+  isSpinning,
+  mode,
 }: {
   onSegmentClick?: (sign: string) => void;
+  items: string[];
+  isSpinning: boolean;
+  mode: "zodiac" | "species";
 }) {
-  const fixedAngle = Math.PI / 2 - (15 * Math.PI) / 180;
+  const fixedAngle = Math.PI / 2 - (12 * Math.PI) / 180;
   return (
     <>
       <ambientLight intensity={1} />
       <directionalLight position={[5, 5, 5]} intensity={1} />
       <directionalLight position={[-5, 5, -5]} intensity={1} />
-      <CarouselGroup onSegmentClick={onSegmentClick} />
+      <CarouselGroup
+        onSegmentClick={onSegmentClick}
+        items={items}
+        isSpinning={isSpinning}
+        mode={mode}
+      />
       <CenterGeometry />
       <OrbitControls
         enableDamping={false}
@@ -212,6 +259,8 @@ function Scene({
 
 // Main component
 function Carousel() {
+  const [mode, setMode] = useState<"zodiac" | "species">("zodiac");
+  const [isSpinning, setIsSpinning] = useState(false);
   const [selectedSign, setSelectedSign] = useState<string | null>(null);
   const [zodiacContent, setZodiacContent] = useState({
     name: "",
@@ -219,6 +268,21 @@ function Carousel() {
     class: "",
     classDescription: "",
   });
+
+  const currentItems =
+    mode === "zodiac" ? ZODIAC_SIGNS : AWAKENED_ORDERS_SPECIES;
+
+  const handleModeTransition = useCallback(() => {
+    setSelectedSign(null);
+    setIsSpinning(true);
+
+    setTimeout(() => {
+      setMode(mode === "zodiac" ? "species" : "zodiac");
+      setTimeout(() => {
+        setIsSpinning(false);
+      }, 1000);
+    }, 2000);
+  }, [mode]);
 
   useEffect(() => {
     if (selectedSign) {
@@ -271,14 +335,21 @@ function Carousel() {
     <>
       <div className="carousel" style={{ width: "100vw", height: "100vh" }}>
         <Canvas
-          camera={{ position: [0, 10, 16], fov: 12 }}
+          camera={{ position: [0, 10, 16], fov: 10 }}
           gl={{
             antialias: true,
             alpha: true,
             toneMapping: THREE.ACESFilmicToneMapping,
           }}
         >
-          <Scene onSegmentClick={setSelectedSign} />
+          <Suspense fallback={null}>
+            <Scene
+              onSegmentClick={setSelectedSign}
+              items={currentItems}
+              isSpinning={isSpinning}
+              mode={mode}
+            />
+          </Suspense>
         </Canvas>
       </div>
       <Modal
@@ -288,7 +359,11 @@ function Carousel() {
         backgroundImage="/images/bg.png"
       >
         <img
-          src={`/zodiacs/icons/sketched/${selected.toLowerCase()}.png`}
+          src={
+            mode === "zodiac"
+              ? `/zodiacs/icons/sketched/${selected.toLowerCase()}.png`
+              : `/zodiacs/icons/sketched-orders/${selected}.png`
+          }
           alt={selected}
           id="modal-zodiac-icon"
         />
@@ -303,8 +378,8 @@ function Carousel() {
         <img src="/images/lg.png" id="modal-zodiac-bottom" />
         <div className="modal-button">
           <Button
-            onPress={() => setSelectedSign}
-            text={`Select ${selected}`}
+            onPress={handleModeTransition}
+            text={`Awaken as ${selected}`}
             bgColour="#530001"
             colour="white"
           />

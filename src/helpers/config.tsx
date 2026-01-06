@@ -12,3 +12,24 @@ export const ZODIAC_SIGNS = [
   "Aquarius",
   "Pisces",
 ];
+
+export const AWAKENED_ORDERS_SPECIES = [
+  "Phoenix",
+  "Werewolf",
+  "Pegasus",
+  "Vampire",
+  "Cerberus",
+  "Minotaur",
+  "Griffin",
+  "Nemean Lion",
+  "Medusa",
+  "Tiberian Rat",
+  "Basilisk",
+  "Dragon",
+  "Cyclops",
+  "Hydra",
+  "Caucasian Eagle",
+  "Harpy",
+  "Centaur",
+  "Kraken",
+];
