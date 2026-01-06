@@ -14,19 +14,13 @@ import ReactMarkdown from "react-markdown";
 import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "./helpers/config";
 import Modal from "./Modal";
 import Button from "./Button";
-import { memo } from "react";
 
 const CONFIG = {
   cylinderHeight: 0.7,
-  spacing: 1.1,
+  spacing: 1.05,
   textYOffset: -0.45,
   cornerRadius: 0.15,
-  tiltAngle: (10 * Math.PI) / 180,
 } as const;
-
-const len = ZODIAC_SIGNS.length * CONFIG.spacing;
-const radius = len / (Math.PI * 2);
-const segAngle = (Math.PI * 2) / len / CONFIG.spacing;
 
 function CenterGeometry() {
   const icosahedronRef = useRef<THREE.Mesh>(null);
@@ -70,18 +64,22 @@ function CenterGeometry() {
   );
 }
 
-const CarouselSegment = memo(function CarouselSegment({
+function CarouselSegment({
   index,
   angle,
   texture,
   onSegmentClick,
   itemName,
+  segAngle,
+  radius,
 }: {
   index: number;
   angle: number;
   texture: THREE.Texture;
   onSegmentClick?: (sign: string) => void;
   itemName: string;
+  segAngle: number;
+  radius: number;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -98,7 +96,7 @@ const CarouselSegment = memo(function CarouselSegment({
       segAngle
     );
     return geom;
-  }, []);
+  }, [radius, segAngle]);
 
   const textAngle = angle + segAngle / 2;
   const lookAtTarget = new THREE.Vector3(
@@ -162,7 +160,7 @@ const CarouselSegment = memo(function CarouselSegment({
       ))}
     </>
   );
-});
+}
 
 // Carousel group component
 function CarouselGroup({
@@ -178,6 +176,11 @@ function CarouselGroup({
 }) {
   const groupRef = useRef<THREE.Group>(null);
   const spinSpeed = useRef(0);
+
+  // Calculate dimensions dynamically based on items array length
+  const len = items.length * CONFIG.spacing;
+  const radius = len / (Math.PI * 2);
+  const segAngle = (Math.PI * 2) / len / CONFIG.spacing;
 
   useFrame(() => {
     if (groupRef.current && isSpinning) {
@@ -215,6 +218,8 @@ function CarouselGroup({
             texture={textures[i]}
             onSegmentClick={onSegmentClick}
             itemName={items[i]}
+            segAngle={segAngle}
+            radius={radius}
           />
         );
       })}
@@ -234,7 +239,7 @@ function Scene({
   isSpinning: boolean;
   mode: "zodiac" | "species";
 }) {
-  const fixedAngle = Math.PI / 2 - (12 * Math.PI) / 180;
+  const fixedAngle = Math.PI / 2 - (12 * Math.PI) / 200;
   return (
     <>
       <ambientLight intensity={1} />
@@ -335,7 +340,7 @@ function Carousel() {
     <>
       <div className="carousel" style={{ width: "100vw", height: "100vh" }}>
         <Canvas
-          camera={{ position: [0, 10, 16], fov: 10 }}
+          camera={{ position: [0, 10, 16], fov: 12 }}
           gl={{
             antialias: true,
             alpha: true,
