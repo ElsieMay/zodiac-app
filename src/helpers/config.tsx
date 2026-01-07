@@ -15,7 +15,7 @@ export const ZODIAC_SIGNS = [
 
 export const AWAKENED_ORDERS_SPECIES = [
   "Basilisk",
-  "Caucasian Eagle",
+  "Eagle",
   "Centaur",
   "Cerberus",
   "Cyclops",
@@ -26,7 +26,7 @@ export const AWAKENED_ORDERS_SPECIES = [
   "Kraken",
   "Medusa",
   "Minotaur",
-  "Nemean Lion",
+  "Lion",
   "Pegasus",
   "Phoenix",
   "Tiberian Rat",

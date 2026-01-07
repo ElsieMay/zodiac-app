@@ -77,22 +77,28 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  max-height: fit-content;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
 .modal-content {
   background: #080048;
-  padding: 4rem;
+  padding: 24px 20px 24px 20px;
   border-radius: 12px;
   border: 4px ridge #e9d491;
   position: relative;
   max-width: 40vw;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: 80vh;
+  height: fit-content;
+  overflow: hidden;
   box-shadow: 0 0 30px rgba(233, 212, 145, 0.5),
     inset 0 0 20px rgba(233, 212, 145, 0.15), 0 10px 25px rgba(0, 0, 0, 0.7);
   transform: perspective(1000px) rotateX(2deg);
   transform-style: preserve-3d;
+  width: fit-content;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content::before {
@@ -104,6 +110,7 @@ button:focus-visible {
   filter: blur(12px);
   opacity: 0.7;
   animation: glow 3s ease-in-out infinite;
+  inset: -8px;
 }
 
 /* Inner border frame */
@@ -149,13 +156,9 @@ button:focus-visible {
 }
 
 .modal-button {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #080048;
-  line-height: 1;
+  position: relative;
   z-index: 3000;
+  margin-top: 1rem;
 }
 
 .modal-button:hover {
@@ -169,11 +172,9 @@ button:focus-visible {
   background-size: cover;
   background-position: center;
   background-attachment: scroll;
-  opacity: 0.8;
-  border-radius: 12px;
+  opacity: 1;
   z-index: 0;
-  width: 100%;
-  min-height: 100%;
+  border-radius: 8px;
 }
 
 .modal-body {
@@ -182,6 +183,10 @@ button:focus-visible {
   align-items: center;
   position: relative;
   z-index: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  padding-bottom: 2rem;
 }
 
 #modal-zodiac-edges,
@@ -201,14 +206,14 @@ button:focus-visible {
 #modal-zodiac-icon {
   z-index: 2;
   width: 50%;
-  top: 0;
+  top: 20px;
 }
 
 #modal-zodiac-bottom {
   z-index: 1;
   width: 106%;
   position: absolute;
-  bottom: -10px;
+  bottom: 0;
 }
 
 @media (prefers-color-scheme: light) {

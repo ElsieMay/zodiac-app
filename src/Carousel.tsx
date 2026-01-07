@@ -72,6 +72,7 @@ function CarouselSegment({
   itemName,
   segAngle,
   radius,
+  mode,
 }: {
   index: number;
   angle: number;
@@ -80,6 +81,7 @@ function CarouselSegment({
   itemName: string;
   segAngle: number;
   radius: number;
+  mode: "zodiac" | "species";
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -99,18 +101,12 @@ function CarouselSegment({
   }, [radius, segAngle]);
 
   const textAngle = angle + segAngle / 2;
-  const lookAtTarget = new THREE.Vector3(
-    Math.sin(textAngle) * radius * 2,
+  const textPosition = new THREE.Vector3(
+    Math.sin(textAngle) * radius,
     CONFIG.textYOffset,
-    Math.cos(textAngle) * radius * 2
+    Math.cos(textAngle) * radius
   );
-
-  const hasSpace = itemName.includes(" ");
-  const textLines = hasSpace ? itemName.split(" ") : [itemName];
-  const lineHeight = 0.1;
-  const startY = hasSpace
-    ? CONFIG.textYOffset + lineHeight / 2
-    : CONFIG.textYOffset;
+  const textRotation = new THREE.Euler(0, textAngle, 0);
 
   return (
     <>
@@ -132,32 +128,30 @@ function CarouselSegment({
           transparent
         />
       </mesh>
-      {textLines.map((line, idx) => (
-        <Text3D
-          key={idx}
-          font="/fonts/Cormorant_Unicase_Regular.json"
-          size={0.08}
-          height={0.01}
-          curveSegments={12}
-          bevelEnabled
-          bevelThickness={0.002}
-          bevelSize={0.001}
-          bevelSegments={5}
-          position={[
-            Math.sin(textAngle) * radius,
-            startY - idx * lineHeight,
-            Math.cos(textAngle) * radius,
-          ]}
-          onUpdate={(self) => self.lookAt(lookAtTarget)}
-        >
-          {line}
-          <meshStandardMaterial
-            color={0xe9d491}
-            metalness={0.8}
-            roughness={0.5}
-          />
-        </Text3D>
-      ))}
+      <Text3D
+        font="/fonts/Cormorant_Unicase_Light_Regular.json"
+        size={0.08}
+        height={0.01}
+        curveSegments={12}
+        bevelEnabled
+        bevelThickness={0.002}
+        bevelSize={0.001}
+        bevelSegments={5}
+        position={textPosition}
+        rotation={textRotation}
+        onUpdate={(self) => {
+          self.geometry.center();
+        }}
+      >
+        {mode == "zodiac"
+          ? ZODIAC_SIGNS[index]
+          : AWAKENED_ORDERS_SPECIES[index]}
+        <meshStandardMaterial
+          color={0xe9d491}
+          metalness={0.8}
+          roughness={0.5}
+        />
+      </Text3D>
     </>
   );
 }
@@ -176,8 +170,6 @@ function CarouselGroup({
 }) {
   const groupRef = useRef<THREE.Group>(null);
   const spinSpeed = useRef(0);
-
-  // Calculate dimensions dynamically based on items array length
   const len = items.length * CONFIG.spacing;
   const radius = len / (Math.PI * 2);
   const segAngle = (Math.PI * 2) / len / CONFIG.spacing;
@@ -220,6 +212,7 @@ function CarouselGroup({
             itemName={items[i]}
             segAngle={segAngle}
             radius={radius}
+            mode={mode}
           />
         );
       })}
