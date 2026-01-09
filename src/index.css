@@ -263,3 +263,74 @@ button:focus-visible {
 .zodiac-name {
   margin-top: 10rem;
 }
+
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4000;
+}
+.dropdown-trigger:focus {
+  outline: none;
+}
+
+.dropdown-content {
+  overflow: hidden;
+  background-color: #080048;
+  border-radius: 12px;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  z-index: 50000;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.dropdown-viewport {
+  padding: 5px;
+}
+
+.dropdown-item {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 35px 0 25px;
+  position: relative;
+  user-select: none;
+}
+.dropdown-item[data-disabled] {
+  pointer-events: none;
+}
+.dropdown-item[data-highlighted] {
+  outline: none;
+  background-color: #860808;
+  color: #535bf2;
+}
+
+.dropdown-label {
+  padding: 0 25px;
+  line-height: 25px;
+}
+
+.dropdown-separator {
+  height: 1px;
+  margin: 5px;
+}
+
+.dropdown-indicator {
+  position: absolute;
+  left: 0;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  cursor: default;
+}

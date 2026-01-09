@@ -14,6 +14,7 @@ import ReactMarkdown from "react-markdown";
 import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "./helpers/config";
 import Modal from "./Modal";
 import Button from "./Button";
+import Dropdown from "./Dropdown";
 
 const CONFIG = {
   cylinderHeight: 0.7,
@@ -233,6 +234,11 @@ function Scene({
   mode: "zodiac" | "species";
 }) {
   const fixedAngle = Math.PI / 2 - (12 * Math.PI) / 200;
+
+  useFrame(({ camera }) => {
+    const tar = mode === "zodiac" ? 16 : 18;
+    camera.position.z += (tar - camera.position.z) * 0.05;
+  });
   return (
     <>
       <ambientLight intensity={1} />
@@ -265,6 +271,7 @@ function Carousel() {
     symbol: "",
     class: "",
     classDescription: "",
+    skills: "",
   });
 
   const currentItems =
@@ -307,6 +314,17 @@ function Carousel() {
             }
             descContent = descLines.join("\n\n");
           }
+          const skillsIdx = lines.findIndex(
+            (line) => line.trim() === "### Skill Choices"
+          );
+          let skills = "";
+          if (skillsIdx !== -1) {
+            const skillLine = lines[skillsIdx + 1];
+            const match = skillLine.match(/\*\*Choose \d+ from:\*\* (.+)/);
+            if (match) {
+              skills = match[1];
+            }
+          }
           const classDesc = [descriptor, descContent]
             .filter(Boolean)
             .join("\n\n");
@@ -315,6 +333,7 @@ function Carousel() {
             symbol: nameMatch?.[2] || "",
             class: classMatch?.[1] || "",
             classDescription: classDesc,
+            skills: skills,
           });
         })
         .catch(() => {
@@ -323,17 +342,21 @@ function Carousel() {
             symbol: "",
             class: "",
             classDescription: "",
+            skills: "",
           });
         });
     }
   }, [selectedSign]);
 
   const selected = selectedSign || "";
+  const skillsArray = zodiacContent.skills
+    ? zodiacContent.skills.split(", ")
+    : [];
   return (
     <>
       <div className="carousel" style={{ width: "100vw", height: "100vh" }}>
         <Canvas
-          camera={{ position: [0, 10, 16], fov: 12 }}
+          camera={{ position: [0, 7, 16], fov: 12 }}
           gl={{
             antialias: true,
             alpha: true,
@@ -382,6 +405,9 @@ function Carousel() {
             colour="white"
           />
         </div>
+        {skillsArray.length > 0 && (
+          <Dropdown title="Choose 2 Skills" items={skillsArray} />
+        )}
       </Modal>
     </>
   );
