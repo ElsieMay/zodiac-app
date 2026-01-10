@@ -234,11 +234,6 @@ function Scene({
   mode: "zodiac" | "species";
 }) {
   const fixedAngle = Math.PI / 2 - (12 * Math.PI) / 200;
-
-  useFrame(({ camera }) => {
-    const tar = mode === "zodiac" ? 16 : 18;
-    camera.position.z += (tar - camera.position.z) * 0.05;
-  });
   return (
     <>
       <ambientLight intensity={1} />
