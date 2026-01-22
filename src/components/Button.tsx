@@ -8,9 +8,11 @@ interface ButtonProps {
 function Button({ onPress, text, bgColour, colour }: ButtonProps) {
   return (
     <button
+      type="button"
       className="home-button"
       onClick={onPress}
-      style={{ backgroundColor: `${bgColour}`, color: `${colour}` }}
+      data-bg-colour={bgColour}
+      data-text-colour={colour}
     >
       {text}
     </button>

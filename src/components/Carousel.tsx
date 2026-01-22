@@ -15,6 +15,7 @@ import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "../constants/config";
 import Modal from "./Modal";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
+import { ZODIAC_WEAPONS } from "../../public/content/armoury_options";
 
 const CONFIG = {
   cylinderHeight: 0.7,
@@ -267,6 +268,8 @@ function Carousel() {
     class: "",
     classDescription: "",
     skills: "",
+    weaponMastery: "",
+    choicesLength: 0,
   });
 
   const currentItems =
@@ -288,6 +291,7 @@ function Carousel() {
     if (selectedSign) {
       fetch(`/content/${selectedSign.toLowerCase()}.md`)
         .then((res) => res.text())
+        //TODO: refactor when pulled from backend
         .then((text) => {
           const lines = text.split("\n");
           const firstLine = lines[0];
@@ -320,6 +324,12 @@ function Carousel() {
               skills = match[1];
             }
           }
+          const weaponConfig = ZODIAC_WEAPONS[selectedSign];
+          const weaponArray = weaponConfig
+            ? weaponConfig.availableWeapons.map(
+                (w) => `${w.name} (${w.property})`,
+              )
+            : [];
           const classDesc = [descriptor, descContent]
             .filter(Boolean)
             .join("\n\n");
@@ -329,6 +339,8 @@ function Carousel() {
             class: classMatch?.[1] || "",
             classDescription: classDesc,
             skills: skills,
+            weaponMastery: weaponArray.join(", "),
+            choicesLength: weaponConfig.slots,
           });
         })
         .catch(() => {
@@ -338,6 +350,8 @@ function Carousel() {
             class: "",
             classDescription: "",
             skills: "",
+            weaponMastery: "",
+            choicesLength: 0,
           });
         });
     }
@@ -347,6 +361,10 @@ function Carousel() {
   const skillsArray = zodiacContent.skills
     ? zodiacContent.skills.split(", ")
     : [];
+  const masteryArray = zodiacContent.weaponMastery
+    ? zodiacContent.weaponMastery.split(", ")
+    : [];
+  const slotCount = zodiacContent.choicesLength;
   return (
     <>
       <div className="carousel">
@@ -395,11 +413,18 @@ function Carousel() {
         <div className="class-description">
           <ReactMarkdown>{zodiacContent.classDescription}</ReactMarkdown>
         </div>
-        <img
-          src="/images/lg.png"
-          id="modal-zodiac-bottom"
-          alt="Modal decorative bottom"
-        />
+        {skillsArray.length > 0 && (
+          <>
+            <h3>Choose 2 Skills </h3>
+            <Dropdown items={skillsArray} selectionCount={2} />
+          </>
+        )}
+        {masteryArray.length > 0 && (
+          <>
+            <h3>Choose Weapon Mastery</h3>
+            <Dropdown items={masteryArray} selectionCount={slotCount} />
+          </>
+        )}
         <div className="modal-button">
           <Button
             onPress={handleModeTransition}
@@ -408,9 +433,11 @@ function Carousel() {
             colour="white"
           />
         </div>
-        {skillsArray.length > 0 && (
-          <Dropdown title="Choose 2 Skills" items={skillsArray} />
-        )}
+        <img
+          src="/images/lg.png"
+          id="modal-zodiac-bottom"
+          alt="Modal decorative bottom"
+        />
       </Modal>
     </>
   );

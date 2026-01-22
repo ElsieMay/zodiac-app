@@ -4,6 +4,8 @@ import Button from "./components/Button";
 import Carousel from "./components/Carousel";
 import Dice from "./components/Dice";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorMessage from "./components/error";
 
 function Home() {
   const navigation = useNavigate();
@@ -53,13 +55,13 @@ function Solaria() {
 
 function App() {
   return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorMessage}>
       <Background />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/solaria-map" element={<Solaria />} />
       </Routes>
-    </>
+    </ErrorBoundary>
   );
 }
 

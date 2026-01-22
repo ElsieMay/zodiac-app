@@ -1,74 +1,56 @@
 import * as React from "react";
-import * as Select from "@radix-ui/react-select";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@radix-ui/react-icons";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { CheckboxIcon, ArrowDownIcon, BoxIcon } from "@radix-ui/react-icons";
 import "../index.css";
 
 interface DropdownProps {
-  title: string;
   items: string[];
+  selectionCount: number;
 }
 
-interface DropdownItemProps {
-  children: React.ReactNode;
-  className?: string;
-  value: string;
-  disabled?: boolean;
-}
+const Dropdown = ({ items, selectionCount }: DropdownProps) => {
+  const [selectedValue, setSelectedValue] = React.useState<number[]>([]);
 
-const Dropdown = ({ title, items }: DropdownProps) => (
-  <Select.Root>
-    <Select.Trigger className="dropdown-trigger" aria-label="skills">
-      <Select.Value placeholder="Choose Player Skills" />
-      <Select.Icon className="dropdown-icon">
-        <ChevronDownIcon />
-      </Select.Icon>
-    </Select.Trigger>
-    <Select.Portal>
-      <Select.Content className="dropdown-content">
-        <Select.ScrollUpButton className="dropdown-scroll-button">
-          <ChevronUpIcon />
-        </Select.ScrollUpButton>
-        <Select.Viewport className="dropdown-viewport">
-          <Select.Group>
-            <Select.Label className="dropdown-label">{title}</Select.Label>
-            {items.map((e) => (
-              <SelectItem value={e} key={e}>
-                {e}
-              </SelectItem>
-            ))}
-          </Select.Group>
-          {/* /* <Select.Separator className="dropdown-separator" /> */}
-        </Select.Viewport>
-        <Select.ScrollDownButton className="dropdown-scroll-button">
-          <ChevronDownIcon />
-        </Select.ScrollDownButton>
-      </Select.Content>
-    </Select.Portal>
-  </Select.Root>
-);
+  const toggleIndex = (idx: number) => {
+    setSelectedValue((prev) => {
+      if (prev.includes(idx)) {
+        return prev.filter((i) => i !== idx);
+      }
+      if (!selectionCount || prev.length < selectionCount) {
+        return [...prev, idx];
+      }
+      return prev;
+    });
+  };
 
-const SelectItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
-  ({ children, className, disabled, value }, forwardedRef) => {
-    return (
-      <Select.Item
-        className={`dropdown-item ${className || ""}`}
-        value={value}
-        disabled={disabled}
-        ref={forwardedRef}
-      >
-        <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className="dropdown-indicator">
-          <CheckIcon />
-        </Select.ItemIndicator>
-      </Select.Item>
-    );
-  },
-);
-
-SelectItem.displayName = "SelectItem";
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger className="dropdown-trigger">
+        <ArrowDownIcon />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content className="dropdown-content">
+          {items.map((item, index) => (
+            <DropdownMenu.CheckboxItem
+              key={index}
+              className="dropdown-item"
+              checked={selectedValue.includes(index)}
+              onSelect={(e) => {
+                e.preventDefault();
+                toggleIndex(index);
+              }}
+            >
+              <span className="dropdown-indicator">
+                {selectedValue.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
+              </span>
+              <span>{item}</span>
+            </DropdownMenu.CheckboxItem>
+          ))}
+          <DropdownMenu.Arrow className="dropdown-arrow" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+};
 
 export default Dropdown;

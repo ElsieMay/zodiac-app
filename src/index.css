@@ -45,7 +45,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
   margin-bottom: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(47, 43, 30, 0.15),
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.5),
+    inset 0 0 10px rgba(47, 43, 30, 0.15),
     0 10px 25px rgba(0, 0, 0, 0.7);
 }
 button:hover {
@@ -91,8 +93,10 @@ button:focus-visible {
   max-height: 80vh;
   height: fit-content;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(233, 212, 145, 0.5),
-    inset 0 0 20px rgba(233, 212, 145, 0.15), 0 10px 25px rgba(0, 0, 0, 0.7);
+  box-shadow:
+    0 0 30px rgba(233, 212, 145, 0.5),
+    inset 0 0 20px rgba(233, 212, 145, 0.15),
+    0 10px 25px rgba(0, 0, 0, 0.7);
   transform: perspective(1000px) rotateX(2deg);
   transform-style: preserve-3d;
   width: fit-content;
@@ -269,35 +273,37 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   z-index: 4000;
+  cursor: pointer;
 }
 .dropdown-trigger:focus {
   outline: none;
 }
 
 .dropdown-content {
-  overflow: hidden;
   background-color: #080048;
   border-radius: 12px;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+  box-shadow:
+    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   z-index: 50000;
   position: fixed;
   left: 50%;
   transform: translate(-50%);
-}
-
-.dropdown-viewport {
-  padding: 5px;
+  max-height: 120px;
+  width: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0;
 }
 
 .dropdown-item {
   line-height: 1;
   display: flex;
   align-items: center;
-  height: 25px;
-  padding: 0 35px 0 25px;
+  height: 28px;
+  padding: 0 20px 0 20px;
   position: relative;
-  user-select: none;
+  cursor: pointer;
 }
 .dropdown-item[data-disabled] {
   pointer-events: none;
@@ -305,32 +311,19 @@ button:focus-visible {
 .dropdown-item[data-highlighted] {
   outline: none;
   background-color: #860808;
-  color: #535bf2;
+  color: white;
 }
-
-.dropdown-label {
-  padding: 0 25px;
-  line-height: 25px;
-}
-
-.dropdown-separator {
-  height: 1px;
-  margin: 5px;
-}
-
 .dropdown-indicator {
-  position: absolute;
-  left: 0;
-  width: 25px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dropdown-scroll-button {
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 25px;
-  cursor: default;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin-right: 8px;
+}
+.dropdown-indicator:hover {
+  background-color: #535bf2;
+}
+.dropdown-item[data-state="checked"] .dropdown-indicator {
+  background-color: #535bf2;
 }
