@@ -11,7 +11,7 @@ import { OrbitControls, Text3D } from "@react-three/drei";
 import * as THREE from "three";
 import { TextureLoader } from "three";
 import ReactMarkdown from "react-markdown";
-import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "./helpers/config";
+import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "../constants/config";
 import Modal from "./Modal";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
@@ -96,7 +96,7 @@ function CarouselSegment({
       1,
       true,
       0,
-      segAngle
+      segAngle,
     );
     return geom;
   }, [radius, segAngle]);
@@ -105,7 +105,7 @@ function CarouselSegment({
   const textPosition = new THREE.Vector3(
     Math.sin(textAngle) * radius,
     CONFIG.textYOffset,
-    Math.cos(textAngle) * radius
+    Math.cos(textAngle) * radius,
   );
   const textRotation = new THREE.Euler(0, textAngle, 0);
 
@@ -190,8 +190,8 @@ function CarouselGroup({
     items.map((item) =>
       mode === "zodiac"
         ? `/zodiacs/icons/${item.toLowerCase()}.png`
-        : `/zodiacs/orders/${item}.png`
-    )
+        : `/zodiacs/orders/${item}.png`,
+    ),
   );
 
   textures.forEach((texture) => {
@@ -298,7 +298,7 @@ function Carousel() {
           const descriptor =
             descIndex !== -1 ? lines[descIndex].replace(/\*\*/g, "") : "";
           const descSectionIndex = lines.findIndex(
-            (line) => line.trim() === "## Description"
+            (line) => line.trim() === "## Description",
           );
           let descContent = "";
           if (descSectionIndex !== -1) {
@@ -310,7 +310,7 @@ function Carousel() {
             descContent = descLines.join("\n\n");
           }
           const skillsIdx = lines.findIndex(
-            (line) => line.trim() === "### Skill Choices"
+            (line) => line.trim() === "### Skill Choices",
           );
           let skills = "";
           if (skillsIdx !== -1) {
@@ -349,7 +349,7 @@ function Carousel() {
     : [];
   return (
     <>
-      <div className="carousel" style={{ width: "100vw", height: "100vh" }}>
+      <div className="carousel">
         <Canvas
           camera={{ position: [0, 7, 16], fov: 12 }}
           gl={{
@@ -383,7 +383,11 @@ function Carousel() {
           alt={selected}
           id="modal-zodiac-icon"
         />
-        <img src="/images/fg.png" id="modal-zodiac-edges" />
+        <img
+          src="/images/fg.png"
+          id="modal-zodiac-edges"
+          alt="Modal decorative edges"
+        />
         <h2 className="zodiac-name">
           {zodiacContent.symbol} {zodiacContent.name}
         </h2>
@@ -391,7 +395,11 @@ function Carousel() {
         <div className="class-description">
           <ReactMarkdown>{zodiacContent.classDescription}</ReactMarkdown>
         </div>
-        <img src="/images/lg.png" id="modal-zodiac-bottom" />
+        <img
+          src="/images/lg.png"
+          id="modal-zodiac-bottom"
+          alt="Modal decorative bottom"
+        />
         <div className="modal-button">
           <Button
             onPress={handleModeTransition}

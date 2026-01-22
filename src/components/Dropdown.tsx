@@ -5,7 +5,7 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
-import "./index.css";
+import "../index.css";
 
 interface DropdownProps {
   title: string;
@@ -66,7 +66,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, DropdownItemProps>(
         </Select.ItemIndicator>
       </Select.Item>
     );
-  }
+  },
 );
 
 SelectItem.displayName = "SelectItem";

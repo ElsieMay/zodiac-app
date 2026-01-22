@@ -1,9 +1,9 @@
 import "./App.css";
-import Button from "./Button";
-import Dice from "./Dice";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import Carousel from "./Carousel";
-import { Background } from "./Background";
+import { Background } from "./components/Background";
+import Button from "./components/Button";
+import Carousel from "./components/Carousel";
+import Dice from "./components/Dice";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 function Home() {
   const navigation = useNavigate();
