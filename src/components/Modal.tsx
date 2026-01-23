@@ -22,12 +22,7 @@ function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
           />
         )}
         <div className="modal-close">
-          <Button
-            onPress={() => onClose()}
-            text="Close"
-            bgColour="#530001"
-            colour="white"
-          />
+          <Button onPress={() => onClose()} text="Close" />
         </div>
         <div className="modal-body">{children}</div>
       </div>

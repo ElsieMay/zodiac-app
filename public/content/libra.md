@@ -46,7 +46,7 @@ Simple armoury, hand crossbows, longswords, rapiers, shortswords
 
 ### Skill Choices
 
-**Choose any 3 skills**
+**Choose 3 from:** Acrobatics, Animal Handling, Arcana, Athletics, Deception, History, Insight, Intimidation
 
 ### Starting Equipment
 

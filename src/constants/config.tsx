@@ -13,7 +13,7 @@ export const ZODIAC_SIGNS = [
   "Pisces",
 ];
 
-export const AWAKENED_ORDERS_SPECIES = [
+export const ORDER_SPECIES = [
   "Basilisk",
   "Eagle",
   "Centaur",
