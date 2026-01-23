@@ -1,20 +1,20 @@
-export interface Weapon {
+export interface Armoury {
   name: string;
   property: string;
   category: string;
 }
 
-export interface ZodiacWeaponConfig {
+export interface ZodiacArmouryConfig {
   slots: number;
   restriction: string;
-  availableWeapons: Weapon[];
+  availableArmoury: Armoury[];
 }
 
-export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
+export const ZODIAC_ARMOURY: Record<string, ZodiacArmouryConfig> = {
   Aries: {
     slots: 3,
     restriction: "Melee only",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Bloodsteel Greataxe", property: "Cleave", category: "melee" },
       { name: "Ram's Maul", property: "Topple", category: "melee" },
       { name: "Warhammer", property: "Push", category: "melee" },
@@ -28,7 +28,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Taurus: {
     slots: 2,
     restriction: "Heavy only",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Obsidian Maul", property: "Topple", category: "heavy" },
       { name: "Bull Greatclub", property: "Push", category: "heavy" },
       { name: "Greatsword", property: "Graze", category: "heavy" },
@@ -42,7 +42,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Gemini: {
     slots: 2,
     restriction: "Light/Finesse",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Twin Daggers", property: "Nick", category: "light" },
       { name: "Quickthrow Handaxes", property: "Vex", category: "light" },
       { name: "Shortsword", property: "Vex", category: "finesse" },
@@ -56,7 +56,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Cancer: {
     slots: 2,
     restriction: "Defensive",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Moonsilver Flail", property: "Sap", category: "defensive" },
       { name: "Shell Mace", property: "Sap", category: "defensive" },
       { name: "Warhammer", property: "Push", category: "defensive" },
@@ -69,8 +69,8 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   },
   Leo: {
     slots: 3,
-    restriction: "Any weapon",
-    availableWeapons: [
+    restriction: "Any Armoury",
+    availableArmoury: [
       { name: "Solar Greatsword", property: "Graze", category: "any" },
       { name: "Lion's Claw", property: "Graze", category: "any" },
       { name: "Longsword", property: "Sap", category: "any" },
@@ -84,7 +84,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Virgo: {
     slots: 2,
     restriction: "Finesse",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Precision Rapier", property: "Vex", category: "finesse" },
       { name: "Analyst's Dagger", property: "Nick", category: "finesse" },
       { name: "Shortsword", property: "Vex", category: "finesse" },
@@ -98,7 +98,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Libra: {
     slots: 2,
     restriction: "Polearms",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Balance Pike", property: "Push", category: "polearm" },
       { name: "Scale Halberd", property: "Push", category: "polearm" },
       { name: "Glaive", property: "Graze", category: "polearm" },
@@ -112,7 +112,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Scorpio: {
     slots: 2,
     restriction: "Slow/Vex",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Venom Whip", property: "Slow", category: "slow" },
       { name: "Stinger Rapier", property: "Vex", category: "vex" },
       { name: "Dart", property: "Vex", category: "vex" },
@@ -126,7 +126,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Sagittarius: {
     slots: 2,
     restriction: "Ranged",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Starfire Longbow", property: "Slow", category: "ranged" },
       { name: "Archer's Javelin", property: "Slow", category: "ranged" },
       { name: "Shortbow", property: "Vex", category: "ranged" },
@@ -140,7 +140,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Capricorn: {
     slots: 3,
     restriction: "Martial",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Mountain Warhammer", property: "Topple", category: "martial" },
       { name: "Goat Battleaxe", property: "Cleave", category: "martial" },
       { name: "Longsword", property: "Sap", category: "martial" },
@@ -154,7 +154,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Aquarius: {
     slots: 2,
     restriction: "Thrown",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Lightning Handaxe", property: "Vex", category: "thrown" },
       { name: "Storm Javelin", property: "Slow", category: "thrown" },
       { name: "Javelin", property: "Slow", category: "thrown" },
@@ -168,7 +168,7 @@ export const ZODIAC_WEAPONS: Record<string, ZodiacWeaponConfig> = {
   Pisces: {
     slots: 2,
     restriction: "Trident/Whip",
-    availableWeapons: [
+    availableArmoury: [
       { name: "Tidal Trident", property: "Push", category: "trident" },
       { name: "Wave Whip", property: "Slow", category: "whip" },
       { name: "Trident", property: "Topple", category: "trident" },

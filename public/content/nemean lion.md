@@ -18,9 +18,9 @@ Invincibility and Pride
 
 ## Description
 
-The Nemean Lion Warrior embodies absolute physical supremacy and legendary invulnerability. Named for the beast whose hide could not be pierced by any mortal weapon, these warriors possess nearly impenetrable defenses. Their golden fur deflects blades, their roar shatters morale, and their strength tears through armor as if it were parchment. They are living fortresses, walking symbols of unconquerable will.
+The Nemean Lion Warrior embodies absolute physical supremacy and legendary invulnerability. Named for the beast whose hide could not be pierced by any mortal armoury, these warriors possess nearly impenetrable defenses. Their golden fur deflects blades, their roar shatters morale, and their strength tears through armor as if it were parchment. They are living fortresses, walking symbols of unconquerable will.
 
-Power through invincibility, raw strength, and overwhelming presence. Normal weapons cannot harm them, forcing enemies to seek alternative strategies or face inevitable defeat.
+Power through invincibility, raw strength, and overwhelming presence. Normal armoury cannot harm them, forcing enemies to seek alternative strategies or face inevitable defeat.
 
 ## Traits
 

@@ -159,17 +159,6 @@ button:focus-visible {
   border: none;
 }
 
-.modal-button {
-  position: relative;
-  z-index: 3000;
-  margin-top: 1rem;
-}
-
-.modal-button:hover {
-  color: #080048;
-  border: none;
-}
-
 .modal-background {
   position: absolute;
   inset: 0;

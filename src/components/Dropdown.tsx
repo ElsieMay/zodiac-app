@@ -1,4 +1,4 @@
-import * as React from "react";
+// import * as React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { CheckboxIcon, ArrowDownIcon, BoxIcon } from "@radix-ui/react-icons";
 import "../index.css";
@@ -6,21 +6,38 @@ import "../index.css";
 interface DropdownProps {
   items: string[];
   selectionCount: number;
+  selectedItems: number[];
+  onSelectionChange: (selected: number[]) => void;
 }
 
-const Dropdown = ({ items, selectionCount }: DropdownProps) => {
-  const [selectedValue, setSelectedValue] = React.useState<number[]>([]);
+const Dropdown = ({
+  items,
+  selectionCount,
+  selectedItems,
+  onSelectionChange,
+}: DropdownProps) => {
+  // const [selectedValue, setSelectedValue] = React.useState<number[]>([]);
+
+  // const toggleIndex = (idx: number) => {
+  //   setSelectedValue((prev) => {
+  //     if (prev.includes(idx)) {
+  //       return prev.filter((i) => i !== idx);
+  //     }
+  //     if (!selectionCount || prev.length < selectionCount) {
+  //       return [...prev, idx];
+  //     }
+  //     return prev;
+  //   });
+  // };
 
   const toggleIndex = (idx: number) => {
-    setSelectedValue((prev) => {
-      if (prev.includes(idx)) {
-        return prev.filter((i) => i !== idx);
-      }
-      if (!selectionCount || prev.length < selectionCount) {
-        return [...prev, idx];
-      }
-      return prev;
-    });
+    const newSelection = selectedItems.includes(idx)
+      ? selectedItems.filter((i) => i !== idx)
+      : selectedItems.length < selectionCount
+        ? [...selectedItems, idx]
+        : selectedItems;
+
+    onSelectionChange(newSelection);
   };
 
   return (
@@ -34,14 +51,15 @@ const Dropdown = ({ items, selectionCount }: DropdownProps) => {
             <DropdownMenu.CheckboxItem
               key={index}
               className="dropdown-item"
-              checked={selectedValue.includes(index)}
+              checked={selectedItems.includes(index)}
               onSelect={(e) => {
                 e.preventDefault();
                 toggleIndex(index);
               }}
             >
               <span className="dropdown-indicator">
-                {selectedValue.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
+                {/* {selectedValue.includes(index) ? <CheckboxIcon /> : <BoxIcon />} */}
+                {selectedItems.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
               </span>
               <span>{item}</span>
             </DropdownMenu.CheckboxItem>

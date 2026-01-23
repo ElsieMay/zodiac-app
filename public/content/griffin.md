@@ -18,7 +18,7 @@ Honor and Justice
 
 ## Description
 
-The Griffin Sky Knight merges the king of beasts with the king of birds, embodying nobility, courage, and divine justice. These warriors are mounted champions who patrol the skies, defending the innocent and punishing the wicked. They combine aerial superiority with righteous fury, wielding blessed weapons and commanding the respect of all who witness their golden wings.
+The Griffin Sky Knight merges the king of beasts with the king of birds, embodying nobility, courage, and divine justice. These warriors are mounted champions who patrol the skies, defending the innocent and punishing the wicked. They combine aerial superiority with righteous fury, wielding blessed armoury and commanding the respect of all who witness their golden wings.
 
 Power through honor, aerial dominance, and divine mandate. They are the embodiment of chivalric virtue, champions who fight not for glory but for justice itself.
 

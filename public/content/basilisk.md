@@ -25,7 +25,7 @@ Power through stealth, toxins, and terror. Combat is surgical—one strike, one 
 ## Traits
 
 - Petrifying Gaze: Can temporarily paralyze foes with eye contact
-- Venom Strike: Weapons coated with deadly serpentine poison
+- Venom Strike: Armoury coated with deadly serpentine poison
 - Stone Skin: Temporary invulnerability, mimicking petrification
 
 ## Strengths

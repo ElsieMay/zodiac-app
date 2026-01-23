@@ -20,8 +20,6 @@ function Home() {
         <Button
           onPress={() => navigation("/solaria-map")}
           text={"Enter Solaria"}
-          bgColour="#080048"
-          colour="white"
         />
       </div>
     </>
@@ -42,12 +40,7 @@ function Solaria() {
       {/* <ImageGenerator onGenerate={generateTrigger} userPrompt={"a mystical fantasy character, intricate costume, vibrant colors"} />
 			<Button onPress={() => setGenerateTrigger((prev) => prev + 1)} text={"Generate Character"} /> */}
       <div className="button-overlay">
-        <Button
-          onPress={() => navigation(-1)}
-          text={"Go Back to Home"}
-          bgColour="#080048"
-          colour="white"
-        />
+        <Button onPress={() => navigation(-1)} text={"Go Back to Home"} />
       </div>
     </>
   );

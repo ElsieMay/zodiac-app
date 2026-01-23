@@ -6,13 +6,11 @@
 
 ## Dates
 
-
 ## Element
 
 ⚡ Air
 
 ## Ruling Planet
-
 
 ## Description
 
@@ -23,31 +21,40 @@ Power through innate, unpredictable magic. Magic surges from cosmic alignment, n
 ## Character Creation
 
 ### Hit Dice
+
 1d6 per sorcerer level
 
 ### Primary Ability
+
 Charisma
 
 ### Saving Throw Proficiencies
+
 Constitution, Charisma
 
 ### Armor Proficiencies
+
 None
 
-### Weapon Proficiencies
+### Armoury Proficiencies
+
 Daggers, darts, slings, quarterstaffs, light crossbows
 
 ### Skill Choices
+
 **Choose 2 from:** Arcana, Deception, Insight, Intimidation, Persuasion, Religion
 
 ### Starting Equipment
+
 **Choose (a) or (b) for each:**
-- (a) A light crossbow and 20 bolts OR (b) Any simple weapon
+
+- (a) A light crossbow and 20 bolts OR (b) Any simple
 - (a) A component pouch OR (b) An arcane focus
 - (a) A dungeoneer's pack OR (b) An explorer's pack
 - Two daggers
 
 ### Key Features
+
 - **Spellcasting:** Cast spells using Charisma, know spells (don't prepare)
 - **Sorcerous Origin:** Choose at level 1, determines magic source and abilities
 - **Font of Magic:** Convert spell slots to sorcery points and vice versa (level 2)
@@ -55,7 +62,9 @@ Daggers, darts, slings, quarterstaffs, light crossbows
 - **Sorcerous Restoration:** Regain sorcery points on short rest (level 20)
 
 ### Sorcerous Origins (Subclass at Level 1)
+
 **Choose one:**
+
 - **Draconic Bloodline:** Dragon ancestor, bonus HP, AC bonus, elemental affinity
 - **Wild Magic:** Chaotic surges, Tides of Chaos for advantage
 - **Storm Sorcery:** Fly when casting spells, lightning/thunder damage
@@ -65,9 +74,11 @@ Daggers, darts, slings, quarterstaffs, light crossbows
 - **Clockwork Soul:** Order magic, restore balance, aura of protection
 
 ### 💨 Elemental Affinity: Air
+
 **Recommended Origin:** Storm Sorcery - Fly when casting spells, wield lightning and thunder, embody the revolutionary tempest.
 
 **Alternative Origins:**
+
 - Aberrant Mind - Mind like the ever-changing wind
 - Wild Magic - Chaotic as a hurricane
 - Clockwork Soul - Ordered patterns like atmospheric pressure
@@ -79,6 +90,7 @@ Daggers, darts, slings, quarterstaffs, light crossbows
 **Recommended Metamagic:** Distant Spell (spells carried by wind), Empowered Spell (charged lightning)
 
 ### Metamagic Options (Choose 2 at level 3)
+
 - **Careful Spell:** Allies automatically succeed on saves against your spells
 - **Distant Spell:** Double spell range
 - **Empowered Spell:** Reroll damage dice
@@ -91,6 +103,7 @@ Daggers, darts, slings, quarterstaffs, light crossbows
 - **Seeking Spell:** Reroll missed attack spell
 
 ### Sorcery Points
+
 - Start with 2 at level 2
 - Equal to sorcerer level
 - Convert spell slots ↔ sorcery points
@@ -101,11 +114,13 @@ Daggers, darts, slings, quarterstaffs, light crossbows
 **Recommended Ability Scores:** CHA (highest), CON (high), DEX (moderate)
 
 **Suggested Equipment Packages:**
+
 - **Innovative Caster:** Quarterstaff (arcane focus), component pouch, Arcana and Insight
 - **Visionary Blaster:** Light crossbow, arcane focus, focus on damage spells
 - **Revolutionary Mind:** Daggers, dungeoneer's pack, Persuasion and Deception
 
 **Suggested Spell + Metamagic Combinations:**
+
 - **Blaster:** Fireball + Empowered Spell, Twinned Spell for single-target
 - **Controller:** Hold Person + Twinned Spell, Heightened Spell
 - **Subtle Caster:** Any spell + Subtle Spell for social infiltration
@@ -122,4 +137,3 @@ Lowest hit points, no armor proficiency, fewest spells known of all casters, sor
 ## Compatibility
 
 Flexible damage dealer and controller. Works well with protective frontliners. Synergizes with parties that need social face and magical firepower
-

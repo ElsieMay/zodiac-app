@@ -6,13 +6,11 @@
 
 ## Dates
 
-
 ## Element
 
 🌱 Earth
 
 ## Ruling Planet
-
 
 ## Description
 
@@ -23,32 +21,41 @@ Power through service, care, and divine order. Magic manifests as restoration, p
 ## Character Creation
 
 ### Hit Dice
+
 1d8 per cleric level
 
 ### Primary Ability
+
 Wisdom
 
 ### Saving Throw Proficiencies
+
 Wisdom, Charisma
 
 ### Armor Proficiencies
+
 Light armor, medium armor, shields
 
-### Weapon Proficiencies
-Simple weapons
+### Armoury Proficiencies
+
+Simple armoury
 
 ### Skill Choices
+
 **Choose 2 from:** History, Insight, Medicine, Persuasion, Religion
 
 ### Starting Equipment
+
 **Choose (a) or (b) for each:**
+
 - (a) A mace OR (b) A warhammer (if proficient)
 - (a) Scale mail OR (b) Leather armor OR (c) Chain mail (if proficient)
-- (a) A light crossbow and 20 bolts OR (b) Any simple weapon
+- (a) A light crossbow and 20 bolts OR (b) Any simple armoury
 - (a) A priest's pack OR (b) An explorer's pack
 - A shield and a holy symbol
 
 ### Key Features
+
 - **Spellcasting:** Prepare spells from entire cleric spell list using Wisdom
 - **Divine Domain:** Choose at level 1, grants bonus spells and abilities
 - **Channel Divinity:** Use divine power for special effects (1/rest, increases at higher levels)
@@ -56,7 +63,9 @@ Simple weapons
 - **Divine Intervention:** Ask deity for help (starting at level 10)
 
 ### Divine Domains (Subclass at Level 1)
+
 **Choose one:**
+
 - **Life Domain:** Supreme healer, maximize healing spells, heavy armor
 - **Light Domain:** Radiant damage, warding flare, light spells
 - **Knowledge Domain:** Extra languages and skills, read thoughts
@@ -72,9 +81,11 @@ Simple weapons
 - **Twilight Domain:** Darkvision, temporary HP aura, flying
 
 ### 🪨 Elemental Affinity: Earth
+
 **Recommended Domain:** Forge Domain - Master crafting and earth's minerals, create blessed items, embody practical perfection.
 
 **Alternative Domains:**
+
 - Life Domain - Grounded, nurturing earth mother
 - Nature Domain - Earth's natural cycles and growth
 - Order Domain - Structured, methodical earth
@@ -84,7 +95,9 @@ Simple weapons
 **Recommended Spells:** Ceremony, Enhance Ability, Create Food and Water, Stone Shape, Wall of Stone
 
 ### Channel Divinity Options
+
 Varies by domain. Common examples:
+
 - **Turn Undead:** Frighten undead creatures within 30 feet
 - **Preserve Life (Life):** Heal multiple creatures
 - **Destructive Wrath (Tempest):** Maximize lightning/thunder damage
@@ -94,6 +107,7 @@ Varies by domain. Common examples:
 **Recommended Ability Scores:** WIS (highest), CON (high), STR or DEX (moderate)
 
 **Suggested Equipment Packages:**
+
 - **Pure Healer:** Mace + shield, scale mail, Medicine and Insight, Life Domain
 - **Analytical Priest:** Light crossbow, leather armor, Religion and History, Knowledge Domain
 - **Perfectionist Guardian:** Warhammer + shield, chain mail, Medicine and Religion, Forge or Order Domain
@@ -109,4 +123,3 @@ Dependent on Wisdom for effectiveness, medium HP pool, domains lock in playstyle
 ## Compatibility
 
 Essential for most parties as primary healer. Can also tank (War/Forge), damage (Light/Tempest), or support (Peace/Order). Works with everyone
-

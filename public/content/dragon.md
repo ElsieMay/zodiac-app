@@ -18,14 +18,14 @@ Magic and Dominion
 
 ## Description
 
-The Dragon Sorcerer embodies the ultimate magical power, channeling the essence of the most legendary creatures in all mythology. Dragons command all elements, possess devastating breath weapons, and radiate an aura of primordial terror. These sorcerers can partially transform, gaining scales, wings, and claws, becoming living weapons of mass destruction.
+The Dragon Sorcerer embodies the ultimate magical power, channeling the essence of the most legendary creatures in all mythology. Dragons command all elements, possess devastating breath armoury, and radiate an aura of primordial terror. These sorcerers can partially transform, gaining scales, wings, and claws, becoming living armoury of mass destruction.
 
 Power through raw magical supremacy and ancient knowledge. They are the apex of arcane might, beings who bend reality through sheer force of will and draconic heritage.
 
 ## Traits
 
 - Draconic Bloodline: Access to all elemental magic
-- Breath Weapon: Devastating area-of-effect attacks
+- Breath Armoury: Devastating area-of-effect attacks
 - Frightful Presence: Enemies suffer fear and reduced effectiveness
 
 ## Strengths

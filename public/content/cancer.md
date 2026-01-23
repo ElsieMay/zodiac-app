@@ -6,13 +6,11 @@
 
 ## Dates
 
-
 ## Element
 
 🌊 Water
 
 ## Ruling Planet
-
 
 ## Description
 
@@ -23,40 +21,52 @@ Power through emotional bonds and nature. Magic is protective, adaptive, and dee
 ## Character Creation
 
 ### Hit Dice
+
 1d8 per druid level
 
 ### Primary Ability
+
 Wisdom
 
 ### Saving Throw Proficiencies
+
 Intelligence, Wisdom
 
 ### Armor Proficiencies
+
 Light armor, medium armor, shields (druids will not wear metal armor)
 
-### Weapon Proficiencies
+### Armoury Proficiencies
+
 Clubs, daggers, darts, javelins, maces, quarterstaffs, scimitars, sickles, slings, spears
 
 ### Tool Proficiencies
+
 Herbalism kit
 
 ### Skill Choices
+
 **Choose 2 from:** Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, Survival
 
 ### Starting Equipment
+
 **Choose (a) or (b) for each:**
-- (a) A wooden shield OR (b) Any simple weapon
-- (a) A scimitar OR (b) Any simple melee weapon
+
+- (a) A wooden shield OR (b) Any simple armoury
+- (a) A scimitar OR (b) Any simple melee armoury
 - Leather armor, an explorer's pack, and a druidic focus
 
 ### Key Features
+
 - **Spellcasting:** Prepare spells from the druid spell list using Wisdom
 - **Druidic:** Know the secret language of druids
 - **Wild Shape:** Transform into beasts (starting at level 2, 2 uses per short rest)
 - **Timeless Body:** Age slowly and don't need food or water
 
 ### Druid Circles (Subclass at Level 2)
+
 **Choose one:**
+
 - **Circle of the Land:** Bonus spells based on terrain, natural recovery of spell slots
 - **Circle of the Moon:** Enhanced Wild Shape into powerful combat forms
 - **Circle of Dreams:** Healing and protective fey magic
@@ -66,9 +76,11 @@ Herbalism kit
 - **Circle of Wildfire:** Fire spirit companion, destructive and healing flames
 
 ### 💧 Elemental Affinity: Water
+
 **Recommended Circle:** Circle of the Land (Coast or Swamp) - Channel water's nurturing and protective powers, flow like the tides.
 
 **Alternative Circles:**
+
 - Circle of Dreams - Healing waters and emotional depths
 - Circle of the Moon - Adapt and transform like water
 - Circle of the Shepherd - Protect like the ocean protects its creatures
@@ -80,6 +92,7 @@ Herbalism kit
 **Recommended Wild Shapes:** Crab, Reef Shark, Giant Octopus, Crocodile
 
 ### Wild Shape Options (Level 2)
+
 **CR 1/4 beasts, no flying/swimming speed initially**
 
 Common choices: Wolf, Giant Badger, Panther, Riding Horse
@@ -89,6 +102,7 @@ Common choices: Wolf, Giant Badger, Panther, Riding Horse
 **Recommended Ability Scores:** WIS (highest), CON (high), DEX (moderate)
 
 **Suggested Equipment Packages:**
+
 - **Lunar Protector:** Shield, club, scimitar for backup
 - **Nature's Guardian:** Quarterstaff (can use as druidic focus), no shield for two-handed
 - **Shell Bearer:** Shield, sickle, heavy emphasis on defense
@@ -104,4 +118,3 @@ No metal armor restriction, Wild Shape limited by CR early on, concentration-dep
 ## Compatibility
 
 Extremely flexible - can heal, tank, control, or damage. Works well with any party composition. Essential for nature-based campaigns
-

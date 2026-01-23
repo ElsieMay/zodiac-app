@@ -18,7 +18,7 @@ Oceans and Unknowable Depths
 
 ## Description
 
-The Kraken Deep Mage channels the terrifying power of the ocean's greatest monster. These beings command crushing pressures, drowning mists, and tentacles that drag enemies into watery graves. Masters of aquatic combat and weather manipulation, they can summon storms, create whirlpools, and instill the primal fear of the deep. On land, they wield water as a weapon, reshaping the battlefield into their domain.
+The Kraken Deep Mage channels the terrifying power of the ocean's greatest monster. These beings command crushing pressures, drowning mists, and tentacles that drag enemies into watery graves. Masters of aquatic combat and weather manipulation, they can summon storms, create whirlpools, and instill the primal fear of the deep. On land, they wield water as a armoury, reshaping the battlefield into their domain.
 
 Power through overwhelming force and environmental control. They are the ocean's wrath given form, dragging civilization back into the depths from which it emerged.
 

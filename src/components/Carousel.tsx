@@ -15,7 +15,7 @@ import { ZODIAC_SIGNS, AWAKENED_ORDERS_SPECIES } from "../constants/config";
 import Modal from "./Modal";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
-import { ZODIAC_WEAPONS } from "../../public/content/armoury_options";
+import { ZODIAC_ARMOURY } from "../../public/content/armoury_options";
 
 const CONFIG = {
   cylinderHeight: 0.7,
@@ -262,13 +262,15 @@ function Carousel() {
   const [mode, setMode] = useState<"zodiac" | "species">("zodiac");
   const [isSpinning, setIsSpinning] = useState(false);
   const [selectedSign, setSelectedSign] = useState<string | null>(null);
+  const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
+  const [selectedArmoury, setSelectedArmoury] = useState<number[]>([]);
   const [zodiacContent, setZodiacContent] = useState({
     name: "",
     symbol: "",
     class: "",
     classDescription: "",
     skills: "",
-    weaponMastery: "",
+    armouryMastery: "",
     choicesLength: 0,
   });
 
@@ -324,9 +326,9 @@ function Carousel() {
               skills = match[1];
             }
           }
-          const weaponConfig = ZODIAC_WEAPONS[selectedSign];
-          const weaponArray = weaponConfig
-            ? weaponConfig.availableWeapons.map(
+          const armouryConfig = ZODIAC_ARMOURY[selectedSign];
+          const armouryArray = armouryConfig
+            ? armouryConfig.availableArmoury.map(
                 (w) => `${w.name} (${w.property})`,
               )
             : [];
@@ -339,8 +341,8 @@ function Carousel() {
             class: classMatch?.[1] || "",
             classDescription: classDesc,
             skills: skills,
-            weaponMastery: weaponArray.join(", "),
-            choicesLength: weaponConfig.slots,
+            armouryMastery: armouryArray.join(", "),
+            choicesLength: armouryConfig?.slots || 0,
           });
         })
         .catch(() => {
@@ -350,7 +352,7 @@ function Carousel() {
             class: "",
             classDescription: "",
             skills: "",
-            weaponMastery: "",
+            armouryMastery: "",
             choicesLength: 0,
           });
         });
@@ -361,10 +363,16 @@ function Carousel() {
   const skillsArray = zodiacContent.skills
     ? zodiacContent.skills.split(", ")
     : [];
-  const masteryArray = zodiacContent.weaponMastery
-    ? zodiacContent.weaponMastery.split(", ")
+  const masteryArray = zodiacContent.armouryMastery
+    ? zodiacContent.armouryMastery.split(", ")
     : [];
   const slotCount = zodiacContent.choicesLength;
+
+  const requiredSkillsCount = skillsArray.length > 0 ? 2 : 0;
+  const requiredArmourysCount = slotCount;
+  const allSelectionsComplete =
+    selectedSkills.length === requiredSkillsCount &&
+    selectedArmoury.length === requiredArmourysCount;
   return (
     <>
       <div className="carousel">
@@ -416,21 +424,29 @@ function Carousel() {
         {skillsArray.length > 0 && (
           <>
             <h3>Choose 2 Skills </h3>
-            <Dropdown items={skillsArray} selectionCount={2} />
+            <Dropdown
+              items={skillsArray}
+              selectionCount={2}
+              selectedItems={selectedSkills}
+              onSelectionChange={setSelectedSkills}
+            />
           </>
         )}
         {masteryArray.length > 0 && (
           <>
-            <h3>Choose Weapon Mastery</h3>
-            <Dropdown items={masteryArray} selectionCount={slotCount} />
+            <h3>Choose Armoury Mastery</h3>
+            <Dropdown
+              items={masteryArray}
+              selectionCount={slotCount}
+              selectedItems={selectedArmoury}
+              onSelectionChange={setSelectedArmoury}
+            />
           </>
         )}
         <div className="modal-button">
           <Button
-            onPress={handleModeTransition}
-            text={`Awaken as ${selected}`}
-            bgColour="#530001"
-            colour="white"
+            onPress={allSelectionsComplete ? handleModeTransition : () => {}}
+            text={allSelectionsComplete ? `Awaken as ${selected}` : `Testing`}
           />
         </div>
         <img

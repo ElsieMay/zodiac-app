@@ -6,13 +6,11 @@
 
 ## Dates
 
-
 ## Element
 
 🌙 Water
 
 ## Ruling Planet
-
 
 ## Description
 
@@ -23,33 +21,43 @@ Power through inner balance and spiritual awareness. Combat resembles water—fl
 ## Character Creation
 
 ### Hit Dice
+
 1d8 per monk level
 
 ### Primary Ability
+
 Dexterity and Wisdom
 
 ### Saving Throw Proficiencies
+
 Strength, Dexterity
 
 ### Armor Proficiencies
+
 None
 
-### Weapon Proficiencies
-Simple weapons, shortswords
+### Armoury Proficiencies
+
+Simple armoury, shortswords
 
 ### Tool Proficiencies
+
 **Choose one type of artisan's tools or one musical instrument**
 
 ### Skill Choices
+
 **Choose 2 from:** Acrobatics, Athletics, History, Insight, Religion, Stealth
 
 ### Starting Equipment
+
 **Choose (a) or (b) for each:**
-- (a) A shortsword OR (b) Any simple weapon
+
+- (a) A shortsword OR (b) Any simple armoury
 - (a) A dungeoneer's pack OR (b) An explorer's pack
 - 10 darts
 
 ### Key Features
+
 - **Unarmored Defense:** AC = 10 + DEX modifier + WIS modifier when not wearing armor/shield
 - **Martial Arts:** Use DEX for unarmed strikes, deal 1d4+ damage (increases with level), bonus action unarmed strike
 - **Ki:** Spend ki points for special abilities (level 2, points = monk level)
@@ -61,21 +69,25 @@ Simple weapons, shortswords
 - **Evasion:** Take no damage on successful DEX saves (level 7)
 
 ### Monastic Traditions (Subclass at Level 3)
+
 **Choose one:**
+
 - **Way of the Open Hand:** Master of unarmed combat, devastating flurry strikes
 - **Way of Shadow:** Ninja-style stealth, teleport through shadows
 - **Way of the Four Elements:** Cast elemental spells using ki
 - **Way of the Long Death:** Gain temp HP from kills, resist death
 - **Way of the Sun Soul:** Radiant damage, ranged ki blasts
 - **Way of the Drunken Master:** Unpredictable movement, seem intoxicated
-- **Way of the Kensei:** Master weapons as extensions of body
+- **Way of the Kensei:** Master armoury as extensions of body
 - **Way of Mercy:** Heal or harm with touch, manipulate life force
 - **Way of the Astral Self:** Manifest spectral arms and senses
 
 ### 💧 Elemental Affinity: Water
+
 **Recommended Tradition:** Way of Mercy - Channel healing and harm like water's dual nature, flow between compassion and judgment.
 
 **Alternative Traditions:**
+
 - Way of the Open Hand - Flow like water in combat
 - Way of the Four Elements (Water stance) - Master water bending
 - Way of the Astral Self - Spiritual depth like the ocean
@@ -87,12 +99,14 @@ Simple weapons, shortswords
 **Way of Four Elements - Water Spells:** Shape the Flowing River, Mist Stance, Ride the Wind (describe as water vapor)
 
 ### Ki Abilities
+
 - **Flurry of Blows:** Make 2 unarmed strikes as bonus action (1 ki)
 - **Patient Defense:** Take Dodge action as bonus action (1 ki)
 - **Step of the Wind:** Disengage or Dash as bonus action, double jump distance (1 ki)
 - Additional abilities unlock at higher levels
 
 ### Martial Arts Die Progression
+
 - Levels 1-4: 1d4
 - Levels 5-10: 1d6
 - Levels 11-16: 1d8
@@ -103,20 +117,23 @@ Simple weapons, shortswords
 **Recommended Ability Scores:** DEX (highest), WIS (high), CON (moderate)
 
 **Suggested Equipment Packages:**
+
 - **Flowing Mystic:** Quarterstaff, dungeoneer's pack, Insight and Religion
 - **Adaptive Fighter:** Shortsword, explorer's pack, Acrobatics and Stealth
 - **Spiritual Warrior:** Spear, dungeoneer's pack, Religion and History
 
 **Suggested Skill Selections:**
+
 - Mystic Path: Insight, Religion
 - Shadow Warrior: Stealth, Acrobatics
 - Wise Fighter: Insight, Athletics
 
 **Suggested Tradition + Playstyle:**
+
 - Open Hand: Pure martial artist, stunning strikes
 - Shadow: Stealth ninja, teleportation
 - Mercy: Support healer with damage options
-- Kensei: Weapon master, longsword monk
+- Kensei: Armoury master, longsword monk
 
 ## Strengths
 
@@ -129,4 +146,3 @@ MAD (multiple ability dependent - needs DEX, WIS, CON), ki points are limited re
 ## Compatibility
 
 Mobile striker who excels at hit-and-run. Works well with ranged allies and controllers. Needs support for saves other than DEX. Pairs with any party lacking mobility
-

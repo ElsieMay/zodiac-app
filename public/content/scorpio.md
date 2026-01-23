@@ -6,13 +6,11 @@
 
 ## Dates
 
-
 ## Element
 
 🦂 Water
 
 ## Ruling Planet
-
 
 ## Description
 
@@ -23,34 +21,44 @@ Power through secrecy, precision, and emotional depth. Magic-adjacent skills: po
 ## Character Creation
 
 ### Hit Dice
+
 1d8 per rogue level
 
 ### Primary Ability
+
 Dexterity
 
 ### Saving Throw Proficiencies
+
 Dexterity, Intelligence
 
 ### Armor Proficiencies
+
 Light armor
 
-### Weapon Proficiencies
-Simple weapons, hand crossbows, longswords, rapiers, shortswords
+### Armoury Proficiencies
+
+Simple armoury, hand crossbows, longswords, rapiers, shortswords
 
 ### Tool Proficiencies
+
 Thieves' tools
 
 ### Skill Choices
+
 **Choose 4 from:** Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, Stealth
 
 ### Starting Equipment
+
 **Choose (a) or (b) for each:**
+
 - (a) A rapier OR (b) A shortsword
 - (a) A shortbow and quiver of 20 arrows OR (b) A shortsword
 - (a) A burglar's pack OR (b) A dungeoneer's pack OR (c) An explorer's pack
 - Leather armor, two daggers, and thieves' tools
 
 ### Key Features
+
 - **Expertise:** Double proficiency bonus on 2 skills (level 1), 2 more at level 6
 - **Sneak Attack:** Deal extra damage (1d6 at level 1, increases with level) once per turn when you have advantage or an ally is nearby
 - **Thieves' Cant:** Secret language of rogues and criminals
@@ -59,7 +67,9 @@ Thieves' tools
 - **Evasion:** Take no damage on successful DEX saves (half on failed) (level 7)
 
 ### Roguish Archetypes (Subclass at Level 3)
+
 **Choose one:**
+
 - **Thief:** Fast Hands for bonus actions, supreme sneak, use magic items
 - **Assassin:** Deadly first strike, disguises, poison expertise
 - **Arcane Trickster:** Learn wizard spells, Mage Hand legerdemain
@@ -71,9 +81,11 @@ Thieves' tools
 - **Soulknife:** Psychic blades, telepathy, psionic powers
 
 ### 💧 Elemental Affinity: Water
+
 **Recommended Archetype:** Assassin (with poison focus) - Like water seeping into cracks, strike from the depths with deadly precision.
 
 **Alternative Archetypes:**
+
 - Phantom - Death flows like dark water
 - Soulknife - Emotions run deep like the ocean
 - Inquisitive - Dive deep to uncover secrets
@@ -85,7 +97,9 @@ Thieves' tools
 **Recommended Equipment:** Vials of water-based poisons, blue-tinted blades, dark cloak like deep water
 
 ### Expertise Choices
+
 **Popular combinations:**
+
 - Stealth + Sleight of Hand (classic rogue)
 - Perception + Investigation (scout/detective)
 - Deception + Persuasion (social infiltrator)
@@ -96,11 +110,13 @@ Thieves' tools
 **Recommended Ability Scores:** DEX (highest), INT or CHA (high), CON (moderate)
 
 **Suggested Equipment Packages:**
+
 - **Scorpion Sting:** Rapier, shortbow, burglar's pack, poison vials
 - **Shadow Infiltrator:** Dual shortswords, dungeoneer's pack, dark cloak
 - **Psychological Manipulator:** Rapier, disguise kit, focus on Deception and Insight
 
 **Suggested Skill Selections:**
+
 - Stealth Build: Stealth, Sleight of Hand, Perception, Acrobatics
 - Social Build: Deception, Persuasion, Insight, Investigation
 - Scout Build: Stealth, Perception, Survival, Investigation
@@ -116,4 +132,3 @@ Light armor only, requires positioning for Sneak Attack, lower HP pool, depends 
 ## Compatibility
 
 Essential for skill-heavy campaigns. Works best with party members who can provide advantage or flank. Handles locks, traps, stealth, and scouting
-

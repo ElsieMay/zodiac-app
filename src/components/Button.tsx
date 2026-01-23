@@ -1,19 +1,11 @@
 interface ButtonProps {
   onPress: () => void;
-  bgColour: string;
-  colour: string;
   text: string;
 }
 
-function Button({ onPress, text, bgColour, colour }: ButtonProps) {
+function Button({ onPress, text }: ButtonProps) {
   return (
-    <button
-      type="button"
-      className="home-button"
-      onClick={onPress}
-      data-bg-colour={bgColour}
-      data-text-colour={colour}
-    >
+    <button type="button" className="home-button" onClick={onPress}>
       {text}
     </button>
   );

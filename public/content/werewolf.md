@@ -36,7 +36,7 @@ Power through transformation, pack tactics, and primal instinct. They surrender 
 
 ## Weaknesses
 
-- Vulnerable to silver weapons
+- Vulnerable to silver armoury
 - Transformation dependency on moon phases
 - Struggle to control beast instincts
 
