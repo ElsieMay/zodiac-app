@@ -72,9 +72,9 @@ function Carousel() {
         sign={selectedSign || selectedOrder || ""}
         backgroundImage="/images/bg.png"
       >
-        {selectedSign && (
+        {(selectedSign || selectedOrder) && (
           <ZodiacModalContent
-            selectedSign={selectedSign}
+            selectedSign={selectedSign || undefined}
             mode={mode}
             selectedSkills={selectedSkills}
             selectedArmoury={selectedArmoury}
