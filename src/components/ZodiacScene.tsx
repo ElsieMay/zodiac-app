@@ -1,13 +1,7 @@
 import { OrbitControls } from "@react-three/drei";
 import { CarouselGroup } from "./CarouselGroup";
 import { CenterSceneGeometry } from "./CentreSceneGeometry";
-
-interface SceneProps {
-  onSegmentClick?: (sign: string) => void;
-  items: string[];
-  isSpinning: boolean;
-  mode: "zodiac" | "species";
-}
+import type { SceneProps } from "../types/component.types";
 
 export function ZodiacScene({
   onSegmentClick,

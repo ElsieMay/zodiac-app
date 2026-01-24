@@ -1,13 +1,5 @@
-import type { ReactNode } from "react";
+import type { ModalProps } from "../types/component.types";
 import Button from "./Button";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-  sign?: string;
-  backgroundImage?: string;
-}
 
 function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
   if (!isOpen) return null;

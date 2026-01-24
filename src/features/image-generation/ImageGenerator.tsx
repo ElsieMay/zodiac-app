@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import { ImageService, blobToDataURL } from "../../services/ImageService";
-
-interface ImageGeneratorProps {
-  onGenerate: number;
-  userPrompt: string;
-}
+import type { ImageGeneratorProps } from "../../types/component.types";
 
 export default function ImageGenerator({
   onGenerate,

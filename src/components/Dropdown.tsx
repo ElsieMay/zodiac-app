@@ -1,14 +1,7 @@
-// import * as React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { CheckboxIcon, ArrowDownIcon, BoxIcon } from "@radix-ui/react-icons";
 import "../index.css";
-
-interface DropdownProps {
-  items: string[];
-  selectionCount: number;
-  selectedItems: number[];
-  onSelectionChange: (selected: number[]) => void;
-}
+import type { DropdownProps } from "../types/component.types";
 
 const Dropdown = ({
   items,
@@ -16,20 +9,6 @@ const Dropdown = ({
   selectedItems,
   onSelectionChange,
 }: DropdownProps) => {
-  // const [selectedValue, setSelectedValue] = React.useState<number[]>([]);
-
-  // const toggleIndex = (idx: number) => {
-  //   setSelectedValue((prev) => {
-  //     if (prev.includes(idx)) {
-  //       return prev.filter((i) => i !== idx);
-  //     }
-  //     if (!selectionCount || prev.length < selectionCount) {
-  //       return [...prev, idx];
-  //     }
-  //     return prev;
-  //   });
-  // };
-
   const toggleIndex = (idx: number) => {
     const newSelection = selectedItems.includes(idx)
       ? selectedItems.filter((i) => i !== idx)
@@ -58,7 +37,6 @@ const Dropdown = ({
               }}
             >
               <span className="dropdown-indicator">
-                {/* {selectedValue.includes(index) ? <CheckboxIcon /> : <BoxIcon />} */}
                 {selectedItems.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
               </span>
               <span>{item}</span>

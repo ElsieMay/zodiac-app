@@ -3,17 +3,7 @@ import { Text3D } from "@react-three/drei";
 import * as THREE from "three";
 import { ZODIAC_SIGNS, ORDER_SPECIES } from "../constants/config";
 import { CAROUSEL_CONFIG } from "./Carousel";
-
-interface CarouselSegmentProps {
-  index: number;
-  angle: number;
-  texture: THREE.Texture;
-  onSegmentClick?: (sign: string) => void;
-  itemName: string;
-  segAngle: number;
-  radius: number;
-  mode: "zodiac" | "species";
-}
+import type { CarouselSegmentProps } from "../types/component.types";
 
 export function CarouselSegment({
   index,

@@ -1,6 +1,4 @@
-interface ImageGeneratorProps {
-  userPrompt?: string;
-}
+import type { ImageGeneratorProps } from "../types/component.types";
 
 export async function ImageService(
   options: ImageGeneratorProps,

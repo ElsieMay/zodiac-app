@@ -4,49 +4,10 @@ import { ZODIAC_SKILLS } from "../../public/content/skills_options";
 import { ORDERS } from "../../public/content/order_options";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
-
-interface ZodiacModalContentProps {
-  selectedSign?: string;
-  mode: "zodiac" | "species";
-  selectedSkills: number[];
-  selectedArmoury: number[];
-  selectedOrder?: string | null;
-  onSkillsChange: (skills: number[]) => void;
-  onArmouryChange: (armoury: number[]) => void;
-  onAwaken: () => void;
-}
-
-// Zodiac Data Types
-interface ZodiacDisplayData {
-  kind: "zodiac";
-  iconPath: string;
-  displayName: string;
-  symbol: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  skillsList: string[];
-  skillsCount: number;
-  armouryItems: string[];
-  armourySlots: number;
-  showArmoury: boolean;
-}
-
-// Species Data Types
-interface SpeciesDisplayData {
-  kind: "species";
-  iconPath: string;
-  displayName: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  size: string;
-  speed: string;
-  specialAbilities: string[];
-  languages: string[];
-}
-
-type DisplayData = ZodiacDisplayData | SpeciesDisplayData;
+import type {
+  ZodiacModalContentProps,
+  DisplayData,
+} from "../types/component.types";
 
 export function ZodiacModalContent({
   selectedSign,

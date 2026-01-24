@@ -1,21 +1,10 @@
 import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import type { SphereData } from "../types/component.types";
 
 function randomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
-}
-
-interface SphereData {
-  posY: number;
-  radius: number;
-  phase: number;
-  speed: number;
-  twinkleSpeed: number;
-  twinklePhase: number;
-  baseIntensity: number;
-  starColor: THREE.Color;
-  scale: number;
 }
 
 function BackgroundSphere({ data }: { data: SphereData }) {

@@ -4,13 +4,7 @@ import { TextureLoader } from "three";
 import * as THREE from "three";
 import { CAROUSEL_CONFIG } from "./Carousel";
 import { CarouselSegment } from "./CarouselSegment";
-
-interface CarouselGroupProps {
-  onSegmentClick?: (sign: string) => void;
-  items: string[];
-  isSpinning: boolean;
-  mode: "zodiac" | "species";
-}
+import type { CarouselGroupProps } from "../types/component.types";
 
 export function CarouselGroup({
   onSegmentClick,
