@@ -5,7 +5,7 @@ function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -171,7 +171,7 @@ function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
       scene.add(sphere);
     }
 
-    containerRef.current.append(renderer.domElement);
+    containerRef.current?.append(renderer.domElement);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
     function update() {
@@ -194,13 +194,15 @@ function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
 
     render();
 
+    render();
+
     return () => {
-      if (containerRef.current && renderer.domElement.parentNode) {
-        containerRef.current.removeChild(renderer.domElement);
+      if (container && renderer.domElement.parentNode) {
+        container.removeChild(renderer.domElement);
       }
       renderer.dispose();
     };
-  }, []);
+  }, [cameraPosition]);
 
   return (
     <div

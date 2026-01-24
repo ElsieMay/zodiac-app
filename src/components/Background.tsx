@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { SphereData } from "../types/component.types";
+import { calculateSpherePosition } from "../helpers";
 
 function randomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -29,27 +30,6 @@ function BackgroundSphere({ data }: { data: SphereData }) {
       />
     </mesh>
   );
-}
-
-function calculateSpherePosition(
-  t: number,
-  data: SphereData,
-  mesh: THREE.Mesh,
-) {
-  const a = data.speed * t + data.phase;
-  mesh.position
-    .set(Math.cos(a), 0, -Math.sin(a))
-    .multiplyScalar(data.radius)
-    .setY(data.posY);
-
-  const twinkle =
-    Math.sin(t * data.twinkleSpeed + data.twinklePhase) * 0.5 + 0.5;
-  const material = mesh.material as THREE.MeshStandardMaterial;
-  material.emissiveIntensity = data.baseIntensity * (twinkle * 0.4 + 0.2);
-
-  const scalePulse =
-    1 + Math.sin(t * data.twinkleSpeed * 2 + data.twinklePhase) * 0.1;
-  mesh.scale.setScalar(data.scale * scalePulse);
 }
 
 function BackgroundSpheres({ count = 340 }: { count?: number }) {

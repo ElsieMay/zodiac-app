@@ -331,6 +331,7 @@ const mockThree = {
   PointLight: vi.fn(),
   IcosahedronGeometry: MockIcosahedronGeometry,
   TorusGeometry: MockTorusGeometry,
+  ACESFilmicToneMapping: 0,
 };
 
 export default mockThree;
@@ -361,3 +362,4 @@ export const {
   IcosahedronGeometry,
   TorusGeometry,
 } = mockThree;
+export const ACESFilmicToneMapping = 0;

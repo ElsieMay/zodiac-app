@@ -7,6 +7,7 @@ import type {
   DropdownProps,
   ZodiacModalContentProps,
   SceneProps,
+  SphereData,
 } from "../../types";
 
 export const mockCarouselGroupProps: CarouselGroupProps = {
@@ -57,4 +58,30 @@ export const mockSceneProps: SceneProps = {
   items: ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo"],
   isSpinning: false,
   mode: "zodiac" as const,
+};
+
+export const mockMesh: THREE.Mesh = {
+  position: {
+    set: vi.fn().mockReturnThis(),
+    multiplyScalar: vi.fn().mockReturnThis(),
+    setY: vi.fn(),
+  },
+  material: {
+    emissiveIntensity: 0,
+  },
+  scale: {
+    setScalar: vi.fn(),
+  },
+} as unknown as THREE.Mesh;
+
+export const mockSphereData: SphereData = {
+  posY: 5,
+  radius: 7,
+  phase: 0,
+  speed: Math.PI / 2,
+  twinkleSpeed: 1,
+  twinklePhase: 0,
+  baseIntensity: 2,
+  starColor: new THREE.Color("#ffffff"),
+  scale: 1,
 };

@@ -23,11 +23,7 @@ function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
           />
         )}
         <div className="modal-close" data-testid="modal-close">
-          <Button
-            onPress={() => onClose()}
-            text="Close"
-            data-testid="modal-close-button"
-          />
+          <Button onPress={() => onClose()} text="Close" />
         </div>
         <div className="modal-body" data-testid="modal-body">
           {children}

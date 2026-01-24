@@ -3,6 +3,10 @@ import { describe, beforeEach, vi, it, expect } from "vitest";
 import { mockSceneProps } from "../__mocks__/sample";
 import { ZodiacScene } from "../ZodiacScene";
 
+vi.mock("../ZodiacModalContent", () => ({
+  ZodiacModalContent: () => <div data-testid="mock-zodiac-modal-content" />,
+}));
+
 describe("ZodiacScene", () => {
   beforeEach(() => {
     vi.clearAllMocks();

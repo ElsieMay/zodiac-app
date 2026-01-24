@@ -24,8 +24,6 @@ function Carousel() {
   const currentItems = mode === "zodiac" ? ZODIAC_SIGNS : ORDER_SPECIES;
 
   const handleModeTransition = useCallback(() => {
-    console.log("Transitioning mode...");
-    console.log("Current mode:", mode);
     setSelectedSign(null);
     setSelectedOrder(null);
     setIsSpinning(true);
