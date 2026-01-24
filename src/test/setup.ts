@@ -56,7 +56,6 @@ vi.mock("three", async () => {
         this.b = b;
       }
     },
-    TextureLoader: vi.fn(),
     MathUtils: {
       randFloat: (min: number, max: number) => (min + max) / 2,
     },
