@@ -33,7 +33,7 @@ function BackgroundSphere({ data }: { data: SphereData }) {
   });
 
   return (
-    <mesh ref={meshRef}>
+    <mesh ref={meshRef} data-testid="background-sphere">
       <sphereGeometry args={[1, 8, 8]} />
       <meshStandardMaterial
         color={data.starColor}
@@ -66,18 +66,19 @@ function BackgroundSpheres({ count = 340 }: { count?: number }) {
   });
 
   return (
-    <>
+    <group data-testid="background-spheres">
       {spheresData.map((data, i) => (
         <BackgroundSphere key={i} data={data} />
       ))}
-    </>
+    </group>
   );
 }
 
 export function Background() {
   return (
-    <div className="player-container">
+    <div className="player-container" data-testid="background-container">
       <Canvas
+        data-testid="background-canvas"
         camera={{ position: [0, 0, 3], fov: 60, near: 1, far: 2000 }}
         gl={{
           antialias: true,

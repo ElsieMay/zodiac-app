@@ -50,6 +50,7 @@ export function CarouselSegment({
         onPointerOut={() => setHovered(false)}
         onClick={() => onSegmentClick?.(itemName)}
         userData={{ segmentIndex: index, className: itemName }}
+        data-testid={`carousel-segment-${index}`}
       >
         <meshStandardMaterial
           side={THREE.DoubleSide}
@@ -74,6 +75,7 @@ export function CarouselSegment({
         onUpdate={(self) => {
           self.geometry.center();
         }}
+        data-testid={`carousel-text-${index}`}
       >
         {mode == "zodiac" ? ZODIAC_SIGNS[index] : ORDER_SPECIES[index]}
         <meshStandardMaterial

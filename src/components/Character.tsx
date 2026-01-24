@@ -1,5 +1,5 @@
 function Character() {
-  return <div>Character Component</div>;
+  return <div data-testid="character-component">Character Component</div>;
 }
 
 export default Character;

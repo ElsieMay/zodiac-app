@@ -21,11 +21,17 @@ const Dropdown = ({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger className="dropdown-trigger">
+      <DropdownMenu.Trigger
+        className="dropdown-trigger"
+        data-testid="dropdown-trigger"
+      >
         <ArrowDownIcon />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className="dropdown-content">
+        <DropdownMenu.Content
+          className="dropdown-content"
+          data-testid="dropdown-content"
+        >
           {items.map((item, index) => (
             <DropdownMenu.CheckboxItem
               key={index}
@@ -35,14 +41,21 @@ const Dropdown = ({
                 e.preventDefault();
                 toggleIndex(index);
               }}
+              data-testid={`dropdown-item-${index}`}
             >
-              <span className="dropdown-indicator">
+              <span
+                className="dropdown-indicator"
+                data-testid={`dropdown-indicator-${index}`}
+              >
                 {selectedItems.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
               </span>
-              <span>{item}</span>
+              <span data-testid={`dropdown-item-text-${index}`}>{item}</span>
             </DropdownMenu.CheckboxItem>
           ))}
-          <DropdownMenu.Arrow className="dropdown-arrow" />
+          <DropdownMenu.Arrow
+            className="dropdown-arrow"
+            data-testid="dropdown-arrow"
+          />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

@@ -24,7 +24,7 @@ export function CenterSceneGeometry() {
 
   return (
     <>
-      <mesh ref={icosahedronRef} scale={0.5}>
+      <mesh ref={icosahedronRef} scale={0.5} data-testid="center-icosahedron">
         <icosahedronGeometry args={[0.5]} />
         <meshPhongMaterial
           color={0x860808}
@@ -32,11 +32,11 @@ export function CenterSceneGeometry() {
           specular={0xaaaaaa}
         />
       </mesh>
-      <mesh ref={ringSmallRef}>
+      <mesh ref={ringSmallRef} data-testid="center-ring-small">
         <torusGeometry args={[0.6, 0.02, 16, 100]} />
         <meshStandardMaterial metalness={1} roughness={0.5} color={0xe9d491} />
       </mesh>
-      <mesh ref={ringLargeRef}>
+      <mesh ref={ringLargeRef} data-testid="center-ring-large">
         <torusGeometry args={[1.2, 0.01, 16, 100]} />
         <meshStandardMaterial metalness={1} roughness={0.5} color={0xe9d491} />
       </mesh>

@@ -40,8 +40,9 @@ function Carousel() {
 
   return (
     <>
-      <div className="carousel">
+      <div className="carousel" data-testid="carousel-container">
         <Canvas
+          data-testid="carousel-canvas"
           camera={{ position: [0, 7, 16], fov: 12 }}
           gl={{
             antialias: true,
@@ -51,6 +52,7 @@ function Carousel() {
         >
           <Suspense fallback={null}>
             <ZodiacScene
+              data-testid="zodiac-scene"
               onSegmentClick={
                 mode == "zodiac" ? setSelectedSign : setSelectedOrder
               }
@@ -62,6 +64,7 @@ function Carousel() {
         </Canvas>
       </div>
       <Modal
+        data-testid="carousel-modal"
         isOpen={!!selectedSign || !!selectedOrder}
         onClose={() => {
           setSelectedSign(null);
@@ -74,6 +77,7 @@ function Carousel() {
       >
         {(selectedSign || selectedOrder) && (
           <ZodiacModalContent
+            data-testid="zodiac-modal-content"
             selectedSign={selectedSign || undefined}
             mode={mode}
             selectedSkills={selectedSkills}

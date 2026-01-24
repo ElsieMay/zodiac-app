@@ -55,29 +55,36 @@ export function ZodiacModalContent({
         };
 
   return (
-    <div className="zodiac-modal-content">
+    <div className="zodiac-modal-content" data-testid="zodiac-modal-content">
       <img
         src={displayData.iconPath}
         alt={displayData.displayName}
         id="modal-zodiac-icon"
+        data-testid="modal-zodiac-icon"
       />
       <img
         src="/images/fg.png"
         id="modal-zodiac-edges"
         alt="Modal decorative edges"
+        data-testid="modal-zodiac-edges"
       />
 
-      <h2 className="zodiac-name">{displayData.title}</h2>
-      <h3>{displayData.subtitle}</h3>
+      <h2 className="zodiac-name" data-testid="zodiac-name">
+        {displayData.title}
+      </h2>
+      <h3 data-testid="zodiac-subtitle">{displayData.subtitle}</h3>
 
-      <div className="class-description">
+      <div className="class-description" data-testid="class-description">
         <ReactMarkdown>{displayData.description}</ReactMarkdown>
       </div>
 
       {displayData.kind === "zodiac" && (
         <>
-          <h3>Choose {displayData.skillsCount} Skills</h3>
+          <h3 data-testid="skills-heading">
+            Choose {displayData.skillsCount} Skills
+          </h3>
           <Dropdown
+            data-testid="skills-dropdown"
             items={displayData.skillsList}
             selectionCount={displayData.skillsCount}
             selectedItems={selectedSkills}
@@ -86,8 +93,9 @@ export function ZodiacModalContent({
 
           {displayData.showArmoury && (
             <>
-              <h3>Choose Armoury Mastery</h3>
+              <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>
               <Dropdown
+                data-testid="armoury-dropdown"
                 items={displayData.armouryItems}
                 selectionCount={displayData.armourySlots}
                 selectedItems={selectedArmoury}
@@ -100,20 +108,25 @@ export function ZodiacModalContent({
 
       {displayData.kind === "species" && (
         <>
-          <h3>Size: {displayData.size}</h3>
-          <h3>Speed: {displayData.speed}</h3>
-          <h3>Special Abilities:</h3>
-          <ul>
+          <h3 data-testid="species-size">Size: {displayData.size}</h3>
+          <h3 data-testid="species-speed">Speed: {displayData.speed}</h3>
+          <h3 data-testid="special-abilities-heading">Special Abilities:</h3>
+          <ul data-testid="special-abilities-list">
             {displayData.specialAbilities.map((ability, idx) => (
-              <li key={idx}>{ability}</li>
+              <li key={idx} data-testid={`special-ability-${idx}`}>
+                {ability}
+              </li>
             ))}
           </ul>
-          <h3>Languages: {displayData.languages.join(", ")}</h3>
+          <h3 data-testid="species-languages">
+            Languages: {displayData.languages.join(", ")}
+          </h3>
         </>
       )}
 
-      <div className="modal-button">
+      <div className="modal-button" data-testid="modal-button-container">
         <Button
+          data-testid="awaken-button"
           onPress={onAwaken}
           text={`Awaken as ${displayData.displayName}`}
         />
@@ -123,6 +136,7 @@ export function ZodiacModalContent({
         src="/images/lg.png"
         id="modal-zodiac-bottom"
         alt="Modal decorative bottom"
+        data-testid="modal-zodiac-bottom"
       />
     </div>
   );

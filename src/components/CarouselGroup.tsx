@@ -43,7 +43,7 @@ export function CarouselGroup({
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} data-testid="carousel-group">
       {items.map((_, i) => {
         const angle = ((Math.PI * 2) / items.length) * i;
         return (
