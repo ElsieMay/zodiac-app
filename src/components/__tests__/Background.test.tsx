@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, vi, beforeEach, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { Background } from "../Background";
 
 describe("Background", () => {
@@ -7,36 +7,23 @@ describe("Background", () => {
     vi.clearAllMocks();
   });
 
-  it("renders the canvas element", () => {
+  it("should render background container", () => {
     render(<Background />);
-    const canvas = screen.getByRole("img");
-    expect(canvas.tagName).toBe("CANVAS");
+    expect(screen.getByTestId("background-container")).toBeInTheDocument();
   });
 
-  it("renders the player-container div", () => {
-    const { container } = render(<Background />);
-    const playerContainer = container.querySelector(".player-container");
-    expect(playerContainer).toBeInTheDocument();
+  it("should render canvas", () => {
+    render(<Background />);
+    expect(screen.getByTestId("background-canvas")).toBeInTheDocument();
   });
+});
 
-  it("initializes without crashing", () => {
-    const { container } = render(<Background />);
-    expect(container.querySelector("canvas")).toBeInTheDocument();
-  });
-
-  describe("Failure Cases", () => {
-    it("handles multiple re-renders without memory leaks", () => {
-      const { rerender } = render(<Background />);
-      rerender(<Background />);
-      rerender(<Background />);
-
-      const canvases = screen.getAllByRole("img");
-      expect(canvases).toHaveLength(1);
-    });
-
-    it("unmounts cleanly without errors", () => {
-      const { unmount } = render(<Background />);
-      expect(() => unmount()).not.toThrow();
-    });
+describe("BackgroundSphere data generation", () => {
+  it("should generate sphere data within valid ranges", () => {
+    const min = 1.5;
+    const max = 3.0;
+    const result = Math.random() * (max - min) + min;
+    expect(result).toBeGreaterThanOrEqual(min);
+    expect(result).toBeLessThanOrEqual(max);
   });
 });

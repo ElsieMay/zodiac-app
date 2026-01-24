@@ -14,22 +14,7 @@ function BackgroundSphere({ data }: { data: SphereData }) {
     if (!meshRef.current) return;
 
     const t = state.clock.elapsedTime;
-    const a = data.speed * t + data.phase;
-    meshRef.current.position
-      .set(Math.cos(a), 0, -Math.sin(a))
-      .multiplyScalar(data.radius)
-      .setY(data.posY);
-
-    // Twinkling effect
-    const twinkle =
-      Math.sin(t * data.twinkleSpeed + data.twinklePhase) * 0.5 + 0.5;
-    const material = meshRef.current.material as THREE.MeshStandardMaterial;
-    material.emissiveIntensity = data.baseIntensity * (twinkle * 0.4 + 0.2);
-
-    // Subtle scale pulsing for sparkle effect
-    const scalePulse =
-      1 + Math.sin(t * data.twinkleSpeed * 2 + data.twinklePhase) * 0.1;
-    meshRef.current.scale.setScalar(data.scale * scalePulse);
+    calculateSpherePosition(t, data, meshRef.current);
   });
 
   return (
@@ -44,6 +29,27 @@ function BackgroundSphere({ data }: { data: SphereData }) {
       />
     </mesh>
   );
+}
+
+function calculateSpherePosition(
+  t: number,
+  data: SphereData,
+  mesh: THREE.Mesh,
+) {
+  const a = data.speed * t + data.phase;
+  mesh.position
+    .set(Math.cos(a), 0, -Math.sin(a))
+    .multiplyScalar(data.radius)
+    .setY(data.posY);
+
+  const twinkle =
+    Math.sin(t * data.twinkleSpeed + data.twinklePhase) * 0.5 + 0.5;
+  const material = mesh.material as THREE.MeshStandardMaterial;
+  material.emissiveIntensity = data.baseIntensity * (twinkle * 0.4 + 0.2);
+
+  const scalePulse =
+    1 + Math.sin(t * data.twinkleSpeed * 2 + data.twinklePhase) * 0.1;
+  mesh.scale.setScalar(data.scale * scalePulse);
 }
 
 function BackgroundSpheres({ count = 340 }: { count?: number }) {
