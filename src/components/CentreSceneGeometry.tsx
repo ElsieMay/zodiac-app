@@ -1,37 +1,30 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-
-export const CENTER_GEOMETRY_CONFIG = {
-  icosahedronRotationSpeed: 2 / 200,
-  ringSmallRotationSpeed: 0.03,
-  ringLargeRotationSpeed: 0.01,
-} as const;
+import {
+  updateRotation,
+  CENTER_GEOMETRY_CONFIG,
+} from "../helpers/centerGeoUtils";
 
 export function CenterSceneGeometry() {
   const icosahedronRef = useRef<THREE.Mesh>(null);
   const ringSmallRef = useRef<THREE.Mesh>(null);
   const ringLargeRef = useRef<THREE.Mesh>(null);
 
+  /* istanbul ignore next -- @preserve useFrame callback tested via updateRotation */
   useFrame(() => {
-    if (icosahedronRef.current) {
-      icosahedronRef.current.rotation.x +=
-        CENTER_GEOMETRY_CONFIG.icosahedronRotationSpeed;
-      icosahedronRef.current.rotation.y +=
-        CENTER_GEOMETRY_CONFIG.icosahedronRotationSpeed;
-    }
-    if (ringSmallRef.current) {
-      ringSmallRef.current.rotation.x +=
-        CENTER_GEOMETRY_CONFIG.ringSmallRotationSpeed;
-      ringSmallRef.current.rotation.y +=
-        CENTER_GEOMETRY_CONFIG.ringSmallRotationSpeed;
-    }
-    if (ringLargeRef.current) {
-      ringLargeRef.current.rotation.x +=
-        CENTER_GEOMETRY_CONFIG.ringLargeRotationSpeed;
-      ringLargeRef.current.rotation.y +=
-        CENTER_GEOMETRY_CONFIG.ringLargeRotationSpeed;
-    }
+    updateRotation(
+      icosahedronRef.current?.rotation,
+      CENTER_GEOMETRY_CONFIG.icosahedronRotationSpeed,
+    );
+    updateRotation(
+      ringSmallRef.current?.rotation,
+      CENTER_GEOMETRY_CONFIG.ringSmallRotationSpeed,
+    );
+    updateRotation(
+      ringLargeRef.current?.rotation,
+      CENTER_GEOMETRY_CONFIG.ringLargeRotationSpeed,
+    );
   });
 
   return (
