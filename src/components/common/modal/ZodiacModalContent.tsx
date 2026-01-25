@@ -1,13 +1,13 @@
 import ReactMarkdown from "react-markdown";
-import { ZODIAC_ARMOURY } from "../../../public/content/armoury_options";
-import { ZODIAC_SKILLS } from "../../../public/content/skills_options";
-import { ORDERS } from "../../../public/content/order_options";
-import Button from "./Button";
-import Dropdown from "./Dropdown";
+import { ZODIAC_ARMOURY } from "../../../../public/content/armoury_options";
+import { ZODIAC_SKILLS } from "../../../../public/content/skills_options";
+import { ORDERS } from "../../../../public/content/order_options";
+import Button from "../Button";
+import Dropdown from "../Dropdown";
 import type {
   ZodiacModalContentProps,
   DisplayData,
-} from "../../types/component.types";
+} from "../../../types/component.types";
 
 export function ZodiacModalContent({
   selectedSign,

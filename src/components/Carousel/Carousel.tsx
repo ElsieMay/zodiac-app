@@ -2,8 +2,8 @@ import { useState, useCallback, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { ZODIAC_SIGNS, ORDER_SPECIES } from "../../constants/config";
-import Modal from "../common/Modal";
-import { ZodiacModalContent } from "../common/ZodiacModalContent";
+import Modal from "../common/modal/Modal";
+import { ZodiacModalContent } from "../common/modal/ZodiacModalContent";
 import { ZodiacScene } from "../background/ZodiacScene";
 
 export const CAROUSEL_CONFIG = {

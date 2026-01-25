@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, beforeEach, vi, it, expect } from "vitest";
-import { mockModalProps } from "../__mocks__/sample";
+import { mockModalProps } from "../../__mocks__/sample";
 import Modal from "./Modal";
 import userEvent from "@testing-library/user-event";
 

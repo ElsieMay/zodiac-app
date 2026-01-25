@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, beforeEach, vi, it, expect } from "vitest";
-import { mockZodiacModalContentProps } from "../__mocks__/sample";
+import { mockZodiacModalContentProps } from "../../__mocks__/sample";
 import { ZodiacModalContent } from "./ZodiacModalContent";
 
 describe("ZodiacModalContent", () => {

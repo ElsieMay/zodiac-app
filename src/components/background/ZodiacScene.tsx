@@ -1,7 +1,7 @@
 import { OrbitControls } from "@react-three/drei";
 import { CarouselGroup } from "../carousel/CarouselGroup";
-import { CenterSceneGeometry } from "./CentreSceneGeometry";
 import type { SceneProps } from "../../types/component.types";
+import { CenterSceneGeometry } from "./CentreSceneGeometry";
 
 export function ZodiacScene({
   onSegmentClick,
