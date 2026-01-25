@@ -1,5 +1,5 @@
 import type { ModalProps } from "../../../types";
-import Button from "../Button";
+import Button from "../button/Button";
 import styles from "./Modal.module.css";
 
 function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {

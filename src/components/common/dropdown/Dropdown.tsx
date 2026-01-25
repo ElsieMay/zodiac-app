@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { CheckboxIcon, ArrowDownIcon, BoxIcon } from "@radix-ui/react-icons";
-import "../index.css";
-import type { DropdownProps } from "../../types/component.types";
+import type { DropdownProps } from "../../../types/component.types";
+import styles from "./Dropdown.module.css";
 
 const Dropdown = ({
   items,
@@ -22,20 +22,20 @@ const Dropdown = ({
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger
-        className="dropdown-trigger"
+        className={styles.trigger}
         data-testid="dropdown-trigger"
       >
         <ArrowDownIcon />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="dropdown-content"
+          className={styles.content}
           data-testid="dropdown-content"
         >
           {items.map((item, index) => (
             <DropdownMenu.CheckboxItem
               key={index}
-              className="dropdown-item"
+              className={styles.item}
               checked={selectedItems.includes(index)}
               onSelect={(e) => {
                 e.preventDefault();
@@ -44,18 +44,14 @@ const Dropdown = ({
               data-testid={`dropdown-item-${index}`}
             >
               <span
-                className="dropdown-indicator"
+                className={styles.indicator}
                 data-testid={`dropdown-indicator-${index}`}
               >
                 {selectedItems.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
               </span>
-              <span data-testid={`dropdown-item-text-${index}`}>{item}</span>
+              <span>{item}</span>
             </DropdownMenu.CheckboxItem>
           ))}
-          <DropdownMenu.Arrow
-            className="dropdown-arrow"
-            data-testid="dropdown-arrow"
-          />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, beforeEach, vi, it, expect } from "vitest";
 import Dropdown from "./Dropdown";
-import { mockDropdownProps } from "../__mocks__/sample";
+import { mockDropdownProps } from "../../__mocks__/sample";
 import userEvent from "@testing-library/user-event";
 
 describe("Dropdown", () => {

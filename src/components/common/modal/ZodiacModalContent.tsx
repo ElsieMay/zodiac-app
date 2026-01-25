@@ -2,12 +2,13 @@ import ReactMarkdown from "react-markdown";
 import { ZODIAC_ARMOURY } from "../../../../public/content/armoury_options";
 import { ZODIAC_SKILLS } from "../../../../public/content/skills_options";
 import { ORDERS } from "../../../../public/content/order_options";
-import Button from "../Button";
-import Dropdown from "../Dropdown";
+import Button from "../button/Button";
+import Dropdown from "../dropdown/Dropdown";
 import type {
   ZodiacModalContentProps,
   DisplayData,
 } from "../../../types/component.types";
+import styles from "./ZodiacModalContent.module.css";
 
 export function ZodiacModalContent({
   selectedSign,
@@ -68,7 +69,7 @@ export function ZodiacModalContent({
         alt="Modal decorative edges"
         data-testid="modal-zodiac-edges"
       />
-      <h2 className="zodiac-name" data-testid="zodiac-name">
+      <h2 className={styles.zodiacName} data-testid="zodiac-name">
         {displayData.title}
       </h2>
       <h3 data-testid="zodiac-subtitle">{displayData.subtitle}</h3>

@@ -1,10 +1,11 @@
-import type { ButtonProps } from "../../types/component.types";
+import type { ButtonProps } from "../../../types/component.types";
+import styles from "./Button.module.css";
 
 function Button({ onPress, text }: ButtonProps) {
   return (
     <button
       type="button"
-      className="home-button"
+      className={styles.button}
       onClick={onPress}
       data-testid="button"
     >
