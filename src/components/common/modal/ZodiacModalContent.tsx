@@ -39,8 +39,8 @@ export function ZodiacModalContent({
               (w) => `${w.name} (${w.property})`,
             ) || [],
           armourySlots: ZODIAC_ARMOURY[selectedSign ?? ""]?.slots || 0,
-          showArmoury:
-            ZODIAC_ARMOURY[selectedSign ?? ""]?.availableArmoury.length > 0,
+          // showArmoury:
+          //   ZODIAC_ARMOURY[selectedSign ?? ""]?.availableArmoury.length > 0,
         }
       : {
           kind: "species",
@@ -95,18 +95,16 @@ export function ZodiacModalContent({
             selectedItems={selectedSkills}
             onSelectionChange={onSkillsChange}
           />
-          {displayData.showArmoury && (
-            <>
-              <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>
-              <Dropdown
-                data-testid="armoury-dropdown"
-                items={displayData.armouryItems}
-                selectionCount={displayData.armourySlots}
-                selectedItems={selectedArmoury}
-                onSelectionChange={onArmouryChange}
-              />
-            </>
-          )}
+          <>
+            <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>
+            <Dropdown
+              data-testid="armoury-dropdown"
+              items={displayData.armouryItems}
+              selectionCount={displayData.armourySlots}
+              selectedItems={selectedArmoury}
+              onSelectionChange={onArmouryChange}
+            />
+          </>
         </>
       )}
       {displayData.kind === "species" && (

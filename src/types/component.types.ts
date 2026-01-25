@@ -63,7 +63,7 @@ export interface ZodiacDisplayData {
   skillsCount: number;
   armouryItems: string[];
   armourySlots: number;
-  showArmoury: boolean;
+  // showArmoury: boolean;
 }
 
 // Species Data Types
