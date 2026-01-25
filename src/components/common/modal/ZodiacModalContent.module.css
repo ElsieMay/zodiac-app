@@ -25,6 +25,9 @@
   font-weight: 800;
   text-shadow: 0 0 5px rgba(0, 0, 0, 10);
   padding: 0% 20px;
+  background-color: rgba(5, 0, 41, 0.4);
+  border-radius: 12px;
+  margin: 1rem;
 }
 
 .modalButton {

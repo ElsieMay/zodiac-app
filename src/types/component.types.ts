@@ -92,6 +92,7 @@ export interface SceneProps {
 export interface ButtonProps {
   onPress: () => void;
   text: string;
+  disabled?: boolean;
 }
 
 export interface CarouselGroupProps {

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import { ZODIAC_ARMOURY } from "../../../../public/content/armoury_options";
 import { ZODIAC_SKILLS } from "../../../../public/content/skills_options";
@@ -7,8 +8,85 @@ import Dropdown from "../dropdown/Dropdown";
 import type {
   ZodiacModalContentProps,
   DisplayData,
+  ZodiacDisplayData,
 } from "../../../types/component.types";
 import styles from "./ZodiacModalContent.module.css";
+
+const DEFAULT_ZODIAC_DATA: ZodiacDisplayData = {
+  kind: "zodiac",
+  iconPath: "",
+  displayName: "",
+  symbol: "",
+  title: "",
+  subtitle: "",
+  description: "",
+  skillsList: [],
+  skillsCount: 0,
+  armouryItems: [],
+  armourySlots: 0,
+};
+
+function buildDisplayData(
+  sign: string,
+  order: string,
+  mode: string,
+): DisplayData {
+  const zodiacData = ZODIAC_SKILLS[sign];
+  const armouryData = ZODIAC_ARMOURY[sign];
+  const orderData = ORDERS[order];
+  const modeType = mode === "zodiac" ? "zodiac" : "species";
+
+  if (modeType === "zodiac") {
+    return {
+      kind: "zodiac",
+      iconPath: `/zodiacs/icons/sketched/${sign.toLowerCase()}.png`,
+      displayName: sign,
+      symbol: zodiacData?.symbol ?? "",
+      title: `${zodiacData?.symbol ?? ""} ${sign}`,
+      subtitle: zodiacData?.class ?? "",
+      description: zodiacData?.description ?? "",
+      skillsList: zodiacData?.skillsOptions?.skillList ?? [],
+      skillsCount: zodiacData?.skillsOptions?.skillCount ?? 0,
+      armouryItems:
+        armouryData?.availableArmoury?.map(
+          (w) => `${w.name} (${w.property})`,
+        ) ?? [],
+      armourySlots: armouryData?.slots ?? 0,
+    };
+  } else {
+    return {
+      kind: "species",
+      iconPath: `/zodiacs/icons/sketched-orders/${order}.png`,
+      displayName: order,
+      title: order,
+      subtitle: orderData?.order ?? "",
+      description: orderData?.description ?? "",
+      size: orderData?.size ?? "",
+      speed: orderData?.speed ?? "",
+      specialAbilities: orderData?.specialAbilities ?? [],
+      languages: orderData?.languages ?? [],
+    };
+  }
+}
+
+function useDisplayData(
+  mode: "zodiac" | "species",
+  selectedSign?: string,
+  selectedOrder?: string | null,
+): DisplayData {
+  return useMemo(() => {
+    const sign = selectedSign ?? "";
+    const order = selectedOrder ?? "";
+
+    if (mode === "zodiac" && sign) {
+      return buildDisplayData(sign, order, mode);
+    } else if (mode === "species" && order) {
+      return buildDisplayData(sign, order, mode);
+    }
+
+    return DEFAULT_ZODIAC_DATA;
+  }, [mode, selectedSign, selectedOrder]);
+}
 
 export function ZodiacModalContent({
   selectedSign,
@@ -20,41 +98,7 @@ export function ZodiacModalContent({
   onArmouryChange,
   onAwaken,
 }: ZodiacModalContentProps) {
-  // Display data based on mode
-  const displayData: DisplayData =
-    mode === "zodiac"
-      ? {
-          kind: "zodiac",
-          iconPath: `/zodiacs/icons/sketched/${selectedSign?.toLowerCase()}.png`,
-          displayName: selectedSign ?? "",
-          symbol: ZODIAC_SKILLS[selectedSign ?? ""].symbol ?? "",
-          title: `${ZODIAC_SKILLS[selectedSign ?? ""].symbol ?? ""} ${selectedSign}`,
-          subtitle: ZODIAC_SKILLS[selectedSign ?? ""].class,
-          description: ZODIAC_SKILLS[selectedSign ?? ""].description,
-          skillsList: ZODIAC_SKILLS[selectedSign ?? ""].skillsOptions.skillList,
-          skillsCount:
-            ZODIAC_SKILLS[selectedSign ?? ""].skillsOptions.skillCount,
-          armouryItems:
-            ZODIAC_ARMOURY[selectedSign ?? ""]?.availableArmoury.map(
-              (w) => `${w.name} (${w.property})`,
-            ) || [],
-          armourySlots: ZODIAC_ARMOURY[selectedSign ?? ""]?.slots || 0,
-          // showArmoury:
-          //   ZODIAC_ARMOURY[selectedSign ?? ""]?.availableArmoury.length > 0,
-        }
-      : {
-          kind: "species",
-          iconPath: `/zodiacs/icons/sketched-orders/${selectedOrder}.png`,
-          displayName: selectedOrder ?? "",
-          title: selectedOrder ?? "",
-          subtitle: ORDERS[selectedOrder ?? ""].order,
-          description: ORDERS[selectedOrder ?? ""].description,
-          size: ORDERS[selectedOrder ?? ""].size,
-          speed: ORDERS[selectedOrder ?? ""].speed,
-          specialAbilities: ORDERS[selectedOrder ?? ""].specialAbilities,
-          languages: ORDERS[selectedOrder ?? ""].languages,
-        };
-
+  const displayData = useDisplayData(mode, selectedSign, selectedOrder);
   return (
     <div className={styles.zodiacModal} data-testid="zodiac-modal">
       <img
@@ -71,7 +115,7 @@ export function ZodiacModalContent({
       />
       <h2
         className={
-          displayData.kind == "zodiac"
+          displayData.kind === "zodiac"
             ? styles.zodiacTitle
             : styles.speciesTitle
         }
@@ -95,16 +139,14 @@ export function ZodiacModalContent({
             selectedItems={selectedSkills}
             onSelectionChange={onSkillsChange}
           />
-          <>
-            <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>
-            <Dropdown
-              data-testid="armoury-dropdown"
-              items={displayData.armouryItems}
-              selectionCount={displayData.armourySlots}
-              selectedItems={selectedArmoury}
-              onSelectionChange={onArmouryChange}
-            />
-          </>
+          <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>
+          <Dropdown
+            data-testid="armoury-dropdown"
+            items={displayData.armouryItems}
+            selectionCount={displayData.armourySlots}
+            selectedItems={selectedArmoury}
+            onSelectionChange={onArmouryChange}
+          />
         </>
       )}
       {displayData.kind === "species" && (
@@ -129,6 +171,11 @@ export function ZodiacModalContent({
           data-testid="awaken-button"
           onPress={onAwaken}
           text={`Awaken as ${displayData.displayName}`}
+          disabled={
+            displayData.kind === "zodiac" &&
+            (selectedSkills.length < displayData.skillsCount ||
+              selectedArmoury.length < displayData.armourySlots)
+          }
         />
       </div>
       <img

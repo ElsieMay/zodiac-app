@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import styles from "./Dice.module.css";
 
 function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -207,7 +208,7 @@ function Dice({ cameraPosition = 3 }: { cameraPosition?: number }) {
   return (
     <div
       ref={containerRef}
-      className="dice-container"
+      className={styles.diceContainer}
       data-testid="dice-container"
     ></div>
   );

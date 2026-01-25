@@ -5,6 +5,7 @@ import { ZODIAC_SIGNS, ORDER_SPECIES } from "../../constants/config";
 import Modal from "../common/modal/Modal";
 import { ZodiacModalContent } from "../common/modal/ZodiacModalContent";
 import { ZodiacScene } from "../background/ZodiacScene";
+import styles from "./Carousel.module.css";
 
 export const CAROUSEL_CONFIG = {
   cylinderHeight: 0.7,
@@ -38,7 +39,7 @@ function Carousel() {
 
   return (
     <>
-      <div className="carousel" data-testid="carousel-container">
+      <div className={styles.carousel} data-testid="carousel-container">
         <Canvas
           data-testid="carousel-canvas"
           camera={{ position: [0, 7, 16], fov: 12 }}

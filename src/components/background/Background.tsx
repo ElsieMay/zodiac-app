@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { SphereData } from "../../types/component.types";
 import { calculateSpherePosition } from "../../helpers";
+import styles from "./Background.module.css";
 
 function randomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -62,7 +63,7 @@ function BackgroundSpheres({ count = 340 }: { count?: number }) {
 
 export function Background() {
   return (
-    <div className="player-container" data-testid="background-container">
+    <div className={styles.playerContainer} data-testid="background-container">
       <Canvas
         data-testid="background-canvas"
         camera={{ position: [0, 0, 3], fov: 60, near: 1, far: 2000 }}

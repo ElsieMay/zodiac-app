@@ -1,0 +1,22 @@
+.diceContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.diceContainer canvas {
+  pointer-events: auto;
+}
+
+.diceOverlay {
+  position: fixed;
+  top: 30%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}
