@@ -4,7 +4,7 @@ import { TextureLoader } from "three";
 import * as THREE from "three";
 import { CAROUSEL_CONFIG } from "./Carousel";
 import { CarouselSegment } from "./CarouselSegment";
-import type { CarouselGroupProps } from "../types/component.types";
+import type { CarouselGroupProps } from "../../types/component.types";
 
 export function CarouselGroup({
   onSegmentClick,

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, beforeEach, vi, it, expect } from "vitest";
 import { mockCarouselSegmentProps } from "../__mocks__/sample";
-import { CarouselSegment } from "../CarouselSegment";
+import { CarouselSegment } from "./CarouselSegment";
 
 describe("CarouselSegment", () => {
   beforeEach(() => {

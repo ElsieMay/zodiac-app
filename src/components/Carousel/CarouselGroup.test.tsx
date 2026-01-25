@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, beforeEach, vi, it, expect } from "vitest";
-import { CarouselGroup } from "../CarouselGroup";
+import { CarouselGroup } from "./CarouselGroup";
 import { mockCarouselGroupProps } from "../__mocks__/sample";
 
 describe("CarouselGroup", () => {

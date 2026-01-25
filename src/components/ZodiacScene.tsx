@@ -1,5 +1,5 @@
 import { OrbitControls } from "@react-three/drei";
-import { CarouselGroup } from "./CarouselGroup";
+import { CarouselGroup } from "./Carousel/CarouselGroup";
 import { CenterSceneGeometry } from "./CentreSceneGeometry";
 import type { SceneProps } from "../types/component.types";
 

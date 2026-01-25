@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import Carousel from "../Carousel";
+import Carousel from "./Carousel";
 
 // Mock of the ZodiacScene component -> to control segment clicks
 vi.mock("../ZodiacScene", () => ({

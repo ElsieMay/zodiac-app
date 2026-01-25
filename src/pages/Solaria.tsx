@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import Carousel from "../components/Carousel";
+import Carousel from "../components/Carousel/Carousel";
 
 export function Solaria() {
   const navigation = useNavigate();

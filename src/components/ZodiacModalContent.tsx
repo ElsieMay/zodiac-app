@@ -55,7 +55,7 @@ export function ZodiacModalContent({
         };
 
   return (
-    <div className="zodiac-modal-content" data-testid="zodiac-modal-content">
+    <div className="zodiac-modal" data-testid="zodiac-modal">
       <img
         src={displayData.iconPath}
         alt={displayData.displayName}
@@ -105,7 +105,6 @@ export function ZodiacModalContent({
           )}
         </>
       )}
-
       {displayData.kind === "species" && (
         <>
           <h3 data-testid="species-size">Size: {displayData.size}</h3>
@@ -123,7 +122,6 @@ export function ZodiacModalContent({
           </h3>
         </>
       )}
-
       <div className="modal-button" data-testid="modal-button-container">
         <Button
           data-testid="awaken-button"
@@ -131,7 +129,6 @@ export function ZodiacModalContent({
           text={`Awaken as ${displayData.displayName}`}
         />
       </div>
-
       <img
         src="/images/lg.png"
         id="modal-zodiac-bottom"

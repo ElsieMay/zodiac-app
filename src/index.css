@@ -85,7 +85,7 @@ button:focus-visible {
 
 .modal-content {
   background: #080048;
-  padding: 24px 20px 24px 20px;
+  padding: 24px 24px 24px 24px;
   border-radius: 12px;
   border: 4px ridge #e9d491;
   position: relative;
@@ -103,6 +103,7 @@ button:focus-visible {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  margin: auto;
 }
 
 .modal-content::before {
@@ -203,10 +204,12 @@ button:focus-visible {
 }
 
 #modal-zodiac-bottom {
-  z-index: 1;
-  width: 106%;
   position: absolute;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 108%;
+  z-index: 1;
 }
 
 @media (prefers-color-scheme: light) {
@@ -250,11 +253,11 @@ button:focus-visible {
   letter-spacing: 0.5px;
   font-weight: 800;
   text-shadow: 0 0 5px rgba(0, 0, 0, 10);
-  max-width: 90%;
+  padding: 0% 20px;
 }
 
 .zodiac-name {
-  margin-top: 10rem;
+  margin-top: 12rem;
 }
 
 .dropdown-trigger {

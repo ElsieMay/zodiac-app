@@ -10,7 +10,7 @@ describe("ZodiacModalContent", () => {
 
   it("should render the zodiac modal component", () => {
     render(<ZodiacModalContent {...mockZodiacModalContentProps} />);
-    const modalContent = screen.getByTestId("zodiac-modal-content");
+    const modalContent = screen.getByTestId("zodiac-modal");
     expect(modalContent).toBeInTheDocument();
     const titleElement = screen.getByText(/♈ Aries/i);
     expect(titleElement).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe("ZodiacModalContent", () => {
       selectedOrder: "Dragon",
     };
     render(<ZodiacModalContent {...speciesProps} />);
-    const modalContent = screen.getByTestId("zodiac-modal-content");
+    const modalContent = screen.getByTestId("zodiac-modal");
     expect(modalContent).toBeInTheDocument();
     const titleElement = screen.getByTestId("zodiac-name");
     expect(titleElement).toHaveTextContent("Dragon");

@@ -1,9 +1,9 @@
 import { useRef, useState, useMemo } from "react";
 import { Text3D } from "@react-three/drei";
 import * as THREE from "three";
-import { ZODIAC_SIGNS, ORDER_SPECIES } from "../constants/config";
+import { ZODIAC_SIGNS, ORDER_SPECIES } from "../../constants/config";
 import { CAROUSEL_CONFIG } from "./Carousel";
-import type { CarouselSegmentProps } from "../types/component.types";
+import type { CarouselSegmentProps } from "../../types/component.types";
 
 export function CarouselSegment({
   index,
