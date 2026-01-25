@@ -1,3 +1,58 @@
-.zodiac-name {
+.zodiacModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.zodiacName {
   margin-top: 12rem;
+}
+
+.classDescription {
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 10);
+  padding: 0% 20px;
+}
+
+.modalButton {
+  margin-top: 1rem;
+  z-index: 10;
+}
+
+#modalZodiacEdges,
+#modalZodiacIcon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+}
+
+#modalZodiacEdges {
+  z-index: 1;
+  width: 108%;
+  top: 0;
+}
+
+#modalZodiacIcon {
+  z-index: 2;
+  width: 50%;
+  top: 20px;
+}
+
+#modalZodiacBottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 108%;
+  z-index: 1;
 }

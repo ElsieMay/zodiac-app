@@ -1,32 +1,51 @@
+import { useEffect } from "react";
 import type { ModalProps } from "../../../types";
 import Button from "../button/Button";
 import styles from "./Modal.module.css";
 
 function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
+  useEffect(() => {
+    if (isOpen) {
+      // Prevent scrolling and zooming on the background
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.touchAction = "none";
+    }
+
+    return () => {
+      // Restore scrolling when modal closes
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.touchAction = "";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div
-      className={styles.overlay}
+      className={styles.modalOverlay}
       onClick={onClose}
-      data-testid="modal-overlay"
+      data-testid="modalOverlay"
     >
       <div
-        className={styles.content}
+        className={styles.modalContent}
         onClick={(e) => e.stopPropagation()}
-        data-testid="modal-content"
+        data-testid="modalContent"
       >
         {backgroundImage && (
           <div
-            className={styles.background}
+            className={styles.modalBackground}
             style={{ backgroundImage: `url(${backgroundImage})` }}
-            data-testid="modal-background"
+            data-testid="modalBackground"
           />
         )}
-        <div className={styles.close} data-testid="modal-close">
+        <div className={styles.modalClose} data-testid="modalClose">
           <Button onPress={() => onClose()} text="Close" />
         </div>
-        <div className={styles.body} data-testid="modal-body">
+        <div className={styles.modalBody} data-testid="modalBody">
           {children}
         </div>
       </div>

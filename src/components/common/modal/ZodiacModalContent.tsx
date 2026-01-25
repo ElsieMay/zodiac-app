@@ -56,24 +56,24 @@ export function ZodiacModalContent({
         };
 
   return (
-    <div className="zodiac-modal" data-testid="zodiac-modal">
+    <div className={styles.zodiacModal} data-testid="zodiac-modal">
       <img
         src={displayData.iconPath}
         alt={displayData.displayName}
-        id="modal-zodiac-icon"
+        id={styles.modalZodiacIcon}
         data-testid="modal-zodiac-icon"
       />
       <img
         src="/images/fg.png"
-        id="modal-zodiac-edges"
+        id={styles.modalZodiacEdges}
         alt="Modal decorative edges"
         data-testid="modal-zodiac-edges"
       />
-      <h2 className={styles.zodiacName} data-testid="zodiac-name">
+      <h2 className={styles.zodiacName} data-testid="zodiacName">
         {displayData.title}
       </h2>
       <h3 data-testid="zodiac-subtitle">{displayData.subtitle}</h3>
-      <div className="class-description" data-testid="class-description">
+      <div className={styles.classDescription} data-testid="class-description">
         <ReactMarkdown>{displayData.description}</ReactMarkdown>
       </div>
       {displayData.kind === "zodiac" && (
@@ -119,7 +119,7 @@ export function ZodiacModalContent({
           </h3>
         </>
       )}
-      <div className="modal-button" data-testid="modal-button-container">
+      <div className={styles.modalButton} data-testid="modal-button-container">
         <Button
           data-testid="awaken-button"
           onPress={onAwaken}
@@ -128,7 +128,7 @@ export function ZodiacModalContent({
       </div>
       <img
         src="/images/lg.png"
-        id="modal-zodiac-bottom"
+        id={styles.modalZodiacBottom}
         alt="Modal decorative bottom"
         data-testid="modal-zodiac-bottom"
       />

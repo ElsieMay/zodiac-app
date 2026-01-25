@@ -23,14 +23,14 @@ const Dropdown = ({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger
         className={styles.trigger}
-        data-testid="dropdown-trigger"
+        data-testid="dropdownTrigger"
       >
         <ArrowDownIcon />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={styles.content}
-          data-testid="dropdown-content"
+          data-testid="dropdownContent"
         >
           {items.map((item, index) => (
             <DropdownMenu.CheckboxItem
@@ -41,11 +41,11 @@ const Dropdown = ({
                 e.preventDefault();
                 toggleIndex(index);
               }}
-              data-testid={`dropdown-item-${index}`}
+              data-testid={`dropdownItem${index}`}
             >
               <span
                 className={styles.indicator}
-                data-testid={`dropdown-indicator-${index}`}
+                data-testid={`dropdownIndicator${index}`}
               >
                 {selectedItems.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
               </span>

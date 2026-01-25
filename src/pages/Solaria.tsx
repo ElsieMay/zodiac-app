@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/button/Button";
 import Carousel from "../components/carousel/Carousel";
+import styles from "../components/common/button/Button.module.css";
 
 export function Solaria() {
   const navigation = useNavigate();
@@ -15,7 +16,7 @@ export function Solaria() {
       </div>
       {/* <ImageGenerator onGenerate={generateTrigger} userPrompt={"a mystical fantasy character, intricate costume, vibrant colors"} />
 			<Button onPress={() => setGenerateTrigger((prev) => prev + 1)} text={"Generate Character"} /> */}
-      <div className="button-overlay" data-testid="solaria-button">
+      <div className={styles.buttonOverlay} data-testid="solaria-button">
         <Button onPress={() => navigation(-1)} text={"Go Back to Home"} />
       </div>
     </>

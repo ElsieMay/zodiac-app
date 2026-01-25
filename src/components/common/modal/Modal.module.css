@@ -1,5 +1,5 @@
 /* Modal Styles */
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,12 +14,13 @@
   overflow-y: auto;
 }
 
-.modal-content {
+.modalContent {
   background: #080048;
   padding: 24px 24px 24px 24px;
   border-radius: 12px;
   border: 4px ridge #e9d491;
   position: relative;
+  width: 40vw;
   max-width: 40vw;
   max-height: 80vh;
   height: fit-content;
@@ -30,14 +31,13 @@
     0 10px 25px rgba(0, 0, 0, 0.7);
   transform: perspective(1000px) rotateX(2deg);
   transform-style: preserve-3d;
-  width: fit-content;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   margin: auto;
 }
 
-.modal-content::before {
+.modalContent::before {
   content: "";
   position: absolute;
   background: linear-gradient(135deg, #860808, #e9d491, #860808, #e9d491);
@@ -50,7 +50,7 @@
 }
 
 /* Inner border frame */
-.modal-content::after {
+.modalContent::after {
   content: "";
   position: absolute;
   inset: 20px;
@@ -71,7 +71,7 @@
   }
 }
 
-.modal-close {
+.modalClose {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -86,12 +86,12 @@
   z-index: 3000;
 }
 
-.modal-close:hover {
+.modalClose:hover {
   color: #fff;
   border: none;
 }
 
-.modal-background {
+.modalBackground {
   position: absolute;
   inset: 0;
   background-size: cover;
@@ -102,43 +102,29 @@
   border-radius: 8px;
 }
 
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.modalBody {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
   position: relative;
   z-index: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  flex: 1;
-  padding-bottom: 2rem;
 }
 
-#modal-zodiac-edges,
-#modal-zodiac-icon {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: block;
+.modalBody::-webkit-scrollbar {
+  height: 8px;
 }
 
-#modal-zodiac-edges {
-  z-index: 1;
-  width: 108%;
-  top: 0;
+.modalBody::-webkit-scrollbar-track {
+  background: rgba(233, 212, 145, 0.1);
+  border-radius: 4px;
 }
 
-#modal-zodiac-icon {
-  z-index: 2;
-  width: 50%;
-  top: 20px;
+.modalBody::-webkit-scrollbar-thumb {
+  background: #e9d491;
+  border-radius: 4px;
 }
 
-#modal-zodiac-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 108%;
-  z-index: 1;
+.modalBody::-webkit-scrollbar-thumb:hover {
+  background: #f5e6b3;
 }
