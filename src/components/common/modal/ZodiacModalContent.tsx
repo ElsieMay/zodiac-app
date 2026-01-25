@@ -69,7 +69,14 @@ export function ZodiacModalContent({
         alt="Modal decorative edges"
         data-testid="modal-zodiac-edges"
       />
-      <h2 className={styles.zodiacName} data-testid="zodiacName">
+      <h2
+        className={
+          displayData.kind == "zodiac"
+            ? styles.zodiacTitle
+            : styles.speciesTitle
+        }
+        data-testid="zodiacName"
+      >
         {displayData.title}
       </h2>
       <h3 data-testid="zodiac-subtitle">{displayData.subtitle}</h3>
