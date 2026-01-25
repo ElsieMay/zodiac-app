@@ -8,7 +8,7 @@ export function Solaria() {
 
   return (
     <>
-      <Carousel />
+      <Carousel data-testid="carousel-object" />
       {/* <Modal /> */}
       <div className="text-overlay" data-testid="solaria-header">
         <h1>Select Your Player Class</h1>
