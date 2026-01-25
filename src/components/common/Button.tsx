@@ -1,4 +1,4 @@
-import type { ButtonProps } from "../types/component.types";
+import type { ButtonProps } from "../../types/component.types";
 
 function Button({ onPress, text }: ButtonProps) {
   return (

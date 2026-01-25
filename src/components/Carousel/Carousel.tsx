@@ -2,9 +2,9 @@ import { useState, useCallback, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { ZODIAC_SIGNS, ORDER_SPECIES } from "../../constants/config";
-import Modal from ".././Modal";
-import { ZodiacModalContent } from ".././ZodiacModalContent";
-import { ZodiacScene } from ".././ZodiacScene";
+import Modal from "../common/Modal";
+import { ZodiacModalContent } from "../common/ZodiacModalContent";
+import { ZodiacScene } from "../background/ZodiacScene";
 
 export const CAROUSEL_CONFIG = {
   cylinderHeight: 0.7,

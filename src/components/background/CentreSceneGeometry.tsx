@@ -4,7 +4,7 @@ import * as THREE from "three";
 import {
   updateRotation,
   CENTER_GEOMETRY_CONFIG,
-} from "../helpers/centerGeoUtils";
+} from "../../helpers/centerGeoUtils";
 
 export function CenterSceneGeometry() {
   const icosahedronRef = useRef<THREE.Mesh>(null);

@@ -1,7 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { CheckboxIcon, ArrowDownIcon, BoxIcon } from "@radix-ui/react-icons";
 import "../index.css";
-import type { DropdownProps } from "../types/component.types";
+import type { DropdownProps } from "../../types/component.types";
 
 const Dropdown = ({
   items,

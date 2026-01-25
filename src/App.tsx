@@ -1,8 +1,8 @@
 import "./App.css";
-import { Background } from "./components/Background";
+import { Background } from "./components/background/Background";
 import { Route, Routes } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-import ErrorMessage from "./components/error";
+import ErrorMessage from "./components/common/error";
 import { Home } from "./pages/Home";
 import { Solaria } from "./pages/Solaria";
 

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Button from "../Button";
+import Button from "./Button";
 
 function buttonRender(mockFn: () => void) {
   return render(<Button onPress={mockFn} text="Click Me" />);

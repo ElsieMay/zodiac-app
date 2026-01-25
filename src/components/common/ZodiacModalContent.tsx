@@ -1,13 +1,13 @@
 import ReactMarkdown from "react-markdown";
-import { ZODIAC_ARMOURY } from "../../public/content/armoury_options";
-import { ZODIAC_SKILLS } from "../../public/content/skills_options";
-import { ORDERS } from "../../public/content/order_options";
+import { ZODIAC_ARMOURY } from "../../../public/content/armoury_options";
+import { ZODIAC_SKILLS } from "../../../public/content/skills_options";
+import { ORDERS } from "../../../public/content/order_options";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
 import type {
   ZodiacModalContentProps,
   DisplayData,
-} from "../types/component.types";
+} from "../../types/component.types";
 
 export function ZodiacModalContent({
   selectedSign,
@@ -68,16 +68,13 @@ export function ZodiacModalContent({
         alt="Modal decorative edges"
         data-testid="modal-zodiac-edges"
       />
-
       <h2 className="zodiac-name" data-testid="zodiac-name">
         {displayData.title}
       </h2>
       <h3 data-testid="zodiac-subtitle">{displayData.subtitle}</h3>
-
       <div className="class-description" data-testid="class-description">
         <ReactMarkdown>{displayData.description}</ReactMarkdown>
       </div>
-
       {displayData.kind === "zodiac" && (
         <>
           <h3 data-testid="skills-heading">
@@ -90,7 +87,6 @@ export function ZodiacModalContent({
             selectedItems={selectedSkills}
             onSelectionChange={onSkillsChange}
           />
-
           {displayData.showArmoury && (
             <>
               <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>

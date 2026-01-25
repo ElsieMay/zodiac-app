@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button";
-import Dice from "../components/Dice";
+import Button from "../components/common/Button";
+import Dice from "../components/background/Dice";
 
 export function Home() {
   const navigation = useNavigate();

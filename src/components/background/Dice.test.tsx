@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import Dice from "../Dice";
+import Dice from "./Dice";
 
 vi.mock("three", () => import("../__mocks__/three.module"));
 

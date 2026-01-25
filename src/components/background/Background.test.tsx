@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { Background } from "../Background";
+import { Background } from "./Background";
 import { calculateSpherePosition } from "../../helpers";
 import { mockSphereData, mockMesh } from "../__mocks__/sample";
 import { useFrame } from "@react-three/fiber";

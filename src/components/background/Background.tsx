@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import type { SphereData } from "../types/component.types";
-import { calculateSpherePosition } from "../helpers";
+import type { SphereData } from "../../types/component.types";
+import { calculateSpherePosition } from "../../helpers";
 
 function randomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;

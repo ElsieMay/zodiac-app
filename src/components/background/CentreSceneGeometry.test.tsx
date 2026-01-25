@@ -5,7 +5,7 @@ import {
   CENTER_GEOMETRY_CONFIG,
   updateRotation,
 } from "../../helpers/centerGeoUtils";
-import { CenterSceneGeometry } from "../CentreSceneGeometry";
+import { CenterSceneGeometry } from "./CentreSceneGeometry";
 import { Euler } from "three";
 
 vi.mock("@react-three/fiber", async () => {
