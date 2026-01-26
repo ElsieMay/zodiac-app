@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import type { ReactNode } from "react";
+import type { ancestryConfig } from "../../public/content/order_options";
 
 export interface SphereData {
   posY: number;
@@ -78,6 +79,7 @@ export interface SpeciesDisplayData {
   speed: string;
   specialAbilities: string[];
   languages: string[];
+  lineage: ancestryConfig[];
 }
 
 export type DisplayData = ZodiacDisplayData | SpeciesDisplayData;

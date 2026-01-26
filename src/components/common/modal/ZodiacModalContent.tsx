@@ -11,6 +11,7 @@ import type {
   ZodiacDisplayData,
 } from "../../../types/component.types";
 import styles from "./ZodiacModalContent.module.css";
+import LineageAccordion from "../accordion/Accordion";
 
 const DEFAULT_ZODIAC_DATA: ZodiacDisplayData = {
   kind: "zodiac",
@@ -65,6 +66,7 @@ function buildDisplayData(
       speed: orderData?.speed ?? "",
       specialAbilities: orderData?.specialAbilities ?? [],
       languages: orderData?.languages ?? [],
+      lineage: orderData?.lineage ?? [],
     };
   }
 }
@@ -161,9 +163,16 @@ export function ZodiacModalContent({
               </li>
             ))}
           </ul>
-          <h3 data-testid="species-languages">
-            Languages: {displayData.languages.join(", ")}
-          </h3>
+          <h3 data-testid="species-lineage">Choose Lineage</h3>
+          <LineageAccordion lineage={displayData.lineage} />
+          <h3 data-testid="species-languages">Choose languages</h3>
+          <Dropdown
+            data-testid="species-languages-dropdown"
+            items={displayData.languages}
+            selectionCount={2}
+            selectedItems={selectedSkills}
+            onSelectionChange={onSkillsChange}
+          />
         </>
       )}
       <div className={styles.modalButton} data-testid="modal-button-container">
