@@ -31,7 +31,7 @@ export const mockCarouselSegmentProps: CarouselSegmentProps = {
 export const mockDropdownProps: DropdownProps = {
   items: ["Option 1", "Option 2", "Option 3"],
   selectionCount: 2,
-  selectedItems: [0],
+  selectedItems: ["Option 1"],
   onSelectionChange: vi.fn(),
 };
 
@@ -48,8 +48,11 @@ export const mockZodiacModalContentProps: ZodiacModalContentProps = {
   mode: "zodiac" as const,
   selectedSkills: [0, 1],
   selectedArmoury: [0],
+  selectedLanguages: [],
   onSkillsChange: vi.fn(),
   onArmouryChange: vi.fn(),
+  onLanguageChange: vi.fn(),
+  onLineageChange: vi.fn(),
   onAwaken: vi.fn(),
 };
 

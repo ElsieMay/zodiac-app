@@ -28,8 +28,8 @@ export interface CarouselSegmentProps {
 export interface DropdownProps {
   items: string[];
   selectionCount: number;
-  selectedItems: number[];
-  onSelectionChange: (selected: number[]) => void;
+  selectedItems: string[];
+  onSelectionChange: (selected: string[]) => void;
 }
 
 export interface ModalProps {
@@ -43,11 +43,15 @@ export interface ModalProps {
 export interface ZodiacModalContentProps {
   selectedSign?: string;
   mode: "zodiac" | "species";
-  selectedSkills: number[];
-  selectedArmoury: number[];
+  selectedSkills: string[];
+  selectedArmoury: string[];
+  selectedLanguages: string[];
   selectedOrder?: string | null;
-  onSkillsChange: (skills: number[]) => void;
-  onArmouryChange: (armoury: number[]) => void;
+  selectedLineage?: ancestryConfig;
+  onSkillsChange: (skills: string[]) => void;
+  onArmouryChange: (armoury: string[]) => void;
+  onLanguageChange: (languages: string[]) => void;
+  onLineageChange: (lineage: ancestryConfig) => void;
   onAwaken: () => void;
 }
 

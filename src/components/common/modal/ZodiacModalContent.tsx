@@ -95,9 +95,13 @@ export function ZodiacModalContent({
   mode,
   selectedSkills,
   selectedArmoury,
+  selectedLanguages,
   selectedOrder,
+  selectedLineage,
   onSkillsChange,
   onArmouryChange,
+  onLanguageChange,
+  onLineageChange,
   onAwaken,
 }: ZodiacModalContentProps) {
   const displayData = useDisplayData(mode, selectedSign, selectedOrder);
@@ -141,7 +145,9 @@ export function ZodiacModalContent({
             selectedItems={selectedSkills}
             onSelectionChange={onSkillsChange}
           />
-          <h3 data-testid="armoury-heading">Choose Armoury Mastery</h3>
+          <h3 data-testid="armoury-heading">
+            Choose {displayData.armourySlots} Armoury Mastery Slots
+          </h3>
           <Dropdown
             data-testid="armoury-dropdown"
             items={displayData.armouryItems}
@@ -164,14 +170,17 @@ export function ZodiacModalContent({
             ))}
           </ul>
           <h3 data-testid="species-lineage">Choose Lineage</h3>
-          <LineageAccordion lineage={displayData.lineage} />
-          <h3 data-testid="species-languages">Choose languages</h3>
+          <LineageAccordion
+            lineage={displayData.lineage}
+            onSelect={onLineageChange}
+          />
+          <h3 data-testid="species-languages">Choose 2 languages</h3>
           <Dropdown
             data-testid="species-languages-dropdown"
             items={displayData.languages}
             selectionCount={2}
-            selectedItems={selectedSkills}
-            onSelectionChange={onSkillsChange}
+            selectedItems={selectedLanguages}
+            onSelectionChange={onLanguageChange}
           />
         </>
       )}
@@ -181,9 +190,11 @@ export function ZodiacModalContent({
           onPress={onAwaken}
           text={`Awaken as ${displayData.displayName}`}
           disabled={
-            displayData.kind === "zodiac" &&
-            (selectedSkills.length < displayData.skillsCount ||
-              selectedArmoury.length < displayData.armourySlots)
+            (displayData.kind === "zodiac" &&
+              (selectedSkills.length < displayData.skillsCount ||
+                selectedArmoury.length < displayData.armourySlots)) ||
+            (displayData.kind === "species" &&
+              (selectedLanguages.length < 2 || selectedLineage === undefined))
           }
         />
       </div>

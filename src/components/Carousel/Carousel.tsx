@@ -6,6 +6,7 @@ import Modal from "../common/modal/Modal";
 import { ZodiacModalContent } from "../common/modal/ZodiacModalContent";
 import { ZodiacScene } from "../background/ZodiacScene";
 import styles from "./Carousel.module.css";
+import type { ancestryConfig } from "../../../public/content/order_options";
 
 export const CAROUSEL_CONFIG = {
   cylinderHeight: 0.7,
@@ -19,8 +20,10 @@ function Carousel() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [selectedSign, setSelectedSign] = useState<string | null>(null);
   const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
-  const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
-  const [selectedArmoury, setSelectedArmoury] = useState<number[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [selectedArmoury, setSelectedArmoury] = useState<string[]>([]);
+  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [lineage, setLineage] = useState<ancestryConfig | undefined>(undefined);
 
   const currentItems = mode === "zodiac" ? ZODIAC_SIGNS : ORDER_SPECIES;
 
@@ -82,9 +85,13 @@ function Carousel() {
             selectedSkills={selectedSkills}
             selectedArmoury={selectedArmoury}
             selectedOrder={selectedOrder}
+            selectedLineage={lineage}
+            selectedLanguages={selectedLanguages}
             onSkillsChange={setSelectedSkills}
             onArmouryChange={setSelectedArmoury}
             onAwaken={handleModeTransition}
+            onLanguageChange={setSelectedLanguages}
+            onLineageChange={setLineage}
           />
         )}
       </Modal>

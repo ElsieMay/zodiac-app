@@ -9,11 +9,11 @@ const Dropdown = ({
   selectedItems,
   onSelectionChange,
 }: DropdownProps) => {
-  const toggleIndex = (idx: number) => {
-    const newSelection = selectedItems.includes(idx)
-      ? selectedItems.filter((i) => i !== idx)
+  const toggleItem = (item: string) => {
+    const newSelection = selectedItems.includes(item)
+      ? selectedItems.filter((i) => i !== item)
       : selectedItems.length < selectionCount
-        ? [...selectedItems, idx]
+        ? [...selectedItems, item]
         : selectedItems;
 
     onSelectionChange(newSelection);
@@ -36,10 +36,10 @@ const Dropdown = ({
             <DropdownMenu.CheckboxItem
               key={index}
               className={styles.dropdownItem}
-              checked={selectedItems.includes(index)}
+              checked={selectedItems.includes(item)}
               onSelect={(e) => {
                 e.preventDefault();
-                toggleIndex(index);
+                toggleItem(item);
               }}
               data-testid={`dropdown-item-${index}`}
             >
@@ -47,7 +47,7 @@ const Dropdown = ({
                 className={styles.dropdownIndicator}
                 data-testid={`dropdown-indicator-${index}`}
               >
-                {selectedItems.includes(index) ? <CheckboxIcon /> : <BoxIcon />}
+                {selectedItems.includes(item) ? <CheckboxIcon /> : <BoxIcon />}
               </span>
               <span>{item}</span>
             </DropdownMenu.CheckboxItem>
