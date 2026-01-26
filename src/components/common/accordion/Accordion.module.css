@@ -32,11 +32,15 @@
 }
 
 .accordionItem[data-selected="true"] {
-  background-color: rgba(21, 0, 173, 0.3);
+  background-color: rgba(52, 0, 111, 0.3);
 }
 
 .accordionTrigger[data-selected="true"] {
-  background-color: rgba(21, 0, 173, 0.5);
+  background-color: rgba(57, 0, 111, 0.5);
+}
+
+.accordionTrigger:hover[data-selected="true"] {
+  background-color: rgba(72, 0, 111, 0.7);
 }
 
 .triggerContent {
@@ -89,7 +93,7 @@
 }
 
 .accordionTrigger:hover {
-  background-color: rgba(8, 0, 72, 1);
+  background-color: rgba(11, 0, 89, 0.9);
 }
 
 .accordionChevron {
@@ -125,16 +129,17 @@
   line-height: 1.5;
 }
 
-/* .lineageDamageType {
+.lineageDamageType {
   display: inline-block;
   margin-top: 0.5rem;
   padding: 0.25rem 0.5rem;
-  background-color: rgba(134, 8, 8, 0.6);
+  /* background-color: rgba(0, 0, 0, 0.9); */
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
   color: white;
-} */
+  margin-bottom: 24px;
+}
 
 @keyframes slideDown {
   from {

@@ -9,14 +9,15 @@ const Dropdown = ({
   selectedItems,
   onSelectionChange,
 }: DropdownProps) => {
-  const toggleItem = (item: string) => {
-    const newSelection = selectedItems.includes(item)
-      ? selectedItems.filter((i) => i !== item)
-      : selectedItems.length < selectionCount
-        ? [...selectedItems, item]
-        : selectedItems;
+  const toggleItem = (idx: number) => {
+    const item = items[idx];
+    const isSelected = selectedItems.includes(item);
 
-    onSelectionChange(newSelection);
+    if (isSelected) {
+      onSelectionChange(selectedItems.filter((i) => i !== item));
+    } else if (selectedItems.length < selectionCount) {
+      onSelectionChange([...selectedItems, item]);
+    }
   };
 
   return (
@@ -39,7 +40,7 @@ const Dropdown = ({
               checked={selectedItems.includes(item)}
               onSelect={(e) => {
                 e.preventDefault();
-                toggleItem(item);
+                toggleItem(index);
               }}
               data-testid={`dropdown-item-${index}`}
             >

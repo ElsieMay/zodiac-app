@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import type { ancestryConfig } from "../../../../public/content/order_options";
 import styles from "./Accordion.module.css";
 import Button from "../button/Button";
@@ -44,7 +44,12 @@ const LineageAccordion = ({ lineage, onSelect }: LineageAccordionProps) => {
               data-testid={`lineage-trigger-${index}`}
               data-selected={selectedIndex === index}
             >
-              {item.type}
+              <span className={styles.triggerContent}>
+                {selectedIndex === index && (
+                  <CheckIcon className={styles.checkIcon} aria-hidden />
+                )}
+                {item.type}
+              </span>
               <ChevronDownIcon
                 className={styles.accordionChevron}
                 aria-hidden
@@ -57,9 +62,9 @@ const LineageAccordion = ({ lineage, onSelect }: LineageAccordionProps) => {
           >
             <div className={styles.accordionContentText}>
               <p className={styles.lineageFeatures}>{item.features}</p>
-              {/* <span className={styles.lineageDamageType}> */}
-              Damage: {item.damageType}
-              {/* </span> */}
+              <span className={styles.lineageDamageType}>
+                Damage Type: {item.damageType}
+              </span>
               <div>
                 <Button
                   onPress={() => handleSelect(item, index)}
