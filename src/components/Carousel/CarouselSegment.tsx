@@ -1,7 +1,12 @@
 import { useRef, useState, useMemo } from "react";
-import { Text3D } from "@react-three/drei";
+import { Text3D, Center } from "@react-three/drei";
 import * as THREE from "three";
-import { ZODIAC_SIGNS, ORDER_SPECIES } from "../../constants/config";
+import {
+  ZODIAC_SIGNS,
+  ORDER_SPECIES,
+  BACKGROUNDS,
+  BACKGROUND_LABELS,
+} from "../../constants/config";
 import type { CarouselSegmentProps } from "../../types/component.types";
 import { CAROUSEL_CONFIG } from "./Carousel";
 
@@ -32,11 +37,21 @@ export function CarouselSegment({
     return geom;
   }, [radius, segAngle]);
 
-  const textAngle = angle + segAngle / 2;
+  // The actual angular spacing between segments (full circle / number of items)
+  // segAngle is smaller (the cylinder arc), so we center text within the placement spacing
+  const itemCount =
+    mode === "zodiac"
+      ? ZODIAC_SIGNS.length
+      : mode === "species"
+        ? ORDER_SPECIES.length
+        : BACKGROUNDS.length;
+  const placementAngle = (Math.PI * 2) / itemCount;
+  const textAngle = angle + placementAngle / 2;
+  const textRadius = radius * 1.01; // Slightly outside the cylinder
   const textPosition = new THREE.Vector3(
-    Math.sin(textAngle) * radius,
+    Math.sin(textAngle) * textRadius,
     CAROUSEL_CONFIG.textYOffset,
-    Math.cos(textAngle) * radius,
+    Math.cos(textAngle) * textRadius,
   );
   const textRotation = new THREE.Euler(0, textAngle, 0);
 
@@ -61,29 +76,32 @@ export function CarouselSegment({
           transparent
         />
       </mesh>
-      <Text3D
-        font="/fonts/Cormorant_Unicase_Light_Regular.json"
-        size={0.08}
-        height={0.01}
-        curveSegments={12}
-        bevelEnabled
-        bevelThickness={0.002}
-        bevelSize={0.001}
-        bevelSegments={5}
-        position={textPosition}
-        rotation={textRotation}
-        onUpdate={(self) => {
-          self.geometry.center();
-        }}
-        data-testid={`carousel-text-${index}`}
-      >
-        {mode == "zodiac" ? ZODIAC_SIGNS[index] : ORDER_SPECIES[index]}
-        <meshStandardMaterial
-          color={0xe9d491}
-          metalness={0.8}
-          roughness={0.5}
-        />
-      </Text3D>
+      <group position={textPosition} rotation={textRotation}>
+        <Center>
+          <Text3D
+            font="/fonts/Cormorant_Unicase_Light_Regular.json"
+            size={0.08}
+            height={0.01}
+            curveSegments={12}
+            bevelEnabled
+            bevelThickness={0.002}
+            bevelSize={0.001}
+            bevelSegments={5}
+            data-testid={`carousel-text-${index}`}
+          >
+            {mode === "zodiac"
+              ? ZODIAC_SIGNS[index]
+              : mode === "species"
+                ? ORDER_SPECIES[index]
+                : BACKGROUND_LABELS[BACKGROUNDS[index]]}
+            <meshStandardMaterial
+              color={0xe9d491}
+              metalness={0.8}
+              roughness={0.5}
+            />
+          </Text3D>
+        </Center>
+      </group>
     </>
   );
 }

@@ -71,7 +71,7 @@ function buildDisplayData(
   } else if (mode === "backgrounds") {
     return {
       kind: "background",
-      iconPath: `/zodiacs/backgrounds/${background}.png`,
+      iconPath: `/zodiacs/icons/sketched-backgrounds/${background}.png`,
       displayName: backgroundData?.name ?? background,
       title: backgroundData?.name ?? background,
       description: backgroundData?.description ?? "",
@@ -138,7 +138,12 @@ export function ZodiacModalContent({
   onLineageChange,
   onAwaken,
 }: ZodiacModalContentProps) {
-  const displayData = useDisplayData(mode, selectedSign, selectedOrder, selectedBackground);
+  const displayData = useDisplayData(
+    mode,
+    selectedSign,
+    selectedOrder,
+    selectedBackground,
+  );
   return (
     <div className={styles.zodiacModal} data-testid="zodiac-modal">
       <img
@@ -225,10 +230,15 @@ export function ZodiacModalContent({
           <h3 data-testid="background-feature-heading">
             Feature: {displayData.featureName}
           </h3>
-          <div className={styles.classDescription} data-testid="background-feature-description">
+          <div
+            className={styles.classDescription}
+            data-testid="background-feature-description"
+          >
             <ReactMarkdown>{displayData.featureDescription}</ReactMarkdown>
           </div>
-          <h3 data-testid="background-characteristics-heading">Characteristics:</h3>
+          <h3 data-testid="background-characteristics-heading">
+            Characteristics:
+          </h3>
           <ul data-testid="background-characteristics-list">
             {displayData.characteristics.map((characteristic, idx) => (
               <li key={idx} data-testid={`background-characteristic-${idx}`}>

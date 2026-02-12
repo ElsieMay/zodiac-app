@@ -166,6 +166,57 @@ export const shadowInfluenced: CharacterBackground = {
   ],
 };
 
+export const starbornHeir: CharacterBackground = {
+  id: "starborn-heir",
+  name: "Starborn Heir",
+  description:
+    "You were not raised in palaces. You lived as ordinary—perhaps even overlooked. Then you Awakened, and the stars answered differently for you. Your magic reacted in a way it only does for royal blood. Ancient wards responded. Old oaths stirred. Prophecies whispered your name. You are descended from the throne—and someone very powerful would have preferred that remain secret.",
+  feature: {
+    name: "Blood of the Crown",
+    description:
+      "You have advantage on saving throws against being charmed by creatures of noble or royal status. Once per long rest, when you fail a Charisma-based check, you may reroll it. Those aware of your heritage react strongly—either deference or hostility—and you can request an audience with political figures tied to the throne.",
+  },
+  characteristics: [
+    "Imposter syndrome mixed with sudden authority",
+    "Anger at a lost childhood, or refusal to be controlled",
+    "Destiny vs free will—the weight of legacy you never asked for",
+  ],
+};
+
+export const oracleSister: CharacterBackground = {
+  id: "oracle-sister",
+  name: "Oracle Sister",
+  description:
+    "You are one of the fabled Oracle Sisters, or your lineage and training mirror theirs. Your powers are tied to perception, speech, and the hidden threads of fate. Whether you see, speak, or hear the truths of the cosmos, your connection to celestial knowledge is profound—and isolating. Your gifts are revered, feared, or misunderstood. Few can comprehend the weight of prophecy or the subtlety of your insight.",
+  feature: {
+    name: "Sisterly Gift",
+    description:
+      "Choose your Oracle Path: Vidi (Sight of the Stars)—cast Augury or Divination once per long rest without components, advantage on Insight checks for hidden truths. Loqui (Tongue of Fate)—grant an ally a reroll once per long rest, proficiency in Persuasion and Deception. Audire (Whisper of Destiny)—detect lies or overhear secret whispers once per long rest, proficiency in Perception and Investigation.",
+  },
+  characteristics: [
+    "Burdened by knowledge others cannot bear",
+    "Isolated yet drawn to connection—truths can hurt allies or enemies",
+    "Torn between duty to fate and personal desire",
+  ],
+};
+
+export const benevolentNymph: CharacterBackground = {
+  id: "benevolent-nymph",
+  name: "Benevolent Nymph",
+  description:
+    "You are a nymph in service of nature, magic, or the celestial balance—but unlike the shadow-touched or politically ambitious, you use your gifts for good. Your presence calms those around you, your magic nurtures life, and your counsel is sought by those in trouble. Though your intentions are pure, your compassion can make you a target—not everyone trusts kindness in a world full of ambition and intrigue.",
+  feature: {
+    name: "Nurturing Presence",
+    description:
+      "You gain advantage on Persuasion or Insight checks when helping, consoling, or negotiating peacefully. Once per long rest, you can heal or stabilize an ally for 1d8 + proficiency modifier through innate nymph magic. Creatures of good or neutral alignment feel instinctive trust toward you, easing social interactions.",
+  },
+  characteristics: [
+    "Compassion in a cruel world—a symbol of hope in dark times",
+    "Balancing neutrality and intervention; the moral cost of always helping",
+    "Innocence meeting experience; kindness that others may exploit",
+  ],
+};
+
 export const allBackgrounds: CharacterBackground[] = [
   heirOfCelestialHouses,
   awakenedLate,
@@ -174,4 +225,6 @@ export const allBackgrounds: CharacterBackground[] = [
   shadowCourtInitiate,
   celestialOutcast,
   shadowInfluenced,
+  oracleSister,
+  benevolentNymph,
 ];

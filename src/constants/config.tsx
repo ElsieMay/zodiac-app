@@ -42,4 +42,20 @@ export const BACKGROUNDS = [
   "shadow-influenced",
   "shadow-initiate",
   "star-bound",
+  "royal",
+  "benevolent-nymph",
+  "oracle-sister",
 ];
+
+export const BACKGROUND_LABELS: Record<string, string> = {
+  "academy-survivor": "Survivor",
+  "awakened-late": "Awakened",
+  "celestial-heir": "Heir",
+  "celestial-outcast": "Outcast",
+  "shadow-influenced": "Shadow",
+  "shadow-initiate": "Initiate",
+  "star-bound": "Starborn",
+  royal: "Royal",
+  "benevolent-nymph": "Nymph",
+  "oracle-sister": "Oracle",
+};
