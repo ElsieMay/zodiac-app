@@ -21,7 +21,7 @@ vi.mock("../ZodiacScene", () => ({
   ),
 }));
 
-// Mock of the ZodiacModalContent component -> to control awaken action
+// Mock of the ZodiacModalContent component -> to control selection action
 vi.mock("../ZodiacModalContent", () => ({
   ZodiacModalContent: ({
     onAwaken,

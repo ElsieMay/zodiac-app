@@ -33,7 +33,9 @@ export function CarouselGroup({
     items.map((item) =>
       mode === "zodiac"
         ? `/zodiacs/icons/${item.toLowerCase()}.png`
-        : `/zodiacs/orders/${item}.png`,
+        : mode === "species"
+          ? `/zodiacs/orders/${item}.png`
+          : `/zodiacs/backgrounds/${item}.png`,
     ),
   );
 

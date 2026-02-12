@@ -3,7 +3,13 @@ import type { ModalProps } from "../../../types";
 import Button from "../button/Button";
 import styles from "./Modal.module.css";
 
-function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
+function Modal({
+  isOpen,
+  onClose,
+  children,
+  backgroundImage,
+  isClosing = false,
+}: ModalProps) {
   useEffect(() => {
     if (isOpen) {
       // Prevent scrolling and zooming on the background
@@ -26,12 +32,12 @@ function Modal({ isOpen, onClose, children, backgroundImage }: ModalProps) {
 
   return (
     <div
-      className={styles.modalOverlay}
+      className={`${styles.modalOverlay} ${isClosing ? styles.closing : ""}`}
       onClick={onClose}
       data-testid="modalOverlay"
     >
       <div
-        className={styles.modalContent}
+        className={`${styles.modalContent} ${isClosing ? styles.closing : ""}`}
         onClick={(e) => e.stopPropagation()}
         data-testid="modalContent"
       >

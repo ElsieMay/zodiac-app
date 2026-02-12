@@ -22,7 +22,7 @@ export interface CarouselSegmentProps {
   itemName: string;
   segAngle: number;
   radius: number;
-  mode: "zodiac" | "species";
+  mode: "zodiac" | "species" | "backgrounds";
 }
 
 export interface DropdownProps {
@@ -38,15 +38,17 @@ export interface ModalProps {
   children: ReactNode;
   sign?: string;
   backgroundImage?: string;
+  isClosing?: boolean;
 }
 
 export interface ZodiacModalContentProps {
   selectedSign?: string;
-  mode: "zodiac" | "species";
+  mode: "zodiac" | "species" | "backgrounds";
   selectedSkills: string[];
   selectedArmoury: string[];
   selectedLanguages: string[];
   selectedOrder?: string | null;
+  selectedBackground?: string | null;
   selectedLineage?: ancestryConfig;
   onSkillsChange: (skills: string[]) => void;
   onArmouryChange: (armoury: string[]) => void;
@@ -86,13 +88,34 @@ export interface SpeciesDisplayData {
   lineage: ancestryConfig[];
 }
 
-export type DisplayData = ZodiacDisplayData | SpeciesDisplayData;
+// Background Data Types
+export interface BackgroundDisplayData {
+  kind: "background";
+  iconPath: string;
+  displayName: string;
+  title: string;
+  description: string;
+  featureName: string;
+  featureDescription: string;
+  characteristics: string[];
+}
+
+export interface DetailsDisplayData {
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+export type DisplayData =
+  | ZodiacDisplayData
+  | SpeciesDisplayData
+  | BackgroundDisplayData;
 
 export interface SceneProps {
   onSegmentClick?: (sign: string) => void;
   items: string[];
   isSpinning: boolean;
-  mode: "zodiac" | "species";
+  mode: "zodiac" | "species" | "backgrounds";
 }
 
 export interface ButtonProps {
@@ -105,7 +128,7 @@ export interface CarouselGroupProps {
   onSegmentClick?: (sign: string) => void;
   items: string[];
   isSpinning: boolean;
-  mode: "zodiac" | "species";
+  mode: "zodiac" | "species" | "backgrounds";
 }
 
 export interface ImageGeneratorProps {

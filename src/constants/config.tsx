@@ -33,3 +33,13 @@ export const ORDER_SPECIES = [
   "Vampire",
   "Werewolf",
 ];
+
+export const BACKGROUNDS = [
+  "academy-survivor",
+  "awakened-late",
+  "celestial-heir",
+  "celestial-outcast",
+  "shadow-influenced",
+  "shadow-initiate",
+  "star-bound",
+];
